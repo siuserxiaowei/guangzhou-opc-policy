@@ -4,6 +4,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>全国OPC政策导航 - 一键匹配你能申请的补贴</title>
+<meta name="description" content="全国OPC（一人公司）政策导航，覆盖11座城市31条政策。填写你的公司情况，一键匹配可申请的补贴和政策。">
+<meta property="og:title" content="全国OPC政策导航">
+<meta property="og:description" content="一键匹配你能申请的OPC补贴和政策，覆盖广州、深圳、北京、上海等11座城市。">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://siuserxiaowei.github.io/guangzhou-opc-policy/">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏢</text></svg>">
 <style>
 :root {
   --bg:#0a0a0f;--card:#12121a;--card2:#1a1a28;--border:#2a2a3a;
@@ -15,294 +21,388 @@
 body{font-family:-apple-system,'PingFang SC','Microsoft YaHei',sans-serif;background:var(--bg);color:var(--text);line-height:1.7;min-height:100vh}
 a{color:var(--al);text-decoration:none;transition:color .2s}a:hover{color:#fff}
 
-/* Animations */
 @keyframes fadeInUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
 @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.02)}}
 @keyframes gradientMove{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
-@keyframes shimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
-@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+@keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
 .anim{opacity:0;transform:translateY(30px);transition:all .6s cubic-bezier(.25,.46,.45,.94)}.anim.vis{opacity:1;transform:translateY(0)}
 
+/* Top nav */
+.topnav{display:flex;align-items:center;gap:8px;padding:10px 20px;background:rgba(10,10,15,.9);
+  border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;backdrop-filter:blur(12px)}
+.topnav .logo{font-weight:800;font-size:1em;color:var(--al)}
+.topnav a{padding:6px 14px;border-radius:6px;font-size:.82em;color:var(--dim);transition:all .2s}
+.topnav a:hover,.topnav a.active{color:var(--al);background:rgba(108,92,231,.1)}
+.topnav .spacer{flex:1}
+
 /* Hero */
-.hero{position:relative;padding:60px 20px 40px;text-align:center;overflow:hidden;
+.hero{position:relative;padding:50px 20px 35px;text-align:center;overflow:hidden;
   background:linear-gradient(135deg,#0a0a1a 0%,#1a0a2e 40%,#0a1a2e 70%,#0a0a1a 100%)}
 .hero::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;
   background:radial-gradient(circle at 30% 50%,rgba(108,92,231,.1) 0%,transparent 50%),
   radial-gradient(circle at 70% 80%,rgba(0,230,118,.06) 0%,transparent 50%);
   animation:gradientMove 15s ease infinite}
-.hero h1{font-size:2.6em;font-weight:800;background:linear-gradient(135deg,#fff,var(--al),var(--cyan));
+.hero h1{font-size:2.4em;font-weight:800;background:linear-gradient(135deg,#fff,var(--al),var(--cyan));
   background-size:200% 200%;animation:gradientMove 4s ease infinite;
   -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;position:relative}
-.hero .sub{font-size:1.1em;color:var(--dim);position:relative;margin:8px 0 20px}
-.hero .version{display:inline-block;padding:4px 16px;border-radius:20px;background:rgba(108,92,231,.15);
-  border:1px solid rgba(108,92,231,.3);color:var(--al);font-size:.82em;position:relative}
+.hero .sub{font-size:1em;color:var(--dim);position:relative;margin:6px 0 16px}
+.hero .version{display:inline-block;padding:4px 14px;border-radius:16px;background:rgba(108,92,231,.15);
+  border:1px solid rgba(108,92,231,.3);color:var(--al);font-size:.8em;position:relative}
 
-/* Steps indicator */
-.steps{display:flex;justify-content:center;gap:0;max-width:700px;margin:30px auto 0;position:relative;z-index:1}
-.step{flex:1;text-align:center;position:relative;padding:12px 8px}
-.step::before{content:attr(data-num);display:flex;width:36px;height:36px;border-radius:50%;
-  align-items:center;justify-content:center;margin:0 auto 8px;font-weight:700;font-size:.9em;
+/* Tabs */
+.mode-tabs{display:flex;justify-content:center;gap:6px;padding:14px 20px;background:var(--card);border-bottom:1px solid var(--border)}
+.mode-tab{padding:8px 24px;border-radius:8px;font-size:.9em;font-weight:500;cursor:pointer;
+  border:1px solid var(--border);background:transparent;color:var(--dim);transition:all .3s}
+.mode-tab:hover{border-color:var(--accent);color:var(--al)}
+.mode-tab.active{background:rgba(108,92,231,.2);border-color:var(--accent);color:var(--al)}
+
+/* Steps */
+.steps{display:flex;justify-content:center;gap:0;max-width:500px;margin:20px auto 0;position:relative;z-index:1}
+.step{flex:1;text-align:center;position:relative;padding:10px 8px}
+.step::before{content:attr(data-num);display:flex;width:32px;height:32px;border-radius:50%;
+  align-items:center;justify-content:center;margin:0 auto 6px;font-weight:700;font-size:.85em;
   background:var(--card);border:2px solid var(--border);color:var(--dim);transition:all .4s}
-.step.active::before{background:var(--accent);border-color:var(--accent);color:#fff;box-shadow:0 0 20px rgba(108,92,231,.4)}
+.step.active::before{background:var(--accent);border-color:var(--accent);color:#fff;box-shadow:0 0 15px rgba(108,92,231,.4)}
 .step.done::before{background:var(--gd);border-color:var(--green);color:var(--green);content:'✓'}
-.step .step-label{font-size:.78em;color:var(--dim);transition:color .3s}
+.step .step-label{font-size:.75em;color:var(--dim);transition:color .3s}
 .step.active .step-label{color:var(--al);font-weight:600}
 .step.done .step-label{color:var(--green)}
-.step-line{position:absolute;top:30px;left:calc(50% + 24px);right:calc(-50% + 24px);height:2px;background:var(--border)}
+.step-line{position:absolute;top:26px;left:calc(50% + 22px);right:calc(-50% + 22px);height:2px;background:var(--border)}
 .step:last-child .step-line{display:none}
 .step.done .step-line{background:var(--green)}
 
-/* Container */
-.container{max-width:900px;margin:0 auto;padding:40px 20px}
+.container{max-width:900px;margin:0 auto;padding:30px 20px}
 
-/* Form Panel */
-.panel{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:32px;margin-bottom:24px;
-  animation:fadeInUp .5s ease;position:relative;overflow:hidden}
+/* Panel */
+.panel{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:28px;margin-bottom:20px;
+  animation:fadeInUp .4s ease;position:relative;overflow:hidden}
 .panel::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;
   background:linear-gradient(90deg,var(--accent),var(--cyan));opacity:.5}
-.panel h2{font-size:1.4em;margin-bottom:6px}
-.panel .desc{color:var(--dim);font-size:.9em;margin-bottom:20px}
+.panel h2{font-size:1.3em;margin-bottom:4px}
+.panel .desc{color:var(--dim);font-size:.88em;margin-bottom:18px}
 .panel.hidden{display:none}
 
-/* Form elements */
-.form-group{margin-bottom:20px}
-.form-group label{display:block;font-size:.88em;font-weight:600;margin-bottom:8px;color:var(--al)}
-.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+/* Form */
+.form-group{margin-bottom:18px}
+.form-group label{display:block;font-size:.85em;font-weight:600;margin-bottom:6px;color:var(--al)}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 input[type="text"],input[type="number"],select{
-  width:100%;padding:12px 16px;background:var(--bg);border:1px solid var(--border);border-radius:10px;
-  color:var(--text);font-size:.92em;outline:none;transition:all .3s}
-input:focus,select:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(108,92,231,.15)}
+  width:100%;padding:11px 14px;background:var(--bg);border:1px solid var(--border);border-radius:8px;
+  color:var(--text);font-size:.9em;outline:none;transition:all .3s}
+input:focus,select:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(108,92,231,.12)}
 select{cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238888a0' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");
-  background-repeat:no-repeat;background-position:right 14px center}
+  background-repeat:no-repeat;background-position:right 12px center}
+.form-error{color:var(--red);font-size:.8em;margin-top:4px;display:none}
 
 /* Chips */
-.chips{display:flex;flex-wrap:wrap;gap:8px}
-.chip{padding:6px 16px;border-radius:8px;font-size:.85em;border:1px solid var(--border);
+.chips{display:flex;flex-wrap:wrap;gap:7px}
+.chip{padding:5px 14px;border-radius:7px;font-size:.83em;border:1px solid var(--border);
   background:transparent;color:var(--dim);cursor:pointer;transition:all .3s;user-select:none}
 .chip:hover{border-color:var(--accent);color:var(--al)}
 .chip.selected{background:rgba(108,92,231,.2);border-color:var(--accent);color:var(--al)}
 .chip.selected::before{content:'✓ '}
 
 /* Buttons */
-.btn{padding:12px 32px;border-radius:10px;font-size:.95em;font-weight:600;cursor:pointer;
+.btn{padding:11px 28px;border-radius:9px;font-size:.92em;font-weight:600;cursor:pointer;
   border:none;transition:all .3s;display:inline-flex;align-items:center;gap:8px}
 .btn-primary{background:var(--accent);color:#fff;box-shadow:0 4px 15px rgba(108,92,231,.3)}
 .btn-primary:hover{background:#7c6ef0;transform:translateY(-2px);box-shadow:0 6px 25px rgba(108,92,231,.4)}
+.btn-primary:disabled{opacity:.5;cursor:not-allowed;transform:none}
 .btn-outline{background:transparent;border:1px solid var(--border);color:var(--dim)}
 .btn-outline:hover{border-color:var(--accent);color:var(--al)}
-.btn-group{display:flex;gap:12px;margin-top:24px;flex-wrap:wrap}
+.btn-group{display:flex;gap:10px;margin-top:20px;flex-wrap:wrap}
 
-/* Results */
-.result-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:24px;margin-bottom:16px;
+/* Result card */
+.result-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:22px;margin-bottom:14px;
   transition:all .3s;animation:fadeInUp .4s ease backwards;cursor:default}
 .result-card:hover{background:var(--card2);border-color:rgba(108,92,231,.3);transform:translateY(-2px)}
-.result-card h3{font-size:1.1em;margin-bottom:4px}
-.result-card .meta{font-size:.8em;color:var(--dim);margin-bottom:10px;display:flex;flex-wrap:wrap;gap:12px}
-.result-card .benefits{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
-.result-card .benefit-tag{padding:3px 10px;border-radius:6px;font-size:.78em;font-weight:600;
-  background:rgba(0,229,255,.08);color:var(--cyan);border:1px solid rgba(0,229,255,.15)}
-.result-card .match-bar{height:6px;border-radius:3px;background:var(--border);overflow:hidden;margin-top:10px}
+.result-card h3{font-size:1.05em;margin-bottom:4px;line-height:1.4}
+.result-card .meta{font-size:.78em;color:var(--dim);margin-bottom:8px;display:flex;flex-wrap:wrap;gap:10px}
+.result-card .benefits{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:8px}
+.result-card .benefit-tag{padding:2px 8px;border-radius:5px;font-size:.75em;font-weight:600;
+  background:rgba(0,229,255,.08);color:var(--cyan);border:1px solid rgba(0,229,255,.12)}
+.result-card .match-bar{height:5px;border-radius:3px;background:var(--border);overflow:hidden;margin-top:8px}
 .result-card .match-fill{height:100%;border-radius:3px;transition:width .6s ease}
-.result-card .match-label{font-size:.78em;margin-top:4px;font-weight:600}
-.match-high{color:var(--green)}.match-mid{color:var(--yellow)}.match-low{color:var(--red)}
+.result-card .match-label{font-size:.76em;margin-top:3px;font-weight:600}
 
-.tag{display:inline-block;padding:2px 10px;border-radius:4px;font-size:.75em;font-weight:600}
+.tag{display:inline-block;padding:2px 8px;border-radius:4px;font-size:.72em;font-weight:600}
 .tag-go{background:var(--gd);color:var(--green)}.tag-check{background:var(--yd);color:var(--yellow)}
 .tag-no{background:var(--rd);color:var(--red)}.tag-info{background:rgba(68,138,255,.12);color:var(--blue)}
 
 /* City grid */
-.city-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin:20px 0}
-.city-card{padding:20px;border-radius:12px;border:1px solid var(--border);background:var(--card);
+.city-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:10px;margin:16px 0}
+.city-card{padding:16px;border-radius:10px;border:1px solid var(--border);background:var(--card);
   text-align:center;transition:all .3s;cursor:pointer;position:relative;overflow:hidden}
-.city-card:hover{transform:translateY(-4px);box-shadow:0 8px 30px rgba(0,0,0,.4);border-color:var(--accent)}
-.city-card .city-name{font-size:1.3em;font-weight:700;margin-bottom:4px}
-.city-card .city-count{font-size:.8em;color:var(--dim)}
-.city-card .city-tag{position:absolute;top:8px;right:8px;padding:2px 8px;border-radius:4px;font-size:.65em;font-weight:700}
+.city-card:hover{transform:translateY(-3px);box-shadow:0 8px 25px rgba(0,0,0,.4);border-color:var(--accent)}
+.city-card .city-name{font-size:1.2em;font-weight:700;margin-bottom:2px}
+.city-card .city-count{font-size:.78em;color:var(--dim)}
+.city-card .city-hl{font-size:.68em;color:var(--dim);margin-top:3px;line-height:1.3;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.city-card .city-tag{position:absolute;top:6px;right:6px;padding:1px 6px;border-radius:3px;font-size:.6em;font-weight:700}
 .city-hot{background:var(--gd);color:var(--green)}.city-coming{background:rgba(255,255,255,.05);color:var(--dim)}
 
 /* Summary stats */
-.summary-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin:20px 0}
-.summary-stat{padding:16px;text-align:center;border-radius:12px;border:1px solid var(--border);background:var(--card)}
-.summary-stat .num{font-size:2em;font-weight:800;line-height:1}.summary-stat .lbl{font-size:.75em;color:var(--dim);margin-top:2px}
+.summary-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin:16px 0}
+.summary-stat{padding:14px;text-align:center;border-radius:10px;border:1px solid var(--border);background:var(--card)}
+.summary-stat .num{font-size:1.8em;font-weight:800;line-height:1}.summary-stat .lbl{font-size:.72em;color:var(--dim);margin-top:2px}
 
-/* Collapsible detail */
-.detail-toggle{cursor:pointer;color:var(--al);font-size:.85em;font-weight:500;padding:4px 0;user-select:none}
+/* Detail */
+.detail-toggle{cursor:pointer;color:var(--al);font-size:.82em;font-weight:500;padding:4px 0;user-select:none;transition:color .2s}
 .detail-toggle:hover{color:#fff}
 .detail-content{max-height:0;overflow:hidden;transition:max-height .4s ease,opacity .3s;opacity:0}
-.detail-content.open{max-height:2000px;opacity:1}
-.detail-content ul{list-style:none;padding:8px 0}
-.detail-content li{padding:4px 0;font-size:.88em;color:var(--text)}
+.detail-content.open{max-height:3000px;opacity:1}
+.detail-content ul{list-style:none;padding:6px 0}
+.detail-content li{padding:3px 0;font-size:.85em}
 .detail-content li::before{content:'>';color:var(--accent);margin-right:8px;font-weight:700}
+.link-btn{display:inline-block;padding:6px 14px;background:rgba(108,92,231,.12);border:1px solid rgba(108,92,231,.25);border-radius:7px;font-size:.82em;margin:4px 4px 0 0;transition:all .2s}
+.link-btn:hover{background:rgba(108,92,231,.25);transform:translateY(-1px)}
 
-footer{text-align:center;padding:40px 20px;color:var(--dim);font-size:.8em;border-top:1px solid var(--border)}
+/* AI Advisor */
+.advisor-panel{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:24px;margin-top:20px}
+.advisor-panel h3{font-size:1.1em;margin-bottom:12px;color:var(--al)}
+.chat-messages{max-height:300px;overflow-y:auto;margin-bottom:12px;padding:8px 0}
+.chat-msg{padding:10px 14px;border-radius:10px;margin-bottom:8px;font-size:.88em;line-height:1.5;animation:fadeIn .3s}
+.chat-user{background:rgba(108,92,231,.12);border:1px solid rgba(108,92,231,.2);margin-left:40px}
+.chat-ai{background:var(--bg);border:1px solid var(--border);margin-right:40px}
+.chat-input-row{display:flex;gap:8px}
+.chat-input-row input{flex:1;padding:10px 14px;background:var(--bg);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:.9em;outline:none}
+.chat-input-row input:focus{border-color:var(--accent)}
+.chat-input-row button{padding:10px 20px;background:var(--accent);color:#fff;border:none;border-radius:8px;cursor:pointer;font-weight:600;transition:all .2s}
+.chat-input-row button:hover{background:#7c6ef0}
+
+/* Browse mode */
+.browse-filters{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px}
+.browse-filters select{padding:7px 12px;background:var(--bg);border:1px solid var(--border);border-radius:7px;color:var(--text);font-size:.85em}
+.browse-search{width:100%;padding:10px 14px;background:var(--bg);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:.9em;outline:none;margin-bottom:12px}
+.browse-search:focus{border-color:var(--accent)}
+.policy-count{font-size:.85em;color:var(--dim);margin-bottom:12px}
+
+/* Loading spinner */
+.spinner{width:40px;height:40px;border:3px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 16px}
+
+/* Back to top */
+.back-top{position:fixed;bottom:24px;right:24px;width:42px;height:42px;border-radius:50%;
+  background:var(--accent);color:#fff;border:none;font-size:1.1em;cursor:pointer;
+  opacity:0;visibility:hidden;transition:all .3s;z-index:200;box-shadow:0 4px 15px rgba(108,92,231,.3)}
+.back-top.show{opacity:1;visibility:visible}
+.back-top:hover{transform:translateY(-2px)}
+
+footer{text-align:center;padding:30px 20px;color:var(--dim);font-size:.78em;border-top:1px solid var(--border)}
 
 @media(max-width:768px){
-  .hero h1{font-size:1.8em}.form-row{grid-template-columns:1fr}
-  .city-grid{grid-template-columns:repeat(2,1fr)}.steps{flex-wrap:wrap}
-  .summary-stats{grid-template-columns:repeat(2,1fr)}.panel{padding:20px}
+  .hero h1{font-size:1.6em}.form-row{grid-template-columns:1fr}
+  .city-grid{grid-template-columns:repeat(2,1fr)}.steps{gap:0}
+  .summary-stats{grid-template-columns:repeat(2,1fr)}.panel{padding:18px}
+  .topnav{overflow-x:auto;gap:4px}.topnav a{white-space:nowrap;padding:6px 10px}
+  .chat-user{margin-left:10px}.chat-ai{margin-right:10px}
 }
 </style>
 </head>
 <body>
 
+<!-- Nav -->
+<nav class="topnav">
+  <span class="logo">OPC</span>
+  <a href="index.html" class="active">首页</a>
+  <a href="guangzhou.html">广州专版</a>
+  <a href="dashboard.html">数据看板</a>
+  <span class="spacer"></span>
+  <a href="https://github.com/siuserxiaowei/guangzhou-opc-policy" target="_blank" style="font-size:.78em">GitHub</a>
+</nav>
+
+<!-- Hero -->
 <div class="hero">
   <h1>全国 OPC 政策导航</h1>
-  <p class="sub">填写你的公司情况，一键匹配可申请的补贴和政策</p>
-  <span class="version">Beta · 已收录 11 座城市 31 条政策 · 持续扩展中</span>
+  <p class="sub">填写公司情况，一键匹配可申请的补贴和政策</p>
+  <span class="version">已收录 11 座城市 · 31 条政策 · 20+ OPC社区</span>
+</div>
 
-  <div class="steps" id="stepsBar">
-    <div class="step active" data-num="1"><div class="step-line"></div><span class="step-label">填写信息</span></div>
-    <div class="step" data-num="2"><div class="step-line"></div><span class="step-label">智能匹配</span></div>
-    <div class="step" data-num="3"><span class="step-label">查看结果</span></div>
-  </div>
+<!-- Mode Switch -->
+<div class="mode-tabs">
+  <button class="mode-tab active" onclick="switchMode('match')">智能匹配</button>
+  <button class="mode-tab" onclick="switchMode('browse')">浏览全部政策</button>
+  <button class="mode-tab" onclick="switchMode('advisor')">AI 政策顾问</button>
 </div>
 
 <div class="container">
 
-  <!-- Step 1: User Profile Form -->
-  <div class="panel" id="panelForm">
-    <h2>告诉我你的情况</h2>
-    <p class="desc">填写越详细，匹配越精准。不确定的可以跳过。</p>
-
-    <div class="form-group">
-      <label>公司注册地</label>
-      <div class="form-row">
-        <select id="fProvince">
-          <option value="">选择省份</option>
-          <option value="广东">广东</option>
-          <option value="北京">北京</option>
-          <option value="上海">上海</option>
-          <option value="浙江">浙江</option>
-          <option value="四川">四川</option>
-          <option value="湖北">湖北</option>
-          <option value="安徽">安徽</option>
-          <option value="江苏">江苏</option>
-          <option value="湖南">湖南</option>
-          <option value="重庆">重庆</option>
-          <option value="其他">其他省份</option>
-        </select>
-        <select id="fCity">
-          <option value="">选择城市</option>
-        </select>
-      </div>
-      <select id="fDistrict" style="margin-top:8px">
-        <option value="">选择区（可选）</option>
-      </select>
+  <!-- ===== MATCH MODE ===== -->
+  <div id="modeMatch">
+    <!-- Steps -->
+    <div class="steps" id="stepsBar">
+      <div class="step active" data-num="1"><div class="step-line"></div><span class="step-label">填写信息</span></div>
+      <div class="step" data-num="2"><div class="step-line"></div><span class="step-label">智能匹配</span></div>
+      <div class="step" data-num="3"><span class="step-label">查看结果</span></div>
     </div>
 
-    <div class="form-group">
-      <label>公司情况</label>
-      <div class="form-row">
-        <div>
+    <!-- Step 1: Form -->
+    <div class="panel" id="panelForm">
+      <h2>告诉我你的情况</h2>
+      <p class="desc">填写越详细匹配越精准，不确定的可以跳过</p>
+
+      <div class="form-group">
+        <label>公司注册地 <span style="color:var(--red)">*</span></label>
+        <div class="form-row">
+          <select id="fProvince"><option value="">选择省份</option>
+            <option value="广东">广东</option><option value="北京">北京</option><option value="上海">上海</option>
+            <option value="浙江">浙江</option><option value="四川">四川</option><option value="湖北">湖北</option>
+            <option value="安徽">安徽</option><option value="江苏">江苏</option><option value="湖南">湖南</option>
+            <option value="重庆">重庆</option><option value="其他">其他省份</option>
+          </select>
+          <select id="fCity"><option value="">选择城市</option></select>
+        </div>
+        <select id="fDistrict" style="margin-top:8px"><option value="">选择区（可选）</option></select>
+        <div class="form-error" id="errLocation">请至少选择省份和城市</div>
+      </div>
+
+      <div class="form-group">
+        <label>公司情况</label>
+        <div class="form-row">
           <input type="number" id="fEmployees" placeholder="社保人数" min="0">
-        </div>
-        <div>
-          <input type="number" id="fAge" placeholder="公司成立几年（如 2）" min="0" step="0.5">
+          <input type="number" id="fAge" placeholder="公司成立几年" min="0" step="0.5">
         </div>
       </div>
-    </div>
 
-    <div class="form-group">
-      <label>公司类型</label>
-      <div class="chips" id="chipsCompanyType">
-        <div class="chip" data-val="个人独资">个人独资</div>
-        <div class="chip" data-val="一人有限公司">一人有限公司</div>
-        <div class="chip" data-val="小微企业">小微企业</div>
-        <div class="chip" data-val="个体工商户">个体工商户</div>
-        <div class="chip" data-val="其他">其他</div>
+      <div class="form-group">
+        <label>公司类型</label>
+        <div class="chips" id="chipsCompanyType" data-mode="single">
+          <div class="chip" data-val="个人独资">个人独资</div>
+          <div class="chip" data-val="一人有限公司">一人有限公司</div>
+          <div class="chip" data-val="小微企业">小微企业</div>
+          <div class="chip" data-val="个体工商户">个体工商户</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>行业方向（可多选）</label>
+        <div class="chips" id="chipsIndustry" data-mode="multi">
+          <div class="chip" data-val="AI语音/对话">AI语音/对话</div>
+          <div class="chip" data-val="AI视觉/图像">AI视觉/图像</div>
+          <div class="chip" data-val="大模型/NLP">大模型/NLP</div>
+          <div class="chip" data-val="智能硬件">智能硬件</div>
+          <div class="chip" data-val="数字内容/创意">数字内容/创意</div>
+          <div class="chip" data-val="智慧医疗">智慧医疗</div>
+          <div class="chip" data-val="智能制造">智能制造</div>
+          <div class="chip" data-val="跨境/电商">跨境/电商</div>
+          <div class="chip" data-val="其他AI">其他AI方向</div>
+          <div class="chip" data-val="非AI">非AI行业</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>已有资质（可多选）</label>
+        <div class="chips" id="chipsQualification" data-mode="multi">
+          <div class="chip" data-val="有营收">有营收</div>
+          <div class="chip" data-val="有合同">有合同/客户</div>
+          <div class="chip" data-val="有知识产权">有知识产权/软著</div>
+          <div class="chip" data-val="有模型备案">有模型备案</div>
+          <div class="chip" data-val="有算法备案">有算法备案</div>
+          <div class="chip" data-val="有产品上线">有产品上线</div>
+          <div class="chip" data-val="有落地案例">有落地案例</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>法人身份</label>
+        <div class="chips" id="chipsFounder" data-mode="single">
+          <div class="chip" data-val="高校毕业5年内">高校毕业5年内</div>
+          <div class="chip" data-val="留学回国">留学回国</div>
+          <div class="chip" data-val="退役军人">退役军人</div>
+          <div class="chip" data-val="登记失业">登记失业人员</div>
+          <div class="chip" data-val="港澳青年">港澳青年</div>
+          <div class="chip" data-val="以上都不是">以上都不是</div>
+        </div>
+      </div>
+
+      <div class="btn-group">
+        <button class="btn btn-primary" id="btnMatch" onclick="runMatch()">开始匹配</button>
+        <button class="btn btn-outline" onclick="fillDemo()">用示例填充</button>
       </div>
     </div>
 
-    <div class="form-group">
-      <label>行业方向（可多选）</label>
-      <div class="chips" id="chipsIndustry">
-        <div class="chip" data-val="AI语音/对话">AI语音/对话</div>
-        <div class="chip" data-val="AI视觉/图像">AI视觉/图像</div>
-        <div class="chip" data-val="大模型/NLP">大模型/NLP</div>
-        <div class="chip" data-val="智能硬件">智能硬件</div>
-        <div class="chip" data-val="数字内容/创意">数字内容/创意</div>
-        <div class="chip" data-val="智慧医疗">智慧医疗</div>
-        <div class="chip" data-val="智能制造">智能制造</div>
-        <div class="chip" data-val="跨境/电商">跨境/电商</div>
-        <div class="chip" data-val="教育/培训">教育/培训</div>
-        <div class="chip" data-val="其他AI">其他AI方向</div>
-        <div class="chip" data-val="非AI">非AI行业</div>
-      </div>
+    <!-- Step 2: Loading -->
+    <div class="panel hidden" id="panelLoading" style="text-align:center;padding:50px">
+      <div class="spinner"></div>
+      <p style="color:var(--al);font-size:.95em">正在分析你的情况，匹配最佳政策...</p>
     </div>
 
-    <div class="form-group">
-      <label>你有哪些资质（可多选）</label>
-      <div class="chips" id="chipsQualification">
-        <div class="chip" data-val="有营收">有营收</div>
-        <div class="chip" data-val="有合同">有合同/客户</div>
-        <div class="chip" data-val="有知识产权">有知识产权/软著</div>
-        <div class="chip" data-val="有模型备案">有模型备案</div>
-        <div class="chip" data-val="有算法备案">有算法备案</div>
-        <div class="chip" data-val="有产品上线">有产品上线</div>
-        <div class="chip" data-val="有落地案例">有落地案例</div>
+    <!-- Step 3: Results -->
+    <div class="panel hidden" id="panelResults">
+      <h2>匹配结果</h2>
+      <p class="desc" id="resultDesc"></p>
+      <div class="summary-stats" id="summaryStats"></div>
+      <div style="display:flex;gap:6px;margin:16px 0;flex-wrap:wrap" id="resultTabs">
+        <button class="chip selected" onclick="filterResults('all',this)">全部</button>
+        <button class="chip" onclick="filterResults('high',this)">高度匹配</button>
+        <button class="chip" onclick="filterResults('mid',this)">条件匹配</button>
+        <button class="chip" onclick="filterResults('low',this)">暂不匹配</button>
       </div>
-    </div>
-
-    <div class="form-group">
-      <label>法人身份（影响部分补贴）</label>
-      <div class="chips" id="chipsFounder">
-        <div class="chip" data-val="高校毕业5年内">高校毕业5年内</div>
-        <div class="chip" data-val="留学回国">留学回国</div>
-        <div class="chip" data-val="退役军人">退役军人</div>
-        <div class="chip" data-val="登记失业">登记失业人员</div>
-        <div class="chip" data-val="港澳青年">港澳青年</div>
-        <div class="chip" data-val="以上都不是">以上都不是</div>
+      <div id="resultsList"></div>
+      <div class="btn-group">
+        <button class="btn btn-outline" onclick="goBack()">← 修改条件</button>
+        <button class="btn btn-outline" onclick="exportResults('txt')">导出 TXT</button>
+        <button class="btn btn-outline" onclick="exportResults('csv')">导出 CSV</button>
       </div>
-    </div>
-
-    <div class="btn-group">
-      <button class="btn btn-primary" onclick="runMatch()">开始匹配</button>
-      <button class="btn btn-outline" onclick="fillDemo()">用示例数据填充</button>
     </div>
   </div>
 
-  <!-- Step 2: Loading -->
-  <div class="panel hidden" id="panelLoading" style="text-align:center;padding:60px">
-    <div style="font-size:2em;animation:pulse 1.5s infinite">&#9881;</div>
-    <p style="margin-top:12px;color:var(--al)">正在分析你的情况，匹配最佳政策...</p>
-  </div>
-
-  <!-- Step 3: Results -->
-  <div class="panel hidden" id="panelResults">
-    <h2>匹配结果</h2>
-    <p class="desc" id="resultDesc"></p>
-
-    <div class="summary-stats" id="summaryStats"></div>
-
-    <!-- Tabs -->
-    <div style="display:flex;gap:8px;margin:20px 0;flex-wrap:wrap" id="resultTabs">
-      <button class="chip selected" onclick="filterResults('all',this)">全部</button>
-      <button class="chip" onclick="filterResults('high',this)">高度匹配</button>
-      <button class="chip" onclick="filterResults('mid',this)">条件匹配</button>
-      <button class="chip" onclick="filterResults('low',this)">暂不匹配</button>
-    </div>
-
-    <div id="resultsList"></div>
-
-    <div class="btn-group">
-      <button class="btn btn-outline" onclick="goBack()">&#8592; 修改条件重新匹配</button>
-      <button class="btn btn-outline" onclick="exportResults()">&#8681; 导出结果</button>
+  <!-- ===== BROWSE MODE ===== -->
+  <div id="modeBrowse" style="display:none">
+    <div class="panel">
+      <h2>全部政策浏览</h2>
+      <input class="browse-search" type="text" placeholder="搜索政策名称、城市、关键词..." id="browseSearch" oninput="filterBrowse()">
+      <div class="browse-filters">
+        <select id="browseCity" onchange="filterBrowse()"><option value="">全部城市</option></select>
+        <select id="browseCat" onchange="filterBrowse()">
+          <option value="">全部类型</option>
+          <option value="comprehensive">综合</option><option value="subsidy">补贴</option>
+          <option value="space">空间</option><option value="computing">算力</option>
+          <option value="scenario">场景</option><option value="competition">赛事</option>
+          <option value="registration">注册</option>
+        </select>
+        <select id="browseSort" onchange="filterBrowse()">
+          <option value="city">按城市</option><option value="amount">按金额</option><option value="name">按名称</option>
+        </select>
+      </div>
+      <div class="policy-count" id="browseCount"></div>
+      <div id="browseList"></div>
     </div>
   </div>
 
-  <!-- City Map -->
-  <div class="panel anim" id="panelCities" style="margin-top:40px">
+  <!-- ===== AI ADVISOR MODE ===== -->
+  <div id="modeAdvisor" style="display:none">
+    <div class="panel">
+      <h2>AI 政策顾问</h2>
+      <p class="desc">描述你的情况或提问，AI 会基于政策数据库为你解答</p>
+      <div class="chat-messages" id="chatMessages">
+        <div class="chat-msg chat-ai">你好！我是 OPC 政策顾问。你可以问我：<br>
+        · "我在广州越秀区做AI语音机器人，有什么政策可以申请？"<br>
+        · "深圳和广州哪个OPC政策更好？"<br>
+        · "申请海珠区场景征集需要准备什么材料？"<br>
+        · "有哪些城市提供免费办公空间？"</div>
+      </div>
+      <div class="chat-input-row">
+        <input type="text" id="chatInput" placeholder="输入你的问题..." onkeydown="if(event.key==='Enter')sendChat()">
+        <button onclick="sendChat()">发送</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- City Grid -->
+  <div class="panel anim" id="panelCities" style="margin-top:30px">
     <h2>已收录城市</h2>
-    <p class="desc">点击城市查看当地OPC政策详情</p>
+    <p class="desc">点击城市查看政策或自动填充匹配表单</p>
     <div class="city-grid" id="cityGrid"></div>
   </div>
 
 </div>
 
+<button class="back-top" id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
 <footer>
-  <p>全国OPC政策导航 · 数据来源: 政府官网、公开政策文件</p>
+  <p>全国OPC政策导航 · 数据来源: 政府官网、公开政策文件、权威媒体报道</p>
   <p style="margin-top:4px"><a href="guangzhou.html">广州专版</a> · <a href="dashboard.html">数据看板</a> · <a href="https://github.com/siuserxiaowei/guangzhou-opc-policy" target="_blank">GitHub</a></p>
+  <p style="margin-top:4px;font-size:.75em">广州12条政策已人工验证 · 其他城市数据持续验证中</p>
 </footer>
 
 <script>
@@ -312,74 +412,65 @@ let CITIES = [];
 
 async function loadData() {
   try {
-    const [pRes, cRes] = await Promise.all([
-      fetch('data/policies.json'),
-      fetch('data/cities.json')
-    ]);
-    const pData = await pRes.json();
-    const cData = await cRes.json();
-    POLICIES = pData.policies || [];
-    CITIES = cData.cities || [];
+    const [pRes, cRes] = await Promise.all([fetch('data/policies.json'), fetch('data/cities.json')]);
+    if (!pRes.ok || !cRes.ok) throw new Error('fetch failed');
+    POLICIES = (await pRes.json()).policies || [];
+    CITIES = (await cRes.json()).cities || [];
     renderCities();
+    populateBrowseFilters();
+    filterBrowse();
   } catch(e) {
     console.error('Load data failed:', e);
-    // Fallback: inline
+    document.getElementById('panelCities').innerHTML += '<p style="color:var(--red);padding:20px">数据加载失败，请刷新页面重试</p>';
   }
 }
 loadData();
 
-// ===== CITY/DISTRICT MAPPING =====
+// ===== MODE SWITCH =====
+function switchMode(mode) {
+  document.querySelectorAll('.mode-tab').forEach(t => t.classList.remove('active'));
+  event.target.classList.add('active');
+  document.getElementById('modeMatch').style.display = mode === 'match' ? '' : 'none';
+  document.getElementById('modeBrowse').style.display = mode === 'browse' ? '' : 'none';
+  document.getElementById('modeAdvisor').style.display = mode === 'advisor' ? '' : 'none';
+}
+
+// ===== CITY/DISTRICT =====
 const CITY_MAP = {
-  '广东': {
-    cities: ['广州','深圳','东莞','佛山','珠海','惠州','中山'],
-    districts: {
-      '广州': ['越秀','天河','海珠','荔湾','白云','黄埔','番禺','南沙','花都','增城','从化'],
-      '深圳': ['南山','福田','龙华','宝安','龙岗','罗湖','光明','坪山','盐田'],
-    }
-  },
-  '北京': { cities:['北京'], districts:{'北京':['海淀','朝阳','丰台','西城','东城','通州','大兴','昌平','石景山']}},
-  '上海': { cities:['上海'], districts:{'上海':['浦东','徐汇','静安','黄浦','长宁','杨浦','虹口','闵行','松江','嘉定','宝山']}},
-  '浙江': { cities:['杭州','宁波','温州'], districts:{'杭州':['西湖','余杭','滨江','萧山','拱墅','上城','临平','钱塘']}},
-  '四川': { cities:['成都','绵阳'], districts:{'成都':['高新','天府新区','武侯','锦江','成华','青羊','金牛','龙泉驿']}},
-  '湖北': { cities:['武汉'], districts:{'武汉':['东湖高新','洪山','武昌','江汉','江岸','硚口','汉阳']}},
-  '安徽': { cities:['合肥'], districts:{'合肥':['包河','蜀山','庐阳','瑶海','高新']}},
-  '江苏': { cities:['南京','苏州','无锡'], districts:{'南京':['江宁','鼓楼','玄武','秦淮','建邺','雨花台']}},
-  '湖南': { cities:['长沙'], districts:{'长沙':['岳麓','天心','芙蓉','雨花','开福']}},
-  '重庆': { cities:['重庆'], districts:{'重庆':['渝中','江北','南岸','九龙坡','沙坪坝','渝北','两江新区']}}
+  '广东':{cities:['广州','深圳','东莞','佛山','珠海'],districts:{
+    '广州':['越秀','天河','海珠','荔湾','白云','黄埔','番禺','南沙','花都','增城','从化'],
+    '深圳':['南山','福田','龙华','宝安','龙岗','罗湖','光明','前海','经开区']}},
+  '北京':{cities:['北京'],districts:{'北京':['海淀','朝阳','丰台','通州','大兴','昌平','经开区']}},
+  '上海':{cities:['上海'],districts:{'上海':['浦东','徐汇','静安','黄浦','长宁','杨浦','闵行','临港']}},
+  '浙江':{cities:['杭州','宁波'],districts:{'杭州':['西湖','余杭','滨江','萧山','上城','临平','钱塘']}},
+  '四川':{cities:['成都'],districts:{'成都':['高新','天府新区','武侯','锦江','成华']}},
+  '湖北':{cities:['武汉'],districts:{'武汉':['东湖高新','洪山','武昌','江汉']}},
+  '安徽':{cities:['合肥'],districts:{'合肥':['包河','蜀山','庐阳','高新']}},
+  '江苏':{cities:['南京','苏州'],districts:{'南京':['江宁','鼓楼','玄武','栖霞','江北新区']}},
+  '湖南':{cities:['长沙'],districts:{'长沙':['岳麓','天心','望城','经开区']}},
+  '重庆':{cities:['重庆'],districts:{'重庆':['渝中','江北','南岸','两江新区','渝北']}}
 };
 
-document.getElementById('fProvince').addEventListener('change', function() {
-  const prov = this.value;
-  const citySelect = document.getElementById('fCity');
-  const districtSelect = document.getElementById('fDistrict');
-  citySelect.innerHTML = '<option value="">选择城市</option>';
-  districtSelect.innerHTML = '<option value="">选择区（可选）</option>';
-  if (CITY_MAP[prov]) {
-    CITY_MAP[prov].cities.forEach(c => {
-      citySelect.innerHTML += `<option value="${c}">${c}</option>`;
-    });
-  }
+document.getElementById('fProvince').addEventListener('change', function(){
+  const p = this.value, cs = document.getElementById('fCity'), ds = document.getElementById('fDistrict');
+  cs.innerHTML = '<option value="">选择城市</option>';
+  ds.innerHTML = '<option value="">选择区（可选）</option>';
+  if(CITY_MAP[p]) CITY_MAP[p].cities.forEach(c => cs.innerHTML += `<option value="${c}">${c}</option>`);
+  hideError('errLocation');
 });
-
-document.getElementById('fCity').addEventListener('change', function() {
-  const prov = document.getElementById('fProvince').value;
-  const city = this.value;
-  const districtSelect = document.getElementById('fDistrict');
-  districtSelect.innerHTML = '<option value="">选择区（可选）</option>';
-  if (CITY_MAP[prov] && CITY_MAP[prov].districts[city]) {
-    CITY_MAP[prov].districts[city].forEach(d => {
-      districtSelect.innerHTML += `<option value="${d}">${d}</option>`;
-    });
-  }
+document.getElementById('fCity').addEventListener('change', function(){
+  const p = document.getElementById('fProvince').value, c = this.value;
+  const ds = document.getElementById('fDistrict');
+  ds.innerHTML = '<option value="">选择区（可选）</option>';
+  if(CITY_MAP[p]?.districts[c]) CITY_MAP[p].districts[c].forEach(d => ds.innerHTML += `<option value="${d}">${d}</option>`);
 });
 
 // ===== CHIPS =====
 document.querySelectorAll('.chips').forEach(container => {
   container.addEventListener('click', e => {
     const chip = e.target.closest('.chip');
-    if (!chip) return;
-    // Company type: single select. Others: multi select
-    if (container.id === 'chipsCompanyType' || container.id === 'chipsFounder') {
+    if(!chip) return;
+    if(container.dataset.mode === 'single'){
       container.querySelectorAll('.chip').forEach(c => c.classList.remove('selected'));
       chip.classList.add('selected');
     } else {
@@ -387,334 +478,494 @@ document.querySelectorAll('.chips').forEach(container => {
     }
   });
 });
+function getSelected(id){ return Array.from(document.querySelectorAll(`#${id} .chip.selected`)).map(c=>c.dataset.val) }
 
-function getSelected(containerId) {
-  return Array.from(document.querySelectorAll(`#${containerId} .chip.selected`)).map(c => c.dataset.val);
-}
-
-// ===== DEMO DATA =====
-function fillDemo() {
-  document.getElementById('fProvince').value = '广东';
+// ===== DEMO =====
+function fillDemo(){
+  document.getElementById('fProvince').value='广东';
   document.getElementById('fProvince').dispatchEvent(new Event('change'));
-  setTimeout(() => {
-    document.getElementById('fCity').value = '广州';
+  setTimeout(()=>{
+    document.getElementById('fCity').value='广州';
     document.getElementById('fCity').dispatchEvent(new Event('change'));
-    setTimeout(() => {
-      document.getElementById('fDistrict').value = '越秀';
-      document.getElementById('fEmployees').value = '5';
-      document.getElementById('fAge').value = '2';
-      // Select chips
-      selectChip('chipsCompanyType', '小微企业');
-      selectChip('chipsIndustry', 'AI语音/对话');
-      selectChip('chipsQualification', '有营收');
-      selectChip('chipsQualification', '有合同');
-      selectChip('chipsQualification', '有产品上线');
-      selectChip('chipsFounder', '以上都不是');
-    }, 100);
-  }, 100);
+    setTimeout(()=>{
+      document.getElementById('fDistrict').value='越秀';
+      document.getElementById('fEmployees').value='5';
+      document.getElementById('fAge').value='2';
+      ['chipsCompanyType','chipsIndustry','chipsQualification','chipsFounder'].forEach(id=>{
+        document.querySelectorAll(`#${id} .chip`).forEach(c=>c.classList.remove('selected'));
+      });
+      sel('chipsCompanyType','小微企业');sel('chipsIndustry','AI语音/对话');
+      sel('chipsQualification','有营收');sel('chipsQualification','有合同');sel('chipsQualification','有产品上线');
+      sel('chipsFounder','以上都不是');
+    },80);
+  },80);
+}
+function sel(id,v){document.querySelectorAll(`#${id} .chip`).forEach(c=>{if(c.dataset.val===v)c.classList.add('selected')})}
+
+// ===== FORM VALIDATION =====
+function showError(id){document.getElementById(id).style.display='block'}
+function hideError(id){document.getElementById(id).style.display='none'}
+
+function validateForm(){
+  let ok = true;
+  if(!document.getElementById('fProvince').value || !document.getElementById('fCity').value){
+    showError('errLocation'); ok = false;
+  } else { hideError('errLocation'); }
+  return ok;
 }
 
-function selectChip(containerId, val) {
-  document.querySelectorAll(`#${containerId} .chip`).forEach(c => {
-    if (c.dataset.val === val) c.classList.add('selected');
-  });
-}
-
-// ===== MATCHING ENGINE =====
-function runMatch() {
+// ===== MATCHING ENGINE (FIXED) =====
+function runMatch(){
+  if(!validateForm()) return;
   const profile = {
     province: document.getElementById('fProvince').value,
     city: document.getElementById('fCity').value,
     district: document.getElementById('fDistrict').value,
-    employees: parseInt(document.getElementById('fEmployees').value) || 0,
-    companyAge: parseFloat(document.getElementById('fAge').value) || 0,
+    employees: parseInt(document.getElementById('fEmployees').value)||0,
+    companyAge: parseFloat(document.getElementById('fAge').value)||0,
     companyType: getSelected('chipsCompanyType'),
     industries: getSelected('chipsIndustry'),
     qualifications: getSelected('chipsQualification'),
     founder: getSelected('chipsFounder')
   };
-
-  // Save to localStorage
   localStorage.setItem('opc_profile', JSON.stringify(profile));
-
-  // Update steps
   setStep(2);
   document.getElementById('panelForm').classList.add('hidden');
   document.getElementById('panelLoading').classList.remove('hidden');
-
-  // Simulate processing
-  setTimeout(() => {
-    const results = matchPolicies(profile);
-    showResults(results, profile);
-  }, 800);
+  setTimeout(()=>{ showResults(matchPolicies(profile), profile); }, 600);
 }
 
-function matchPolicies(profile) {
+function matchPolicies(profile){
+  // For 直辖市, province === city
+  const isDirect = ['北京','上海','重庆'].includes(profile.city);
+
   return POLICIES.map(policy => {
-    let score = 0;
-    let maxScore = 0;
-    let reasons = [];
-    let blockers = [];
+    let score=0, maxScore=0, reasons=[], blockers=[];
+    const req = policy.requirements||{};
 
-    const req = policy.requirements || {};
-
-    // 1. Location match (critical)
+    // 1. LOCATION (40 pts) — most critical
     maxScore += 40;
-    const regLoc = req.registration_location || '';
-    if (!regLoc || regLoc === '不限') {
+    const regLoc = req.registration_location||'';
+
+    if(!regLoc || regLoc === '不限'){
       score += 40;
       reasons.push('不限注册地');
-    } else if (regLoc.includes(profile.province) || regLoc.includes('广东省') && profile.province === '广东') {
-      if (regLoc.includes(profile.district)) {
-        score += 40;
-        reasons.push(`注册在${profile.district}区，完全匹配`);
-      } else if (regLoc.includes(profile.city)) {
-        score += 35;
-        reasons.push(`注册在${profile.city}，市级匹配`);
-      } else if (policy.level === 'province') {
-        score += 30;
-        reasons.push('省级政策适用');
-      } else {
-        score += 5;
-        blockers.push(`要求在${regLoc}注册/经营`);
-      }
     } else {
-      blockers.push(`要求在${regLoc}注册`);
-    }
+      // Check if policy's city matches user's city
+      const policyCity = policy.city||'';
+      const policyDistrict = policy.district||'';
+      const userCity = profile.city;
+      const userDistrict = profile.district;
+      const userProvince = profile.province;
 
-    // 2. Company age
-    if (req.company_age_max_years) {
-      maxScore += 15;
-      if (profile.companyAge > 0 && profile.companyAge <= req.company_age_max_years) {
-        score += 15;
-        reasons.push(`公司成立${profile.companyAge}年，符合${req.company_age_max_years}年内要求`);
-      } else if (profile.companyAge > req.company_age_max_years) {
-        blockers.push(`要求成立${req.company_age_max_years}年内，你已${profile.companyAge}年`);
-      } else {
-        score += 8; // unknown
-      }
-    }
-
-    // 3. Employee/social insurance
-    if (req.social_insurance_months) {
-      maxScore += 15;
-      if (profile.employees >= 1) {
-        score += 12;
-        reasons.push(`有${profile.employees}人缴社保`);
-      }
-    }
-
-    // 4. Founder identity
-    if (req.founder_identity && req.founder_identity.length > 0) {
-      maxScore += 15;
-      const founderMatch = profile.founder.some(f =>
-        req.founder_identity.some(r => r.includes(f) || f.includes(r.substring(0,4)))
+      const cityMatch = (policyCity === userCity) || (isDirect && policyCity === userProvince);
+      const districtMatch = userDistrict && policyDistrict && (
+        regLoc.includes(userDistrict) || policyDistrict === userDistrict
       );
-      if (founderMatch) {
+      const isProvinceLevel = policy.level === 'province';
+      const sameProvince = policy.province === userProvince;
+
+      if(districtMatch && cityMatch){
+        score += 40;
+        reasons.push(`注册在${userDistrict}区，完全匹配`);
+      } else if(cityMatch && (!policyDistrict || policy.level === 'city')){
+        score += 35;
+        reasons.push(`注册在${userCity}，市级匹配`);
+      } else if(cityMatch && policyDistrict){
+        // Same city but different district — policy is for a specific district
         score += 15;
-        reasons.push('法人身份符合');
-      } else if (profile.founder.includes('以上都不是')) {
-        blockers.push('法人身份不符合要求');
-      } else {
+        reasons.push(`在${userCity}但需${policyDistrict}区注册/经营`);
+        blockers.push(`政策要求${policyDistrict}区，你在${userDistrict||'其他区'}`);
+      } else if(isProvinceLevel && sameProvince){
+        score += 30;
+        reasons.push('省级政策，同省适用');
+      } else if(sameProvince && !cityMatch){
         score += 5;
-        reasons.push('法人身份待确认');
-      }
-    }
-
-    // 5. Qualifications
-    if (req.qualifications && req.qualifications.length > 0) {
-      maxScore += 15;
-      const qualMatch = req.qualifications.filter(q =>
-        profile.qualifications.some(pq => q.includes(pq) || pq.includes(q.substring(0,3)))
-      );
-      if (qualMatch.length > 0) {
-        score += 15;
+        blockers.push(`要求在${policyCity}${policyDistrict?policyDistrict+'区':''}注册`);
       } else {
-        const needsModel = req.qualifications.some(q => q.includes('模型备案'));
-        const needsAlgo = req.qualifications.some(q => q.includes('算法备案'));
-        if (needsModel && !profile.qualifications.includes('有模型备案')) {
-          blockers.push('需要模型备案');
-        }
-        if (needsAlgo && !profile.qualifications.includes('有算法备案')) {
-          blockers.push('需要算法备案');
-        }
+        score += 0;
+        blockers.push(`要求在${policyCity}${policyDistrict?policyDistrict+'区':''}注册`);
       }
     }
 
-    // Normalize score
-    const pct = maxScore > 0 ? Math.round((score / maxScore) * 100) : 50;
-    const level = blockers.length > 0 && pct < 40 ? 'low' : pct >= 70 ? 'high' : 'mid';
+    // 2. Company age (15 pts)
+    if(req.company_age_max_years){
+      maxScore += 15;
+      if(profile.companyAge > 0 && profile.companyAge <= req.company_age_max_years){
+        score += 15;
+        reasons.push(`成立${profile.companyAge}年，符合${req.company_age_max_years}年内`);
+      } else if(profile.companyAge > req.company_age_max_years){
+        blockers.push(`要求成立${req.company_age_max_years}年内`);
+      } else { score += 8; }
+    }
 
-    return {
-      policy,
-      score: pct,
-      level,
-      reasons,
-      blockers
-    };
-  }).sort((a, b) => b.score - a.score);
+    // 3. Social insurance (15 pts)
+    if(req.social_insurance_months){
+      maxScore += 15;
+      if(profile.employees >= 1){ score += 12; reasons.push(`${profile.employees}人缴社保`); }
+    }
+
+    // 4. Founder identity (15 pts)
+    const fReq = req.founder_identity||[];
+    if(fReq.length){
+      maxScore += 15;
+      const match = profile.founder.some(f => f !== '以上都不是' && fReq.some(r => r.includes(f) || f.includes(r.substring(0,3))));
+      if(match){ score += 15; reasons.push('法人身份符合'); }
+      else if(profile.founder.includes('以上都不是')){ blockers.push('法人身份不符'); }
+      else { score += 5; }
+    }
+
+    // 5. Qualifications (15 pts)
+    const qReq = req.qualifications||[];
+    if(qReq.length){
+      maxScore += 15;
+      const qMatch = profile.qualifications.some(pq => qReq.some(q => q.includes(pq.replace('有','')) || pq.includes(q.substring(0,3))));
+      if(qMatch){ score += 15; }
+      else {
+        if(qReq.some(q=>q.includes('模型备案')) && !profile.qualifications.includes('有模型备案')) blockers.push('需模型备案');
+        if(qReq.some(q=>q.includes('算法备案')) && !profile.qualifications.includes('有算法备案')) blockers.push('需算法备案');
+      }
+    }
+
+    const pct = maxScore > 0 ? Math.round((score/maxScore)*100) : 50;
+    // Fixed level logic: if has hard blockers (location/identity), it's low
+    const hasHardBlocker = blockers.some(b => b.includes('注册') || b.includes('法人身份'));
+    const level = hasHardBlocker && pct < 50 ? 'low' : pct >= 65 ? 'high' : 'mid';
+
+    return {policy, score:pct, level, reasons, blockers};
+  }).sort((a,b) => b.score - a.score);
 }
 
-// ===== DISPLAY RESULTS =====
-function showResults(results, profile) {
+// ===== RESULTS =====
+function showResults(results, profile){
   setStep(3);
   document.getElementById('panelLoading').classList.add('hidden');
   document.getElementById('panelResults').classList.remove('hidden');
-
-  const high = results.filter(r => r.level === 'high').length;
-  const mid = results.filter(r => r.level === 'mid').length;
-  const low = results.filter(r => r.level === 'low').length;
-  const maxAmt = Math.max(...results.map(r => {
-    const benefits = r.policy.benefits || [];
-    return Math.max(0, ...benefits.map(b => b.amount_max || 0));
-  }));
+  const high=results.filter(r=>r.level==='high').length;
+  const mid=results.filter(r=>r.level==='mid').length;
+  const low=results.filter(r=>r.level==='low').length;
+  const maxAmt = Math.max(0,...results.flatMap(r=>(r.policy.benefits||[]).map(b=>b.amount_max||0)));
 
   document.getElementById('resultDesc').textContent =
-    `基于你的情况（${profile.city}${profile.district ? profile.district+'区' : ''} · ${profile.employees}人 · ${profile.industries.join('/')||'未指定行业'}），共匹配到 ${results.length} 条政策`;
-
+    `${profile.city}${profile.district?profile.district+'区':''} · ${profile.employees||'?'}人 · ${profile.industries.join('/')||'未指定'} — 共 ${results.length} 条政策`;
   document.getElementById('summaryStats').innerHTML = `
     <div class="summary-stat"><div class="num" style="color:var(--green)">${high}</div><div class="lbl">高度匹配</div></div>
     <div class="summary-stat"><div class="num" style="color:var(--yellow)">${mid}</div><div class="lbl">条件匹配</div></div>
     <div class="summary-stat"><div class="num" style="color:var(--red)">${low}</div><div class="lbl">暂不匹配</div></div>
-    <div class="summary-stat"><div class="num" style="color:var(--cyan)">${maxAmt > 0 ? (maxAmt >= 10000 ? Math.round(maxAmt/10000)+'万' : maxAmt+'元') : '-'}</div><div class="lbl">最高补贴</div></div>
-  `;
-
+    <div class="summary-stat"><div class="num" style="color:var(--cyan)">${maxAmt>=10000?Math.round(maxAmt/10000)+'万':maxAmt>0?maxAmt+'元':'-'}</div><div class="lbl">最高补贴</div></div>`;
   window._allResults = results;
   renderResults(results);
 }
 
-function renderResults(results) {
+function renderResults(results){
   const list = document.getElementById('resultsList');
   list.innerHTML = '';
-  results.forEach((r, i) => {
+  if(!results.length){ list.innerHTML = '<p style="text-align:center;color:var(--dim);padding:30px">没有匹配到政策</p>'; return; }
+  results.forEach((r,i) => {
     const p = r.policy;
-    const benefits = (p.benefits || []).slice(0, 4);
-    const levelColor = r.level === 'high' ? 'var(--green)' : r.level === 'mid' ? 'var(--yellow)' : 'var(--red)';
-    const levelText = r.level === 'high' ? '高度匹配' : r.level === 'mid' ? '条件匹配' : '暂不匹配';
-    const tagClass = r.level === 'high' ? 'tag-go' : r.level === 'mid' ? 'tag-check' : 'tag-no';
-
+    const benefits = (p.benefits||[]);
+    const lc = r.level==='high'?'var(--green)':r.level==='mid'?'var(--yellow)':'var(--red)';
+    const lt = r.level==='high'?'高度匹配':r.level==='mid'?'条件匹配':'暂不匹配';
+    const tc = r.level==='high'?'tag-go':r.level==='mid'?'tag-check':'tag-no';
     const card = document.createElement('div');
-    card.className = 'result-card';
-    card.dataset.level = r.level;
-    card.style.animationDelay = (i * 0.05) + 's';
+    card.className='result-card'; card.dataset.level=r.level;
+    card.style.animationDelay=(i*.04)+'s';
     card.innerHTML = `
-      <h3>${p.name} <span class="tag ${tagClass}">${levelText} ${r.score}%</span></h3>
+      <h3>${p.name} <span class="tag ${tc}">${lt} ${r.score}%</span></h3>
       <div class="meta">
-        <span>${p.city}${p.district ? ' · '+p.district+'区' : ''}</span>
-        <span>${p.level === 'province' ? '省级' : p.level === 'city' ? '市级' : '区级'}政策</span>
-        <span>${p.status === 'active' ? '生效中' : p.status === 'draft' ? '征求意见' : p.status}</span>
-        ${p.application && p.application.deadline ? `<span style="color:var(--red)">截止: ${p.application.deadline}</span>` : ''}
+        <span>${p.city}${p.district?' · '+p.district+'区':''}</span>
+        <span>${{province:'省级',city:'市级',district:'区级'}[p.level]||''}政策</span>
+        <span>${p.status==='active'?'生效中':'征求意见'}</span>
+        ${p.application?.deadline?`<span style="color:var(--red)">截止:${p.application.deadline}</span>`:''}
       </div>
-      <p style="font-size:.9em;color:var(--dim);margin-bottom:8px">${p.summary}</p>
-      <div class="benefits">${benefits.map(b => `<span class="benefit-tag">${b.item}: ${b.amount}</span>`).join('')}</div>
-      <div class="match-bar"><div class="match-fill" style="width:${r.score}%;background:${levelColor}"></div></div>
-      <div class="match-label" style="color:${levelColor}">${r.score}% 匹配 ${r.reasons.length ? ' · '+r.reasons[0] : ''}</div>
-      ${r.blockers.length ? `<div style="margin-top:6px;font-size:.82em;color:var(--red)">阻碍: ${r.blockers.join(' | ')}</div>` : ''}
+      <p style="font-size:.88em;color:var(--dim);margin-bottom:6px">${p.summary}</p>
+      <div class="benefits">${benefits.map(b=>`<span class="benefit-tag">${b.item}: ${b.amount}</span>`).join('')}</div>
+      <div class="match-bar"><div class="match-fill" style="width:${r.score}%;background:${lc}"></div></div>
+      <div class="match-label" style="color:${lc}">${r.score}% ${r.reasons.length?' · '+r.reasons[0]:''}</div>
+      ${r.blockers.length?`<div style="margin-top:4px;font-size:.8em;color:var(--red)">⚠ ${r.blockers.join(' | ')}</div>`:''}
       <div class="detail-toggle" onclick="toggleDetail(this)">展开详情 ▾</div>
       <div class="detail-content">
-        ${r.reasons.length ? '<p style="font-size:.85em;color:var(--green);margin:8px 0"><strong>匹配原因:</strong></p><ul>'+r.reasons.map(x=>'<li>'+x+'</li>').join('')+'</ul>' : ''}
-        ${r.blockers.length ? '<p style="font-size:.85em;color:var(--red);margin:8px 0"><strong>不匹配原因:</strong></p><ul>'+r.blockers.map(x=>'<li style="color:var(--red)">'+x+'</li>').join('')+'</ul>' : ''}
-        ${p.application && p.application.url ? `<a href="${p.application.url}" target="_blank" style="display:inline-block;margin-top:8px;padding:6px 16px;background:rgba(108,92,231,.15);border:1px solid rgba(108,92,231,.3);border-radius:8px;font-size:.85em">申报入口</a>` : ''}
-        ${p.links && p.links.official ? `<a href="${p.links.official}" target="_blank" style="display:inline-block;margin:8px 8px 0 0;padding:6px 16px;background:rgba(108,92,231,.15);border:1px solid rgba(108,92,231,.3);border-radius:8px;font-size:.85em">政策原文</a>` : ''}
-        ${(p.communities||[]).length ? '<p style="font-size:.85em;color:var(--al);margin:12px 0 4px"><strong>关联社区/孵化器:</strong></p><ul>'+ p.communities.map(c => `<li><strong>${c.name}</strong>${c.address?' · '+c.address:''}${c.features?' — '+c.features.join(', '):''}</li>`).join('') +'</ul>' : ''}
-      </div>
-    `;
+        ${r.reasons.length?'<p style="font-size:.83em;color:var(--green);margin:6px 0"><b>匹配原因:</b></p><ul>'+r.reasons.map(x=>'<li>'+x+'</li>').join('')+'</ul>':''}
+        ${r.blockers.length?'<p style="font-size:.83em;color:var(--red);margin:6px 0"><b>阻碍:</b></p><ul>'+r.blockers.map(x=>'<li style="color:var(--red)">'+x+'</li>').join('')+'</ul>':''}
+        ${p.application?.url?`<a class="link-btn" href="${p.application.url}" target="_blank">申报入口</a>`:''}
+        ${p.links?.official?`<a class="link-btn" href="${p.links.official}" target="_blank">政策原文</a>`:''}
+        ${(p.links?.news||[]).map(n=>`<a class="link-btn" href="${n}" target="_blank">新闻报道</a>`).join('')}
+        ${p.application?.email?`<div style="margin-top:8px;font-size:.82em;color:var(--dim)">联系: ${p.application.contact||''} ${p.application.phone||''} ${p.application.email||''}</div>`:''}
+        ${(p.communities||[]).length?'<p style="font-size:.83em;color:var(--al);margin:10px 0 4px"><b>关联社区:</b></p><ul>'+p.communities.map(c=>`<li><b>${c.name}</b>${c.address?' · '+c.address:''}${c.features?' — '+c.features.join(', '):''}</li>`).join('')+'</ul>':''}
+      </div>`;
     list.appendChild(card);
   });
 }
 
-function filterResults(level, btn) {
-  document.querySelectorAll('#resultTabs .chip').forEach(c => c.classList.remove('selected'));
+function filterResults(level,btn){
+  document.querySelectorAll('#resultTabs .chip').forEach(c=>c.classList.remove('selected'));
   btn.classList.add('selected');
-  const filtered = level === 'all' ? window._allResults : window._allResults.filter(r => r.level === level);
-  renderResults(filtered);
+  renderResults(level==='all'?window._allResults:window._allResults.filter(r=>r.level===level));
 }
 
-function toggleDetail(el) {
-  const content = el.nextElementSibling;
-  content.classList.toggle('open');
-  el.textContent = content.classList.contains('open') ? '收起详情 ▴' : '展开详情 ▾';
+function toggleDetail(el){
+  const c=el.nextElementSibling; c.classList.toggle('open');
+  el.textContent=c.classList.contains('open')?'收起详情 ▴':'展开详情 ▾';
 }
 
-function goBack() {
+function goBack(){
   setStep(1);
   document.getElementById('panelResults').classList.add('hidden');
   document.getElementById('panelForm').classList.remove('hidden');
 }
 
-function exportResults() {
-  if (!window._allResults) return;
-  let text = '全国OPC政策匹配结果\n' + '='.repeat(40) + '\n\n';
-  window._allResults.forEach(r => {
-    text += `[${r.score}% ${r.level === 'high' ? '高度匹配' : r.level === 'mid' ? '条件匹配' : '暂不匹配'}] ${r.policy.name}\n`;
-    text += `  ${r.policy.summary}\n`;
-    if (r.reasons.length) text += `  匹配: ${r.reasons.join('; ')}\n`;
-    if (r.blockers.length) text += `  阻碍: ${r.blockers.join('; ')}\n`;
-    text += '\n';
-  });
-  const blob = new Blob([text], {type: 'text/plain;charset=utf-8'});
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = 'OPC政策匹配结果.txt';
-  a.click();
+// ===== EXPORT =====
+function exportResults(format){
+  if(!window._allResults) return;
+  if(format==='csv'){
+    let csv='政策名称,城市,区域,匹配度,匹配等级,摘要,最高金额,官方链接\n';
+    window._allResults.forEach(r=>{
+      const p=r.policy;
+      const maxA=Math.max(0,...(p.benefits||[]).map(b=>b.amount_max||0));
+      csv+=`"${p.name}","${p.city}","${p.district||''}",${r.score}%,"${r.level==='high'?'高度匹配':r.level==='mid'?'条件匹配':'暂不匹配'}","${p.summary}",${maxA},"${p.links?.official||''}"\n`;
+    });
+    download(csv,'OPC政策匹配结果.csv','text/csv;charset=utf-8');
+  } else {
+    let txt='全国OPC政策匹配结果\n'+'='.repeat(40)+'\n\n';
+    window._allResults.forEach(r=>{
+      txt+=`[${r.score}% ${r.level==='high'?'高度匹配':r.level==='mid'?'条件匹配':'暂不匹配'}] ${r.policy.name}\n`;
+      txt+=`  ${r.policy.summary}\n`;
+      if(r.reasons.length) txt+=`  ✓ ${r.reasons.join('; ')}\n`;
+      if(r.blockers.length) txt+=`  ✗ ${r.blockers.join('; ')}\n`;
+      if(r.policy.links?.official) txt+=`  链接: ${r.policy.links.official}\n`;
+      txt+='\n';
+    });
+    download(txt,'OPC政策匹配结果.txt','text/plain;charset=utf-8');
+  }
+}
+function download(content,name,type){
+  const b=new Blob(['\ufeff'+content],{type});
+  const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=name;a.click();
 }
 
-// ===== STEPS =====
-function setStep(n) {
-  document.querySelectorAll('.step').forEach((s, i) => {
-    s.classList.remove('active', 'done');
-    if (i + 1 < n) s.classList.add('done');
-    if (i + 1 === n) s.classList.add('active');
+function setStep(n){
+  document.querySelectorAll('.step').forEach((s,i)=>{
+    s.classList.remove('active','done');
+    if(i+1<n)s.classList.add('done');if(i+1===n)s.classList.add('active');
   });
 }
+
+// ===== BROWSE MODE =====
+function populateBrowseFilters(){
+  const citySet=new Set(POLICIES.map(p=>p.city));
+  const cs=document.getElementById('browseCity');
+  citySet.forEach(c=>cs.innerHTML+=`<option value="${c}">${c}</option>`);
+}
+
+function filterBrowse(){
+  const q=(document.getElementById('browseSearch').value||'').toLowerCase();
+  const city=document.getElementById('browseCity').value;
+  const cat=document.getElementById('browseCat').value;
+  const sort=document.getElementById('browseSort').value;
+
+  let filtered=POLICIES.filter(p=>{
+    if(city && p.city!==city) return false;
+    if(cat && p.category!==cat) return false;
+    if(q){
+      const text=(p.name+p.city+(p.district||'')+p.summary+(p.tags||[]).join('')).toLowerCase();
+      if(!text.includes(q)) return false;
+    }
+    return true;
+  });
+
+  if(sort==='amount') filtered.sort((a,b)=>{
+    const ma=Math.max(0,...(a.benefits||[]).map(x=>x.amount_max||0));
+    const mb=Math.max(0,...(b.benefits||[]).map(x=>x.amount_max||0));
+    return mb-ma;
+  });
+  else if(sort==='name') filtered.sort((a,b)=>a.name.localeCompare(b.name,'zh'));
+  else filtered.sort((a,b)=>a.city.localeCompare(b.city,'zh'));
+
+  document.getElementById('browseCount').textContent=`共 ${filtered.length} 条政策`;
+  const list=document.getElementById('browseList');
+  list.innerHTML='';
+  filtered.forEach(p=>{
+    const maxA=Math.max(0,...(p.benefits||[]).map(b=>b.amount_max||0));
+    const card=document.createElement('div');
+    card.className='result-card';
+    card.innerHTML=`
+      <h3>${p.name} <span class="tag tag-info">${p.city}${p.district?' · '+p.district:''}</span></h3>
+      <div class="meta">
+        <span>${{province:'省级',city:'市级',district:'区级'}[p.level]||''}</span>
+        <span>${p.status==='active'?'生效中':'征求意见'}</span>
+        ${maxA>0?`<span style="color:var(--cyan)">最高${maxA>=10000?Math.round(maxA/10000)+'万':maxA+'元'}</span>`:''}
+        ${p.application?.deadline?`<span style="color:var(--red)">截止:${p.application.deadline}</span>`:''}
+      </div>
+      <p style="font-size:.88em;color:var(--dim);margin-bottom:6px">${p.summary}</p>
+      <div class="benefits">${(p.benefits||[]).map(b=>`<span class="benefit-tag">${b.item}: ${b.amount}</span>`).join('')}</div>
+      <div class="detail-toggle" onclick="toggleDetail(this)">展开详情 ▾</div>
+      <div class="detail-content">
+        ${p.application?.url?`<a class="link-btn" href="${p.application.url}" target="_blank">申报入口</a>`:''}
+        ${p.links?.official?`<a class="link-btn" href="${p.links.official}" target="_blank">政策原文</a>`:''}
+        ${(p.links?.news||[]).map(n=>`<a class="link-btn" href="${n}" target="_blank">新闻</a>`).join('')}
+        ${(p.communities||[]).length?'<p style="font-size:.83em;color:var(--al);margin:10px 0 4px"><b>OPC社区:</b></p><ul>'+p.communities.map(c=>`<li><b>${c.name}</b>${c.address?' · '+c.address:''}${c.features?' — '+c.features.join(', '):''}</li>`).join('')+'</ul>':''}
+      </div>`;
+    list.appendChild(card);
+  });
+}
+
+// ===== AI ADVISOR =====
+function sendChat(){
+  const input=document.getElementById('chatInput');
+  const q=input.value.trim();
+  if(!q) return;
+  input.value='';
+  const msgs=document.getElementById('chatMessages');
+  msgs.innerHTML+=`<div class="chat-msg chat-user">${escHtml(q)}</div>`;
+
+  // Local AI: search policies and generate answer
+  const answer = localAdvisor(q);
+  msgs.innerHTML+=`<div class="chat-msg chat-ai">${answer}</div>`;
+  msgs.scrollTop=msgs.scrollHeight;
+}
+
+function localAdvisor(question){
+  const q=question.toLowerCase();
+  let relevant=[];
+
+  // Search by city
+  const cities=['广州','深圳','北京','上海','杭州','武汉','成都','南京','合肥','长沙','重庆'];
+  const matchedCity=cities.find(c=>q.includes(c.toLowerCase()));
+
+  // Search by keywords
+  const keywords=['免租','算力','补贴','备案','场景','注册','社区','贷款','赛事','创业','token'];
+  const matchedKw=keywords.filter(k=>q.includes(k));
+
+  relevant=POLICIES.filter(p=>{
+    if(matchedCity && p.city!==matchedCity) return false;
+    if(matchedKw.length){
+      const txt=(p.name+p.summary+(p.tags||[]).join('')).toLowerCase();
+      return matchedKw.some(k=>txt.includes(k));
+    }
+    return matchedCity ? true : false;
+  });
+
+  if(!relevant.length && matchedCity){
+    relevant=POLICIES.filter(p=>p.city===matchedCity);
+  }
+
+  if(!relevant.length){
+    // Broad search
+    relevant=POLICIES.filter(p=>{
+      const txt=(p.name+p.summary+(p.tags||[]).join('')).toLowerCase();
+      return q.split('').some(ch=>txt.includes(ch)) || true;
+    }).slice(0,5);
+  }
+
+  if(q.includes('比较') || q.includes('哪个') || (q.includes('和') && cities.filter(c=>q.includes(c)).length>=2)){
+    const compared=cities.filter(c=>q.includes(c));
+    if(compared.length>=2){
+      let html=`<b>📊 ${compared.join(' vs ')} OPC政策对比：</b><br><br>`;
+      compared.forEach(city=>{
+        const cp=POLICIES.filter(p=>p.city===city);
+        const maxA=Math.max(0,...cp.flatMap(p=>(p.benefits||[]).map(b=>b.amount_max||0)));
+        const comms=cp.reduce((s,p)=>s+(p.communities||[]).length,0);
+        html+=`<b style="color:var(--al)">${city}</b>：${cp.length}条政策，最高补贴${maxA>=10000?Math.round(maxA/10000)+'万':maxA+'元'}，${comms}个OPC社区<br>`;
+        cp.slice(0,3).forEach(p=>html+=`· ${p.name}<br>`);
+        html+='<br>';
+      });
+      return html;
+    }
+  }
+
+  if(q.includes('材料') || q.includes('准备')){
+    const target=relevant[0];
+    if(target){
+      let html=`<b>📋 申报「${target.name}」建议准备：</b><br><br>`;
+      html+='· 公司营业执照<br>· 产品介绍/BP<br>· 方案说明文档<br>';
+      if(target.requirements?.qualifications?.length) html+='· 知识产权/软著证明<br>';
+      if(target.requirements?.social_insurance_months) html+=`· 连续${target.requirements.social_insurance_months}个月社保缴费记录<br>`;
+      html+='· 已落地案例或合同清单<br>· 项目实施方案<br>';
+      if(target.links?.official) html+=`<br><a href="${target.links.official}" target="_blank">查看官方要求 →</a>`;
+      return html;
+    }
+  }
+
+  if(q.includes('免费') || q.includes('免租') || q.includes('空间')){
+    const freeSpace=POLICIES.filter(p=>
+      (p.benefits||[]).some(b=>b.type==='rent_free')||
+      (p.communities||[]).length>0
+    );
+    let html='<b>🏢 提供免费/低成本办公空间的政策：</b><br><br>';
+    freeSpace.slice(0,8).forEach(p=>{
+      html+=`· <b>${p.city}</b> ${p.name}`;
+      const comm=(p.communities||[])[0];
+      if(comm) html+=` — ${comm.name}`;
+      html+='<br>';
+    });
+    return html;
+  }
+
+  // Default: show relevant policies
+  let html=matchedCity?`<b>📍 ${matchedCity}的OPC政策：</b><br><br>`:'<b>🔍 相关政策：</b><br><br>';
+  relevant.slice(0,6).forEach(p=>{
+    const maxA=Math.max(0,...(p.benefits||[]).map(b=>b.amount_max||0));
+    html+=`<b>${p.name}</b>`;
+    if(maxA>0) html+=` · <span style="color:var(--cyan)">${maxA>=10000?Math.round(maxA/10000)+'万':maxA+'元'}</span>`;
+    html+=`<br><span style="color:var(--dim);font-size:.9em">${p.summary}</span><br>`;
+    if(p.links?.official) html+=`<a href="${p.links.official}" target="_blank" style="font-size:.85em">查看原文</a><br>`;
+    html+='<br>';
+  });
+
+  if(!relevant.length) html='抱歉，没有找到相关政策。试试换个关键词？例如"广州补贴"、"深圳免租"、"算力券"。';
+
+  return html;
+}
+
+function escHtml(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
 
 // ===== CITIES =====
-function renderCities() {
-  const grid = document.getElementById('cityGrid');
-  grid.innerHTML = '';
-  CITIES.forEach(c => {
-    const card = document.createElement('div');
-    card.className = 'city-card';
-    card.style.borderColor = c.status === 'hot' ? c.color + '40' : 'var(--border)';
-    const tagClass = c.status === 'hot' ? 'city-hot' : 'city-coming';
-    const tagText = c.status === 'hot' ? 'HOT' : c.policy_count > 0 ? 'NEW' : 'SOON';
-    card.innerHTML = `
-      <span class="city-tag ${tagClass}">${tagText}</span>
+function renderCities(){
+  const grid=document.getElementById('cityGrid');
+  grid.innerHTML='';
+  CITIES.forEach(c=>{
+    const card=document.createElement('div');
+    card.className='city-card';
+    card.style.borderColor=c.status==='hot'?c.color+'40':'var(--border)';
+    card.innerHTML=`
+      <span class="city-tag ${c.status==='hot'?'city-hot':'city-coming'}">${c.status==='hot'?'HOT':c.policy_count>0?'NEW':'SOON'}</span>
       <div class="city-name" style="color:${c.color}">${c.name}</div>
-      <div class="city-count">${c.policy_count > 0 ? c.policy_count + ' 条政策' : '即将上线'}</div>
-      <div style="font-size:.7em;color:var(--dim);margin-top:4px;line-height:1.3">${c.highlight || ''}</div>
-    `;
-    card.onclick = () => {
-      if (c.link) {
-        window.location.href = c.link;
-      } else {
-        // Pre-fill city in form and scroll to it
-        document.getElementById('fProvince').value = c.province;
-        document.getElementById('fProvince').dispatchEvent(new Event('change'));
-        setTimeout(() => {
-          document.getElementById('fCity').value = c.name;
-          document.getElementById('fCity').dispatchEvent(new Event('change'));
-          document.getElementById('panelForm').scrollIntoView({behavior:'smooth'});
-        }, 100);
-      }
+      <div class="city-count">${c.policy_count} 条政策</div>
+      <div class="city-hl">${c.highlight||''}</div>`;
+    card.onclick=()=>{
+      if(c.link){window.location.href=c.link;return;}
+      // Switch to match mode and fill
+      switchModeDirectly('match');
+      document.getElementById('fProvince').value=c.province;
+      document.getElementById('fProvince').dispatchEvent(new Event('change'));
+      setTimeout(()=>{
+        document.getElementById('fCity').value=c.name;
+        document.getElementById('fCity').dispatchEvent(new Event('change'));
+        document.getElementById('panelForm').scrollIntoView({behavior:'smooth'});
+      },80);
     };
     grid.appendChild(card);
   });
 }
 
-// ===== Scroll animation =====
-const obs = new IntersectionObserver(es => { es.forEach(e => { if(e.isIntersecting) e.target.classList.add('vis'); }); }, {threshold:0.1});
-document.querySelectorAll('.anim').forEach(el => obs.observe(el));
+function switchModeDirectly(mode){
+  document.querySelectorAll('.mode-tab').forEach(t=>{
+    t.classList.toggle('active',t.textContent.includes(mode==='match'?'匹配':mode==='browse'?'浏览':'顾问'));
+  });
+  document.getElementById('modeMatch').style.display=mode==='match'?'':'none';
+  document.getElementById('modeBrowse').style.display=mode==='browse'?'':'none';
+  document.getElementById('modeAdvisor').style.display=mode==='advisor'?'':'none';
+}
 
-// ===== Load saved profile =====
-try {
-  const saved = localStorage.getItem('opc_profile');
-  if (saved) {
-    const p = JSON.parse(saved);
-    if (p.province) document.getElementById('fProvince').value = p.province;
-  }
-} catch(e) {}
+// ===== UI =====
+window.addEventListener('scroll',()=>{
+  document.getElementById('backTop').classList.toggle('show',window.scrollY>400);
+});
+const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('vis')})},{threshold:.1});
+document.querySelectorAll('.anim').forEach(el=>obs.observe(el));
+
+// Load saved profile
+try{const s=localStorage.getItem('opc_profile');if(s){const p=JSON.parse(s);if(p.province)document.getElementById('fProvince').value=p.province;}}catch(e){}
 </script>
-
 </body>
 </html>
