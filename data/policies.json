@@ -532,6 +532,127 @@
       "links":{"official":"https://www.cq.gov.cn/ywdt/jrcq/202603/t20260316_15530085_wap.html"},
       "communities":[{"name":"仙桃数据谷OPC社区","address":"两江新区仙桃数据谷","features":["2个OPC社区","30+团队入驻","1万㎡创客空间"]}],
       "tags":["重庆","两江新区","仙桃数据谷","未来星"],"updated_at":"2026-04-10","verified":true
+    },
+    {
+      "id": "suzhou-city-001",
+      "name": "苏州市进一步加快建设'人工智能+'城市的若干措施（2026年版）",
+      "city": "苏州", "province": "江苏", "district": "", "level": "city",
+      "issuer": "苏州市人民政府", "publish_date": "2026-01-31", "effective_date": "2026-01-31", "expire_date": "2027-01-30",
+      "status": "active", "category": "comprehensive",
+      "summary": "全市级AI+OPC政策，算力券20万/语料券10万/场景项目最高200万/国家级示范最高1000万/人才补贴",
+      "benefits": [
+        {"item":"算力券","amount":"最高20万/主体","amount_max":200000,"type":"voucher"},
+        {"item":"语料券","amount":"最高10万/主体","amount_max":100000,"type":"voucher"},
+        {"item":"AI应用场景项目(30%)","amount":"最高200万","amount_max":2000000,"type":"cash"},
+        {"item":"国家级AI场景示范","amount":"最高1000万","amount_max":10000000,"type":"cash"},
+        {"item":"博士生活补贴","amount":"10万","amount_max":100000,"type":"cash"},
+        {"item":"硕士生活补贴","amount":"3万","amount_max":30000,"type":"cash"},
+        {"item":"本科生活补贴","amount":"1万","amount_max":10000,"type":"cash"}
+      ],
+      "requirements":{"registration_location":"苏州市","industries":["人工智能"]},
+      "links":{"official":"https://www.suzhou.gov.cn/szsrmzf/szfgfxwjk/202512/859f7ff48e8d45fdb9f38ad5977294ac.shtml",
+        "news":["https://www.suzhou.gov.cn/szsrmzf/szyw/202511/a15dda460f15439cb4b8c710835315cf.shtml"]},
+      "communities":[],"tags":["苏州","算力券","语料券","场景示范","人才补贴","OPC首选城市"],"updated_at":"2026-04-10","verified":true
+    },
+    {
+      "id": "suzhou-sipd-001",
+      "name": "苏州工业园区打造全球领先AI OPC创业首选区（10条）",
+      "city": "苏州", "province": "江苏", "district": "工业园区", "level": "district",
+      "issuer": "苏州工业园区管委会", "publish_date": "2025-11-30", "status": "active", "category": "comprehensive",
+      "summary": "10亿青创基金+10个标杆社区100万㎡+7天工商登记+3个月匹配激励+概念验证中心",
+      "benefits": [
+        {"item":"青创基金群","amount":"10亿元(启动资金+房租+生活补助)","amount_max":100000000,"type":"loan"},
+        {"item":"OPC标杆社区","amount":"10个以上，总面积超100万㎡，拎包入驻","amount_max":0,"type":"rent_free"},
+        {"item":"工商登记","amount":"7天完成","amount_max":0,"type":"service"},
+        {"item":"激励政策","amount":"3个月内匹配","amount_max":0,"type":"service"},
+        {"item":"OPC特训营","amount":"专项培训","amount_max":0,"type":"service"},
+        {"item":"概念验证中心","amount":"技术评估+产品中试","amount_max":0,"type":"service"}
+      ],
+      "requirements":{"registration_location":"苏州工业园区","industries":["人工智能","OPC"]},
+      "links":{"official":"https://news.2500sz.com/doc/2025/11/30/1183737.shtml"},
+      "communities":[{"name":"独墅湖青创港OPC青年社区","address":"苏州工业园区独墅湖","features":["三年免租","人才公寓低价租","共享算力","拎包入驻"]}],
+      "tags":["工业园区","10亿基金","百万平社区","独墅湖","特训营"],"updated_at":"2026-04-10","verified":true
+    },
+    {
+      "id": "suzhou-wujiang-001",
+      "name": "吴江区超级个体OPC扶持政策（力度最大）",
+      "city": "苏州", "province": "江苏", "district": "吴江", "level": "district",
+      "issuer": "吴江区政府", "status": "active", "category": "comprehensive",
+      "summary": "20+社区120万㎡最长3年免租+算力补贴20%年最高200万+20亿直投基金+100亿信贷+全国首创OPC数据保险",
+      "benefits": [
+        {"item":"办公空间(3年免租)","amount":"20+社区，120万㎡，零租工位","amount_max":0,"type":"rent_free"},
+        {"item":"免费住宿","amount":"头14天免费","amount_max":0,"type":"other"},
+        {"item":"租房补贴","amount":"每月最高1500元","amount_max":18000,"type":"cash"},
+        {"item":"公共算力补贴(20%)","amount":"每年最高200万","amount_max":2000000,"type":"cash"},
+        {"item":"数据服务费优惠","amount":"50%优惠","amount_max":0,"type":"voucher"},
+        {"item":"AI Agent项目奖励(30%)","amount":"最高50万","amount_max":500000,"type":"cash"},
+        {"item":"AI直投基金","amount":"20亿元","amount_max":200000000,"type":"loan"},
+        {"item":"吴优贷信贷","amount":"100亿元","amount_max":1000000000,"type":"loan"},
+        {"item":"AI产业发展基金","amount":"10亿元","amount_max":100000000,"type":"loan"},
+        {"item":"OPC数据保险","amount":"全国首创","amount_max":0,"type":"other"}
+      ],
+      "requirements":{"registration_location":"吴江区","industries":["人工智能"]},
+      "links":{"news":["https://c.m.163.com/news/a/KPK462C605199NHJ.html"]},
+      "communities":[{"name":"青禾创客OPC创业社区","address":"吴江区","features":["3年免租","零租工位","一个工位一人公司一小时开业"]}],
+      "tags":["吴江","3年免租","算力补贴200万","20亿直投","100亿信贷","数据保险","力度最大"],"updated_at":"2026-04-10","verified":true
+    },
+    {
+      "id": "suzhou-kunshan-001",
+      "name": "昆山市打造人工智能OPC创业首选地若干措施",
+      "city": "苏州", "province": "江苏", "district": "昆山", "level": "district",
+      "issuer": "昆山市政府", "status": "active", "category": "registration",
+      "summary": "最快0.5天拿照+OPC专窗一站式办理+淀山湖AI社区",
+      "benefits": [
+        {"item":"极速注册","amount":"最快0.5个工作日","amount_max":0,"type":"service"},
+        {"item":"OPC专窗","amount":"政务服务中心一站式","amount_max":0,"type":"service"},
+        {"item":"全生命周期服务","amount":"起步期到综合赋能期","amount_max":0,"type":"service"}
+      ],
+      "requirements":{"registration_location":"昆山市"},
+      "links":{"official":"https://www.ks.gov.cn/kss/ttxw/202603/3a4d5a17367c4ed99ce51989eef5b073.shtml"},
+      "communities":[{"name":"淀山湖AI OPC社区（魔滴空间）","address":"昆山淀山湖","features":["OPC创业首选地","一站式办理"]}],
+      "tags":["昆山","极速注册","OPC专窗","魔滴空间"],"updated_at":"2026-04-10","verified":true
+    },
+    {
+      "id": "suzhou-communities-001",
+      "name": "苏州首批十大OPC青年社区",
+      "city": "苏州", "province": "江苏", "district": "", "level": "city",
+      "issuer": "苏州市政府", "publish_date": "2026-04-08", "status": "active", "category": "space",
+      "summary": "覆盖全市10个板块的首批OPC青年社区，含免费工位、算力1.5折、共享算力等",
+      "benefits": [
+        {"item":"免费工位(高新区)","amount":"免费+算力1.5折","amount_max":0,"type":"rent_free"},
+        {"item":"三年免租(工业园区)","amount":"独墅湖青创港","amount_max":0,"type":"rent_free"},
+        {"item":"各区特色空间","amount":"10个社区覆盖全市","amount_max":0,"type":"space"}
+      ],
+      "requirements":{"registration_location":"苏州市","industries":["人工智能","OPC"]},
+      "links":{"news":["https://news.2500sz.com/doc/2026/04/08/1204654.shtml"]},
+      "communities":[
+        {"name":"东渡人才港","address":"张家港"},
+        {"name":"常春藤人才港(AIGC)OPC社区","address":"常熟"},
+        {"name":"淀山湖AI OPC社区(魔滴空间)","address":"昆山"},
+        {"name":"智汇谷科技创新园","address":"太仓"},
+        {"name":"青禾创客OPC创业社区","address":"吴江"},
+        {"name":"太湖科创中心OPC青年社区","address":"吴中"},
+        {"name":"大数据开发者创新中心OPC生态基地","address":"相城"},
+        {"name":"校园里青年社区","address":"姑苏"},
+        {"name":"中国移动云数和创AI Agent OPC社区","address":"高新区","features":["3000㎡","免费工位","算力1.5折"]},
+        {"name":"独墅湖青创港OPC青年社区","address":"工业园区","features":["三年免租","人才公寓","共享算力"]}
+      ],
+      "tags":["十大社区","全市覆盖","青年","免费工位","算力折扣"],"updated_at":"2026-04-10","verified":true
+    },
+    {
+      "id": "suzhou-competition-001",
+      "name": "2026国际人工智能OPC创业大赛",
+      "city": "苏州", "province": "江苏", "district": "", "level": "city",
+      "issuer": "苏州市政府", "status": "active", "category": "competition",
+      "summary": "四大赛道（技术/文旅/健康/安全），最高奖金30万+配套资金+场地+资源落地",
+      "benefits": [
+        {"item":"最高奖金","amount":"30万元","amount_max":300000,"type":"cash"},
+        {"item":"配套资金","amount":"落地保障","amount_max":0,"type":"cash"},
+        {"item":"场地+资源","amount":"获奖项目配套","amount_max":0,"type":"service"}
+      ],
+      "requirements":{"registration_location":"不限","other":["参赛获奖"]},
+      "links":{},
+      "communities":[],"tags":["国际大赛","四赛道","奖金30万","落地保障"],"updated_at":"2026-04-10","verified":true
     }
   ]
 }
