@@ -348,7 +348,45 @@ footer{text-align:center;padding:30px 20px;color:var(--dim);font-size:.78em;bord
 
     <!-- Step 3: Results -->
     <div class="panel hidden" id="panelResults">
-      <h2>匹配结果</h2>
+      <!-- 顶部快速修改条件 -->
+      <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:12px">
+        <h2 style="margin:0">匹配结果</h2>
+        <button class="btn btn-outline" onclick="toggleInlineEdit()" style="font-size:.82em;padding:6px 16px">修改条件</button>
+      </div>
+
+      <!-- 内嵌快速修改区（默认隐藏） -->
+      <div id="inlineEdit" style="display:none;background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:16px;margin-bottom:16px">
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:12px">
+          <div>
+            <label style="font-size:.78em;color:var(--al)">城市</label>
+            <select id="qCity" style="width:100%;padding:8px;background:var(--card);border:1px solid var(--border);border-radius:6px;color:var(--text);font-size:.85em"></select>
+          </div>
+          <div>
+            <label style="font-size:.78em;color:var(--al)">区</label>
+            <select id="qDistrict" style="width:100%;padding:8px;background:var(--card);border:1px solid var(--border);border-radius:6px;color:var(--text);font-size:.85em"><option value="">不限</option></select>
+          </div>
+          <div>
+            <label style="font-size:.78em;color:var(--al)">社保人数</label>
+            <input type="number" id="qEmployees" style="width:100%;padding:8px;background:var(--card);border:1px solid var(--border);border-radius:6px;color:var(--text);font-size:.85em" min="0">
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:12px">
+          <div>
+            <label style="font-size:.78em;color:var(--al)">成立几年</label>
+            <input type="number" id="qAge" style="width:100%;padding:8px;background:var(--card);border:1px solid var(--border);border-radius:6px;color:var(--text);font-size:.85em" min="0" step="0.5">
+          </div>
+          <div>
+            <label style="font-size:.78em;color:var(--al)">法人身份</label>
+            <select id="qFounder" style="width:100%;padding:8px;background:var(--card);border:1px solid var(--border);border-radius:6px;color:var(--text);font-size:.85em">
+              <option value="">不限</option><option>高校毕业5年内</option><option>留学回国</option><option>退役军人</option><option>登记失业人员</option><option>港澳青年</option><option>以上都不是</option>
+            </select>
+          </div>
+          <div style="display:flex;align-items:flex-end">
+            <button class="btn btn-primary" onclick="quickRematch()" style="width:100%;padding:8px;font-size:.85em">重新匹配</button>
+          </div>
+        </div>
+      </div>
+
       <p class="desc" id="resultDesc"></p>
       <div class="summary-stats" id="summaryStats"></div>
       <div style="display:flex;gap:6px;margin:16px 0;flex-wrap:wrap" id="resultTabs">
@@ -359,7 +397,7 @@ footer{text-align:center;padding:30px 20px;color:var(--dim);font-size:.78em;bord
       </div>
       <div id="resultsList"></div>
       <div class="btn-group">
-        <button class="btn btn-outline" onclick="goBack()">← 修改条件</button>
+        <button class="btn btn-outline" onclick="goBack()">← 返回完整表单</button>
         <button class="btn btn-outline" onclick="exportResults('txt')">导出 TXT</button>
         <button class="btn btn-outline" onclick="exportResults('csv')">导出 CSV</button>
       </div>
@@ -805,6 +843,61 @@ function goBack(){
   setStep(1);
   document.getElementById('panelResults').classList.add('hidden');
   document.getElementById('panelForm').classList.remove('hidden');
+}
+
+// ===== INLINE EDIT =====
+function toggleInlineEdit(){
+  const el = document.getElementById('inlineEdit');
+  const isHidden = el.style.display === 'none';
+  el.style.display = isHidden ? 'block' : 'none';
+  if(isHidden) populateQuickEdit();
+}
+
+function populateQuickEdit(){
+  // Fill city dropdown from CITIES data
+  const cs = document.getElementById('qCity');
+  if(cs.options.length <= 1){
+    cs.innerHTML = '<option value="">选择城市</option>';
+    const citySet = new Set(POLICIES.map(p=>p.city));
+    citySet.forEach(c => cs.innerHTML += `<option value="${c}">${c}</option>`);
+  }
+  // Load current profile values
+  try {
+    const saved = JSON.parse(localStorage.getItem('opc_profile')||'{}');
+    if(saved.city) cs.value = saved.city;
+    document.getElementById('qEmployees').value = saved.employees || '';
+    document.getElementById('qAge').value = saved.companyAge || saved.age || '';
+    const f = Array.isArray(saved.founder) ? saved.founder[0] : saved.founder;
+    if(f) document.getElementById('qFounder').value = f;
+  } catch(e){}
+}
+
+function quickRematch(){
+  const city = document.getElementById('qCity').value;
+  if(!city){ alert('请选择城市'); return; }
+  // Find province for this city
+  let province = '';
+  for(const [prov, data] of Object.entries(CITY_MAP)){
+    if(data.cities.includes(city)){ province = prov; break; }
+  }
+  if(!province) province = city; // 直辖市
+
+  const profile = {
+    province,
+    city,
+    district: document.getElementById('qDistrict').value,
+    employees: parseInt(document.getElementById('qEmployees').value)||0,
+    companyAge: parseFloat(document.getElementById('qAge').value)||0,
+    companyType: [],
+    industries: [],
+    qualifications: [],
+    founder: [document.getElementById('qFounder').value].filter(Boolean)
+  };
+  localStorage.setItem('opc_profile', JSON.stringify(profile));
+  const results = matchPolicies(profile);
+  showResults(results, profile);
+  document.getElementById('inlineEdit').style.display = 'none';
+  document.getElementById('panelResults').scrollIntoView({behavior:'smooth',block:'start'});
 }
 
 // ===== EXPORT =====
