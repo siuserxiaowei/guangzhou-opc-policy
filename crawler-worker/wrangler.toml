@@ -1,0 +1,10 @@
+name = "opc-crawler"
+main = "index.js"
+compatibility_date = "2024-12-01"
+
+[triggers]
+crons = ["0 */12 * * *"]
+
+[[kv_namespaces]]
+binding = "OPC_DATA"
+id = "07d90d6a87e14b19bd4c30f2f64f0235"
