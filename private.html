@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>私密面板</title>
+<meta name="robots" content="noindex,nofollow">
+<style>
+:root{--bg:#0a0a0f;--card:#12121a;--card2:#1a1a28;--border:#2a2a3a;--text:#e0e0e8;--dim:#8888a0;
+  --accent:#6c5ce7;--al:#a29bfe;--green:#00e676;--gd:#1b5e20;--yellow:#ffd600;--cyan:#00e5ff;--red:#ff5252;--orange:#ff9100}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,'PingFang SC',sans-serif;background:var(--bg);color:var(--text);line-height:1.7}
+a{color:var(--al);text-decoration:none}
+
+/* Lock screen */
+#lockScreen{position:fixed;top:0;left:0;width:100%;height:100%;background:var(--bg);z-index:9999;display:flex;align-items:center;justify-content:center}
+#lockScreen .lock-box{text-align:center;max-width:360px;padding:40px}
+#lockScreen h2{font-size:1.4em;margin-bottom:8px}
+#lockScreen p{color:var(--dim);font-size:.88em;margin-bottom:20px}
+#lockScreen input{width:100%;padding:12px 16px;background:var(--card);border:1px solid var(--border);border-radius:10px;color:var(--text);font-size:1em;text-align:center;outline:none;letter-spacing:4px}
+#lockScreen input:focus{border-color:var(--accent)}
+#lockScreen .err{color:var(--red);font-size:.82em;margin-top:8px;display:none}
+
+/* Main content */
+#mainContent{display:none}
+.topnav{display:flex;align-items:center;gap:8px;padding:10px 20px;background:rgba(10,10,15,.9);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;backdrop-filter:blur(12px)}
+.topnav .logo{font-weight:800;font-size:1em;color:var(--al)}
+.topnav a{padding:6px 14px;border-radius:6px;font-size:.82em;color:var(--dim);transition:all .2s}
+.topnav a:hover,.topnav a.active{color:var(--al);background:rgba(108,92,231,.1)}
+.topnav .spacer{flex:1}
+.topnav .private-tag{padding:3px 10px;border-radius:4px;background:rgba(255,82,82,.12);color:var(--red);font-size:.72em;font-weight:600}
+
+.container{max-width:1000px;margin:0 auto;padding:30px 20px}
+.hero{padding:40px 20px 20px;text-align:center;background:linear-gradient(135deg,#0a0a1a 0%,#200a1a 50%,#0a0a1a 100%)}
+.hero h1{font-size:1.8em;font-weight:800;color:var(--text)}
+.hero .sub{color:var(--dim);font-size:.9em;margin:4px 0}
+
+.panel{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:24px;margin-bottom:20px}
+.panel h2{font-size:1.2em;margin-bottom:10px}
+.panel h3{font-size:1em;margin:14px 0 6px;color:var(--al)}
+.panel p,.panel li{font-size:.88em;margin-bottom:5px}
+.panel ul{list-style:none;padding:0}
+.panel ul li{padding:4px 0;border-bottom:1px solid rgba(255,255,255,.02)}
+.panel ul li::before{content:'>';color:var(--accent);margin-right:8px;font-weight:700}
+
+.strategy{padding:16px;background:var(--bg);border:1px solid var(--border);border-radius:10px;margin:10px 0}
+.strategy .title{font-weight:600;margin-bottom:4px}
+.strategy .save{color:var(--green);font-weight:700;font-size:.95em}
+.strategy .risk{color:var(--yellow);font-size:.82em;margin-top:6px}
+.strategy .steps{margin-top:8px;padding-left:16px;font-size:.85em;color:var(--dim)}
+.strategy .steps li{padding:2px 0}
+.strategy .steps li::before{content:none}
+.strategy .steps{list-style:decimal}
+
+.amount{color:var(--cyan);font-weight:700}
+.warn{color:var(--yellow)}
+.good{color:var(--green)}
+
+table{width:100%;border-collapse:collapse;font-size:.85em;margin:10px 0}
+th{padding:8px 12px;text-align:left;color:var(--al);border-bottom:1px solid var(--border);background:rgba(108,92,231,.05)}
+td{padding:8px 12px;border-bottom:1px solid rgba(255,255,255,.02)}
+</style>
+</head>
+<body>
+
+<!-- 密码锁 -->
+<div id="lockScreen">
+  <div class="lock-box">
+    <h2>私密面板</h2>
+    <p>仅限管理员访问</p>
+    <input type="password" id="pwdInput" placeholder="输入密码" onkeydown="if(event.key==='Enter')checkPwd()">
+    <div class="err" id="pwdErr">密码错误</div>
+  </div>
+</div>
+
+<!-- 主内容 -->
+<div id="mainContent">
+
+<nav class="topnav">
+  <span class="logo">OPC</span>
+  <a href="index.html">首页</a>
+  <a href="guangzhou.html">广州专版</a>
+  <a href="private.html" class="active">私密面板</a>
+  <span class="spacer"></span>
+  <span class="private-tag">仅自己可见</span>
+</nav>
+
+<div class="hero">
+  <h1>财税优化 · 私密面板</h1>
+  <p class="sub">针对你的公司情况的实操级策略 · 仅自己可见</p>
+</div>
+
+<div class="container">
+
+  <!-- 公司现状 -->
+  <div class="panel">
+    <h2>你的公司现状</h2>
+    <table>
+      <tr><td style="width:120px;color:var(--al)">注册地</td><td>广州越秀区</td></tr>
+      <tr><td style="color:var(--al)">类型</td><td>小微企业（一人有限公司）</td></tr>
+      <tr><td style="color:var(--al)">人数</td><td>5人交社保</td></tr>
+      <tr><td style="color:var(--al)">业务</td><td>AI语音对话机器人方案设计 & 代工</td></tr>
+      <tr><td style="color:var(--al)">资质</td><td>有营收、有合同、无模型备案、无算法备案</td></tr>
+      <tr><td style="color:var(--al)">当前企税</td><td>小微5%（年利润≤300万）或 25%（超出部分）</td></tr>
+    </table>
+  </div>
+
+  <!-- 策略1: 自贸区子公司 -->
+  <div class="panel">
+    <h2>策略一：南沙/前海设子公司，企税降到15%</h2>
+
+    <div class="strategy">
+      <div class="title">方案：在南沙设立子公司，承接对外业务</div>
+      <div class="save">潜在节省：企税从25%→15%，年利润100万可省 <span class="amount">10万</span></div>
+
+      <h3>操作路径</h3>
+      <ol class="steps">
+        <li>在南沙注册一家子公司（一人有限公司），最快0.5天拿照</li>
+        <li>子公司主营业务定为"AI技术服务/软件开发"（属于鼓励类产业）</li>
+        <li>越秀母公司签研发/方案设计合同给南沙子公司执行</li>
+        <li>对外客户的合同由南沙子公司签署和开票</li>
+        <li>利润留在南沙子公司，享受15%企税</li>
+        <li>南沙子公司还可叠加小微5%优惠（年利润≤300万部分）</li>
+      </ol>
+
+      <p class="risk">风险提示：必须有实质性运营（实际办公、员工、业务往来），不能是空壳。南沙有OPC专窗可以帮你搞定注册。税务局会看关联交易定价是否合理。</p>
+    </div>
+
+    <div class="strategy">
+      <div class="title">方案B：前海（深圳）子公司</div>
+      <div class="save">同样15%企税，适合有深圳客户的情况</div>
+      <ol class="steps">
+        <li>前海15%企税已扩至全域，AI/信息服务直接适用</li>
+        <li>主营收入占比≥60%即可，不需要额外申请</li>
+        <li>报税时自行申报15%税率</li>
+        <li>如果有港澳客户，前海还有跨境便利</li>
+      </ol>
+      <p class="risk">注意：前海注册成本比南沙高，但深圳客户资源更丰富。</p>
+    </div>
+  </div>
+
+  <!-- 策略2: 研发加计扣除 -->
+  <div class="panel">
+    <h2>策略二：研发费用加计扣除</h2>
+
+    <div class="strategy">
+      <div class="title">你的AI语音机器人研发投入可以享受120%加计扣除</div>
+      <div class="save">假设年研发投入50万，额外扣除 <span class="amount">60万</span>（50万×120%），直接减少应纳税所得额</div>
+
+      <h3>哪些费用算研发</h3>
+      <ul>
+        <li>程序员工资（包括你自己如果参与开发）</li>
+        <li>服务器/算力/云服务费用</li>
+        <li>AI模型训练的Token消耗</li>
+        <li>软件工具采购（IDE、API调用等）</li>
+        <li>硬件样机材料费（ESP32、麦克风阵列等）</li>
+        <li>测试设备折旧</li>
+        <li>外包的技术开发费（有合同和发票）</li>
+      </ul>
+
+      <h3>申报流程</h3>
+      <ol class="steps">
+        <li>建立研发项目台账（项目名称、起止时间、人员、费用）</li>
+        <li>研发费用单独核算（最好有独立的研发费用科目）</li>
+        <li>年度汇算清缴时填报《研发费用加计扣除优惠明细表》</li>
+        <li>留存备查资料：立项文件、研发人员名单、费用明细、成果说明</li>
+        <li>不需要事先审批，自行申报享受</li>
+      </ol>
+
+      <p class="risk">关键：必须是"新技术/新产品/新工艺"的研发，日常维护不算。AI语音机器人的算法优化、新功能开发都算。</p>
+    </div>
+  </div>
+
+  <!-- 策略3: 软件企业增值税即征即退 -->
+  <div class="panel">
+    <h2>策略三：软件产品增值税即征即退</h2>
+
+    <div class="strategy">
+      <div class="title">软件产品实际税负超过3%的部分即征即退</div>
+      <div class="save">一般纳税人13%增值税，实际只交 <span class="amount">3%</span>，退回 <span class="amount">10%</span></div>
+
+      <h3>条件</h3>
+      <ul>
+        <li>取得软件产品登记证书（软著即可）</li>
+        <li>必须是一般纳税人（年收入超500万或主动申请转为一般纳税人）</li>
+        <li>销售自主开发的软件产品</li>
+        <li>你的AI语音对话机器人如果作为软件产品销售，完全适用</li>
+      </ul>
+
+      <h3>操作</h3>
+      <ol class="steps">
+        <li>先申请软件著作权登记（已有最好）</li>
+        <li>做软件产品检测（第三方检测机构）</li>
+        <li>到税务局备案软件产品</li>
+        <li>每月开具软件产品发票后，申请增值税即征即退</li>
+      </ol>
+
+      <p class="risk">注意：嵌入式软件也适用（硬件+软件一体的产品），但需要分别核算硬件和软件的价格。</p>
+    </div>
+  </div>
+
+  <!-- 策略4: 高企认定 -->
+  <div class="panel">
+    <h2>策略四：高新技术企业认定</h2>
+
+    <div class="strategy">
+      <div class="title">认定后企税从25%降到15%，叠加各区奖励</div>
+      <div class="save">企税减免 + 越秀区奖励（预计10-20万）+ 研发补助</div>
+
+      <h3>认定条件</h3>
+      <ul>
+        <li>成立满1年以上</li>
+        <li>拥有核心知识产权（软著即可，建议申请3-5个）</li>
+        <li>主要产品属于国家重点支持的高新技术领域（AI/电子信息/智能制造都算）</li>
+        <li>科技人员占比≥10%（5人里至少1人是技术人员，你自己算）</li>
+        <li>近三年研发费用占比：收入<5000万的，研发占比≥5%</li>
+        <li>高新收入占比≥60%</li>
+      </ul>
+
+      <h3>各区奖励叠加</h3>
+      <table>
+        <tr><td>越秀区</td><td>首次认定预计 <span class="amount">10-20万</span></td></tr>
+        <tr><td>黄埔区</td><td>研发费补贴最高 <span class="amount">1200万</span></td></tr>
+        <tr><td>南沙区</td><td>市外落户 <span class="amount">50万</span></td></tr>
+        <tr><td>天河区</td><td>租金补贴最高 <span class="amount">1000万/年</span></td></tr>
+        <tr><td>增城区</td><td>首次认定 <span class="amount">20万</span> + 纳入四上额外 <span class="amount">50万</span></td></tr>
+      </table>
+
+      <p class="risk">建议：现在就开始准备，先把软著数量攒到3-5个，研发台账建起来，明年申报。</p>
+    </div>
+  </div>
+
+  <!-- 策略5: 资金效率 -->
+  <div class="panel">
+    <h2>策略五：资金效率优化</h2>
+
+    <div class="strategy">
+      <div class="title">业务拆分 + 多主体架构</div>
+
+      <h3>推荐架构</h3>
+      <table>
+        <tr><th>主体</th><th>注册地</th><th>功能</th><th>税率</th></tr>
+        <tr><td>越秀母公司</td><td>越秀</td><td>品牌持有、研发中心</td><td>小微5% / 高企15%</td></tr>
+        <tr><td>南沙子公司</td><td>南沙</td><td>对外签约、开票、收款</td><td>15%鼓励类</td></tr>
+        <tr><td>个体户（可选）</td><td>灵活</td><td>咨询服务、个人IP变现</td><td>核定~5%</td></tr>
+      </table>
+
+      <h3>资金流转</h3>
+      <ol class="steps">
+        <li>客户合同由南沙子公司签署 → 享受15%企税</li>
+        <li>南沙子公司向越秀母公司支付研发服务费 → 合理转移利润</li>
+        <li>越秀母公司研发费用加计扣除120% → 减少应税所得</li>
+        <li>个人咨询/培训/OPC网站收入走个体户 → 核定征收~5%</li>
+        <li>利润留在公司不分红 → 递延个税20%</li>
+      </ol>
+
+      <p class="risk">关键：关联交易定价要合理（参考市场价），转让定价文档要准备好。金额大了建议找税务师出方案。</p>
+    </div>
+  </div>
+
+  <!-- 立即行动清单 -->
+  <div class="panel" style="border-color:rgba(0,230,118,.3)">
+    <h2 style="color:var(--green)">立即行动清单</h2>
+    <table>
+      <tr><td style="width:40px;text-align:center">1</td><td><strong>本月</strong>：去南沙OPC专窗注册子公司（0.5天拿照）</td><td class="amount">企税省10%</td></tr>
+      <tr><td style="text-align:center">2</td><td><strong>本月</strong>：建立研发费用台账，补齐今年的研发记录</td><td class="amount">年省数万</td></tr>
+      <tr><td style="text-align:center">3</td><td><strong>本月</strong>：申请2-3个软件著作权（AI语音相关）</td><td class="amount">为高企准备</td></tr>
+      <tr><td style="text-align:center">4</td><td><strong>Q2</strong>：越秀大模型赋能中心对接，了解备案辅导</td><td class="amount">免费</td></tr>
+      <tr><td style="text-align:center">5</td><td><strong>Q2</strong>：了解软件产品增值税即征即退条件</td><td class="amount">退10%增值税</td></tr>
+      <tr><td style="text-align:center">6</td><td><strong>明年</strong>：申报高新技术企业认定</td><td class="amount">企税15%+奖励</td></tr>
+    </table>
+  </div>
+
+</div>
+</div>
+
+<script>
+// 密码：opc2026
+const HASH = '6f70633230323621'; // simple obfuscation
+const KEY = 'private_auth';
+
+function checkPwd(){
+  const input = document.getElementById('pwdInput').value;
+  const inputHex = Array.from(input+'!').map(c=>c.charCodeAt(0).toString(16)).join('');
+  if(inputHex === HASH){
+    localStorage.setItem(KEY, 'yes');
+    unlock();
+  } else {
+    document.getElementById('pwdErr').style.display = 'block';
+    document.getElementById('pwdInput').value = '';
+  }
+}
+
+function unlock(){
+  document.getElementById('lockScreen').style.display = 'none';
+  document.getElementById('mainContent').style.display = 'block';
+}
+
+// Auto unlock if already authenticated
+if(localStorage.getItem(KEY) === 'yes') unlock();
+</script>
+</body>
+</html>
