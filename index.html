@@ -214,7 +214,7 @@ footer{text-align:center;padding:30px 20px;color:var(--dim);font-size:.78em;bord
 <div class="hero">
   <h1>全国 OPC 政策导航</h1>
   <p class="sub">填写公司情况，一键匹配可申请的补贴和政策</p>
-  <span class="version">已收录 27 座城市 · 62 条政策 · 80+ OPC社区</span>
+  <span class="version">已收录 31 座城市 · 64 条政策 · 100+ OPC社区</span>
 </div>
 
 <!-- Mode Switch -->
@@ -249,7 +249,7 @@ footer{text-align:center;padding:30px 20px;color:var(--dim);font-size:.78em;bord
             <option value="安徽">安徽</option><option value="江苏">江苏</option><option value="湖南">湖南</option>
             <option value="山东">山东</option><option value="重庆">重庆</option>
             <option value="���西">陕西</option><option value="福建">福建</option><option value="云��">云南</option>
-            <option value="其他">其他省份</option>
+            <option value="天津">天津</option><option value="河北">河北</option><option value="海南">海南</option><option value="其他">其他省份</option>
           </select>
           <select id="fCity"><option value="">选择城市</option></select>
         </div>
@@ -454,7 +454,10 @@ const CITY_MAP = {
   '重庆':{cities:['重庆'],districts:{'重庆':['渝中','江北','南岸','两江新区','渝北']}},
   '陕西':{cities:['西安'],districts:{'西安':['雁塔','高新','碑林','未央','长安']}},
   '福建':{cities:['厦门','福州'],districts:{'厦门':['思明','湖里','集美','海沧'],'福州':['鼓楼','台江','仓山','晋安']}},
-  '云南':{cities:['昆明'],districts:{'昆明':['五华','盘龙','官渡','西山']}}
+  '云南':{cities:['昆明'],districts:{'昆明':['五华','盘龙','官渡','西山']}},
+  '天津':{cities:['天津'],districts:{'天津':['滨海高新','滨海新区','和平','南开','河西']}},
+  '河北':{cities:['石家庄'],districts:{'石家庄':['裕华','长安','桥西','新华']}},
+  '海南':{cities:['海口','三亚'],districts:{'海口':['龙华','美兰','秀英','高新区']}}
 };
 
 document.getElementById('fProvince').addEventListener('change', function(){
