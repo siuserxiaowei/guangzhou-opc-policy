@@ -748,55 +748,67 @@
       "publish_date": "2026-01-15",
       "status": "active",
       "category": "comprehensive",
-      "summary": "训力券最高1000万/企业，模型券200万，语料券200万，场景落地最高500万",
+      "summary": "十条：10家社区≥1万㎡3年减免/普惠算力免费+年最高100万/人才补贴博士10万硕士5万本科3万/政务场景最高500万/最高1000万跟投/贴息3年",
       "benefits": [
         {
-          "item": "训力券(算力)",
-          "amount": "最高1000万，初创60%",
-          "amount_max": 10000000,
-          "type": "voucher"
+          "item": "OPC社区(10家)",
+          "amount": "单家≥1万㎡，最长3年减免",
+          "amount_max": 0,
+          "type": "rent_free"
         },
         {
-          "item": "模型券",
-          "amount": "最高200万",
-          "amount_max": 2000000,
-          "type": "voucher"
-        },
-        {
-          "item": "语料券",
-          "amount": "最高200万",
-          "amount_max": 2000000,
-          "type": "voucher"
-        },
-        {
-          "item": "创业资助(留学/鲲鹏)",
-          "amount": "最高100万",
+          "item": "普惠算力+补贴",
+          "amount": "免费使用+年最高100万",
           "amount_max": 1000000,
+          "type": "voucher"
+        },
+        {
+          "item": "入户补贴",
+          "amount": "博士10万/硕士5万/本科3万",
+          "amount_max": 100000,
           "type": "cash"
         },
         {
-          "item": "应用场景落地",
+          "item": "政务场景资助",
           "amount": "最高500万",
           "amount_max": 5000000,
           "type": "cash"
         },
         {
-          "item": "入户补贴(博/硕/本)",
-          "amount": "最高10万",
-          "amount_max": 100000,
+          "item": "行业示范资助",
+          "amount": "最高200万",
+          "amount_max": 2000000,
           "type": "cash"
         },
         {
-          "item": "安居补贴",
-          "amount": "1250元/月x24个月",
-          "amount_max": 30000,
-          "type": "cash"
+          "item": "股权跟投(50%)",
+          "amount": "单项最高1000万",
+          "amount_max": 10000000,
+          "type": "loan"
         },
         {
-          "item": "过渡性住房",
-          "amount": "市场租金60%x36个月",
+          "item": "贷款贴息(LPR 50%)",
+          "amount": "最长3年",
           "amount_max": 0,
-          "type": "other"
+          "type": "loan"
+        },
+        {
+          "item": "高企奖励",
+          "amount": "最高50万(专精特新最高500万)",
+          "amount_max": 5000000,
+          "type": "cash"
+        },
+        {
+          "item": "全周期一站式",
+          "amount": "工商/税务/海关/外汇",
+          "amount_max": 0,
+          "type": "service"
+        },
+        {
+          "item": "融通生态",
+          "amount": "上下楼即上下游",
+          "amount_max": 0,
+          "type": "service"
         }
       ],
       "requirements": {
@@ -1180,7 +1192,7 @@
       "publish_date": "2026-03-02",
       "status": "active",
       "category": "space",
-      "summary": "免费注册地址+免费共享办公+6000㎡孵化空间+弹性算力+Agent超市",
+      "summary": "9+1条：免费注册地址/6000㎡3年免租/8万P+算力50%补贴/Agent超市/研发加计扣除120%/前3年税减半/种子投资最高300万/200+场景/京津冀通办",
       "benefits": [
         {
           "item": "免费注册地址",
@@ -1189,28 +1201,58 @@
           "type": "service"
         },
         {
-          "item": "免费共享办公空间",
-          "amount": "6000㎡中关村AI北纬社区",
+          "item": "空间免租",
+          "amount": "6000㎡最长3年",
           "amount_max": 0,
           "type": "rent_free"
         },
         {
-          "item": "弹性算力",
-          "amount": "按需使用",
+          "item": "算力补贴(50%)",
+          "amount": "对接8万P+公共算力",
           "amount_max": 0,
           "type": "voucher"
         },
         {
           "item": "Agent超市",
-          "amount": "AI工具生态",
+          "amount": "百种AI工具免费/低价",
           "amount_max": 0,
           "type": "service"
         },
         {
-          "item": "租金减免",
-          "amount": "九条支持措施",
+          "item": "研发费用加计扣除",
+          "amount": "120%",
           "amount_max": 0,
-          "type": "rent_free"
+          "type": "tax_reduction"
+        },
+        {
+          "item": "税收减免",
+          "amount": "前3年房产税/土地税减半",
+          "amount_max": 0,
+          "type": "tax_reduction"
+        },
+        {
+          "item": "风险补贴",
+          "amount": "种子/天使投资最高300万",
+          "amount_max": 3000000,
+          "type": "cash"
+        },
+        {
+          "item": "场景对接",
+          "amount": "200+政务产业场景，揭榜挂帅",
+          "amount_max": 0,
+          "type": "service"
+        },
+        {
+          "item": "人才绿色通道",
+          "amount": "北京绿卡/落户/子女教育",
+          "amount_max": 0,
+          "type": "other"
+        },
+        {
+          "item": "京津冀通办",
+          "amount": "一网通办/异地年报",
+          "amount_max": 0,
+          "type": "service"
         }
       ],
       "requirements": {
@@ -1220,7 +1262,7 @@
         ]
       },
       "links": {
-        "official": "https://kw.beijing.gov.cn/xwdt/kcyx/xwdtshgg/202603/t20260302_4546432.html"
+        "official": "https://zyk.bjhd.gov.cn/zwdt/ygk/202603/t20260319_4808965.shtml"
       },
       "communities": [
         {
@@ -1499,13 +1541,25 @@
       "publish_date": "2026-03-03",
       "status": "active",
       "category": "comprehensive",
-      "summary": "浙江首个区级OPC专项，10亿专项基金+每年1亿资金+人才奖励20万+3年低成本工位",
+      "summary": "十条政策：2万㎡社区3年免租/AI工具池免费/超级个体奖20万/1亿年资金+10亿基金/100个城市场景/OPC百强评选",
       "benefits": [
         {
-          "item": "OPC专项基金",
-          "amount": "10亿元(投早投小投硬科技)",
-          "amount_max": 100000000,
-          "type": "loan"
+          "item": "OPC专属社区",
+          "amount": "2万㎡，最长3年免租",
+          "amount_max": 0,
+          "type": "rent_free"
+        },
+        {
+          "item": "AI工具池+算力包",
+          "amount": "免费，免申即享",
+          "amount_max": 0,
+          "type": "voucher"
+        },
+        {
+          "item": "超级个体人才奖",
+          "amount": "最高20万",
+          "amount_max": 200000,
+          "type": "cash"
         },
         {
           "item": "每年专项资金",
@@ -1514,26 +1568,32 @@
           "type": "cash"
         },
         {
-          "item": "低成本工位",
-          "amount": "最长3年+居住保障",
+          "item": "OPC专项基金",
+          "amount": "10亿元",
+          "amount_max": 100000000,
+          "type": "loan"
+        },
+        {
+          "item": "城市场景开放",
+          "amount": "100个(政务/文旅/消费/治理)",
           "amount_max": 0,
-          "type": "rent_free"
+          "type": "service"
         },
         {
-          "item": "AI工具会员池",
-          "amount": "模型/算力/智能体即开即用",
+          "item": "人才公寓+租房补贴",
+          "amount": "配套",
           "amount_max": 0,
-          "type": "voucher"
+          "type": "other"
         },
         {
-          "item": "超级个体人才奖励",
-          "amount": "最高20万",
-          "amount_max": 200000,
-          "type": "cash"
+          "item": "OPC一码通",
+          "amount": "工商/财税/法务全流程代办",
+          "amount_max": 0,
+          "type": "service"
         },
         {
-          "item": "高层次人才认定",
-          "amount": "优先认定杭州市高层次人才",
+          "item": "OPC百强评选",
+          "amount": "年度评选+推广",
           "amount_max": 0,
           "type": "other"
         }
@@ -1548,7 +1608,8 @@
         "news": [
           "https://36kr.com/p/3707130150809986",
           "https://www.chinanews.com.cn/cj/2026/03-03/10580327.shtml"
-        ]
+        ],
+        "official": "https://www.hzsc.gov.cn/col/col1229250081/art/2026/art_281ef3fb842c49a18c9e2935028321dd.html"
       },
       "communities": [
         {
@@ -2197,41 +2258,65 @@
       "publish_date": "2025-11-30",
       "status": "active",
       "category": "comprehensive",
-      "summary": "10亿青创基金+10个标杆社区100万㎡+7天工商登记+3个月匹配激励+概念验证中心",
+      "summary": "十条：100万㎡3年免租/算力20%补贴年最高200万/数据30%补贴年最高100万/人才最高5000万/10亿基金最高2000万股权/贴息200万/300+场景/15分钟服务圈/一小时开业",
       "benefits": [
         {
-          "item": "青创基金群",
-          "amount": "10亿元(启动资金+房租+生活补助)",
-          "amount_max": 100000000,
-          "type": "loan"
-        },
-        {
-          "item": "OPC标杆社区",
-          "amount": "10个以上，总面积超100万㎡，拎包入驻",
+          "item": "百万㎡社区",
+          "amount": "10个社区100万㎡，3年免租",
           "amount_max": 0,
           "type": "rent_free"
         },
         {
-          "item": "工商登记",
-          "amount": "7天完成",
-          "amount_max": 0,
-          "type": "service"
+          "item": "算力补贴(20%)",
+          "amount": "年最高200万",
+          "amount_max": 2000000,
+          "type": "cash"
         },
         {
-          "item": "激励政策",
-          "amount": "3个月内匹配",
-          "amount_max": 0,
-          "type": "service"
+          "item": "数据补贴(30%)",
+          "amount": "年最高100万",
+          "amount_max": 1000000,
+          "type": "cash"
         },
         {
-          "item": "OPC特训营",
-          "amount": "专项培训",
-          "amount_max": 0,
-          "type": "service"
+          "item": "金鸡湖领军人才",
+          "amount": "OPC专项组，最高5000万",
+          "amount_max": 50000000,
+          "type": "cash"
         },
         {
-          "item": "概念验证中心",
-          "amount": "技术评估+产品中试",
+          "item": "青创基金",
+          "amount": "10亿元，最高2000万股权投资",
+          "amount_max": 20000000,
+          "type": "loan"
+        },
+        {
+          "item": "贷款贴息(LPR 50%)",
+          "amount": "年最高200万，最长3年",
+          "amount_max": 2000000,
+          "type": "loan"
+        },
+        {
+          "item": "场景落地奖励",
+          "amount": "300+场景，最高50万",
+          "amount_max": 500000,
+          "type": "cash"
+        },
+        {
+          "item": "社区运营奖励",
+          "amount": "年最高200万",
+          "amount_max": 2000000,
+          "type": "cash"
+        },
+        {
+          "item": "安居补贴",
+          "amount": "博士1500/硕士1000/本科800元月x3年",
+          "amount_max": 54000,
+          "type": "cash"
+        },
+        {
+          "item": "一小时开业",
+          "amount": "15分钟服务圈",
           "amount_max": 0,
           "type": "service"
         }
@@ -2244,7 +2329,7 @@
         ]
       },
       "links": {
-        "official": "https://news.2500sz.com/doc/2025/11/30/1183737.shtml"
+        "official": "https://ywtk.sipac.gov.cn/gkxqGov-101364"
       },
       "communities": [
         {
@@ -2886,61 +2971,67 @@
       "publish_date": "2026-02-12",
       "status": "active",
       "category": "comprehensive",
-      "summary": "算力券最高100万/模型券100万/语料券150万/创业补贴1.2万+30万贴息贷/博士安家15万/开源奖30万",
+      "summary": "十条：孵化基地3年全免/算力券50-80%年最高50万/创业贷400万全额贴息/高企奖10万/人才补贴1200-800元月/梯度培育体系",
       "benefits": [
         {
-          "item": "算力券(20%)",
-          "amount": "最高100万",
-          "amount_max": 1000000,
+          "item": "空间免租",
+          "amount": "孵化基地3年全免",
+          "amount_max": 0,
+          "type": "rent_free"
+        },
+        {
+          "item": "算力券(50-80%)",
+          "amount": "年最高50万",
+          "amount_max": 500000,
           "type": "voucher"
         },
         {
-          "item": "模型券(揭榜挂帅)",
-          "amount": "每个最高100万",
-          "amount_max": 1000000,
-          "type": "voucher"
+          "item": "创业担保贷",
+          "amount": "最高400万全额贴息",
+          "amount_max": 4000000,
+          "type": "loan"
         },
         {
-          "item": "语料券",
-          "amount": "每个最高150万",
-          "amount_max": 1500000,
-          "type": "voucher"
-        },
-        {
-          "item": "首次创业补贴",
-          "amount": "最高1.2万+30万全额贴息贷款",
-          "amount_max": 312000,
-          "type": "cash"
-        },
-        {
-          "item": "博士安家费",
-          "amount": "15万",
-          "amount_max": 150000,
-          "type": "cash"
-        },
-        {
-          "item": "硕士安家费",
-          "amount": "10万",
+          "item": "创业大赛",
+          "amount": "获奖最高10万落地资金",
           "amount_max": 100000,
           "type": "cash"
         },
         {
-          "item": "住房补贴(博士)",
-          "amount": "1200元/月x36月",
+          "item": "展会补贴",
+          "amount": "展位费50-80%补贴",
+          "amount_max": 0,
+          "type": "cash"
+        },
+        {
+          "item": "高企首次认定",
+          "amount": "最高10万",
+          "amount_max": 100000,
+          "type": "cash"
+        },
+        {
+          "item": "住房补贴",
+          "amount": "博士1200/硕士1000/本科800元月",
           "amount_max": 43200,
           "type": "cash"
         },
         {
-          "item": "软件创新推广",
-          "amount": "每项目最高300万",
-          "amount_max": 3000000,
-          "type": "cash"
+          "item": "梯度培育",
+          "amount": "种子→创新→专精特新→瞪羚→独角兽",
+          "amount_max": 0,
+          "type": "service"
         },
         {
-          "item": "开源项目奖励",
-          "amount": "一次性30万",
-          "amount_max": 300000,
-          "type": "cash"
+          "item": "场景对接",
+          "amount": "年度15场链主企业对接会",
+          "amount_max": 0,
+          "type": "service"
+        },
+        {
+          "item": "OPC政策通",
+          "amount": "福利免申即享",
+          "amount_max": 0,
+          "type": "service"
         }
       ],
       "requirements": {
@@ -2953,7 +3044,7 @@
         "url": "https://sidus-ai.com"
       },
       "links": {
-        "official": "https://qydjfw.qingdao.gov.cn/files/2026/02/20260225144439188.pdf",
+        "official": "http://gxj.qingdao.gov.cn/tzgg/202603/t20260302_10522306.shtml",
         "news": [
           "https://www.smartcity.team/policies/opc/qingdao_opc/"
         ]
@@ -3056,35 +3147,59 @@
       "publish_date": "2026-02-05",
       "status": "active",
       "category": "comprehensive",
-      "summary": "12个社区节点2万㎡免租/3000P算力/100TB数据集/50亿AI基金/科大讯飞百项能力免费",
+      "summary": "十项政策：12社区2万㎡免租/人才补贴2000-5000元月最长5年/购房最高100万/3000P算力+60%券/100TB数据/56个场景/50亿基金",
       "benefits": [
         {
           "item": "免租孵化空间",
-          "amount": "2万余㎡",
+          "amount": "12个社区2万㎡",
           "amount_max": 0,
           "type": "rent_free"
         },
         {
-          "item": "高性能算力",
-          "amount": "3000P定向开放",
+          "item": "人才生活补贴",
+          "amount": "2000-5000元/月，最长5年",
+          "amount_max": 300000,
+          "type": "cash"
+        },
+        {
+          "item": "购房优惠",
+          "amount": "最高100万(博士15万/硕士10万)",
+          "amount_max": 1000000,
+          "type": "cash"
+        },
+        {
+          "item": "免费算力+算力券",
+          "amount": "3000P免费+60%抵扣",
           "amount_max": 0,
           "type": "voucher"
         },
         {
-          "item": "高质量数据集",
-          "amount": "不少于100TB",
+          "item": "公共数据集",
+          "amount": "100TB免费",
+          "amount_max": 0,
+          "type": "service"
+        },
+        {
+          "item": "应用场景",
+          "amount": "56个，揭榜挂帅",
           "amount_max": 0,
           "type": "service"
         },
         {
           "item": "AI产业基金",
-          "amount": "50亿元",
+          "amount": "50亿元，投早投小",
           "amount_max": 500000000,
           "type": "loan"
         },
         {
-          "item": "讯飞AI能力",
-          "amount": "百余项接口免费",
+          "item": "1200家企业订单对接",
+          "amount": "全面开放",
+          "amount_max": 0,
+          "type": "service"
+        },
+        {
+          "item": "一网通办",
+          "amount": "半日办结",
           "amount_max": 0,
           "type": "service"
         }
@@ -3099,7 +3214,8 @@
         "news": [
           "https://sd.dzwww.com/sdnews/202602/t20260228_17487069.htm",
           "https://news.qq.com/rain/a/20260205A04VP800"
-        ]
+        ],
+        "official": "http://www.shandong.gov.cn/art/2026/2/12/art_116200_705089.html"
       },
       "communities": [
         {
