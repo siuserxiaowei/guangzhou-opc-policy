@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>越秀区 OPC 政策监控 - 专属跟踪</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📡</text></svg>">
+<style>
+:root{--bg:#0a0a0f;--card:#12121a;--card2:#1a1a28;--border:#2a2a3a;--text:#e0e0e8;--dim:#8888a0;
+  --accent:#6c5ce7;--al:#a29bfe;--green:#00e676;--gd:#1b5e20;--yellow:#ffd600;--yd:#5d4e00;
+  --red:#ff5252;--rd:#4a1515;--cyan:#00e5ff;--blue:#448aff;--orange:#ff9100}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,'PingFang SC','Microsoft YaHei',sans-serif;background:var(--bg);color:var(--text);line-height:1.7}
+a{color:var(--al);text-decoration:none}a:hover{color:#fff}
+
+.topnav{display:flex;align-items:center;gap:8px;padding:10px 20px;background:rgba(10,10,15,.9);
+  border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;backdrop-filter:blur(12px)}
+.topnav .logo{font-weight:800;font-size:1em;color:var(--al)}
+.topnav a{padding:6px 14px;border-radius:6px;font-size:.82em;color:var(--dim);transition:all .2s}
+.topnav a:hover,.topnav a.active{color:var(--al);background:rgba(108,92,231,.1)}
+.topnav .spacer{flex:1}
+
+.container{max-width:1000px;margin:0 auto;padding:30px 20px}
+.hero{padding:50px 20px 30px;text-align:center;background:linear-gradient(135deg,#0a0a1a 0%,#1a0a2e 50%,#0a1a2e 100%);position:relative;overflow:hidden}
+.hero h1{font-size:2.2em;font-weight:800;background:linear-gradient(135deg,#fff,var(--al));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero .sub{color:var(--dim);font-size:.95em;margin:6px 0 16px}
+.hero .private-badge{display:inline-block;padding:3px 12px;border-radius:12px;background:rgba(255,82,82,.12);border:1px solid rgba(255,82,82,.25);color:var(--red);font-size:.78em}
+
+.panel{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:24px;margin-bottom:20px}
+.panel h2{font-size:1.3em;margin-bottom:4px}.panel h3{font-size:1.1em;margin-bottom:8px;color:var(--al)}
+.panel .desc{color:var(--dim);font-size:.88em;margin-bottom:16px}
+
+.status-card{display:flex;align-items:center;gap:14px;padding:16px;border-radius:10px;margin-bottom:12px;border:1px solid var(--border);background:var(--bg);transition:all .2s}
+.status-card:hover{border-color:var(--accent)}
+.status-dot{width:12px;height:12px;border-radius:50%;flex-shrink:0}
+.dot-green{background:var(--green);box-shadow:0 0 8px rgba(0,230,118,.4)}
+.dot-yellow{background:var(--yellow);box-shadow:0 0 8px rgba(255,214,0,.4)}
+.dot-red{background:var(--red);box-shadow:0 0 8px rgba(255,82,82,.4)}
+.dot-gray{background:#555}
+.status-card .info{flex:1}.status-card .info .title{font-weight:600;font-size:.92em}
+.status-card .info .detail{font-size:.8em;color:var(--dim)}
+
+.resource-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px}
+.resource-item{padding:18px;border-radius:10px;border:1px solid var(--border);background:var(--bg);transition:all .3s}
+.resource-item:hover{border-color:var(--accent);transform:translateY(-2px)}
+.resource-item h4{font-size:.95em;margin-bottom:4px}.resource-item p{font-size:.82em;color:var(--dim)}
+.resource-item .tag{display:inline-block;padding:1px 8px;border-radius:4px;font-size:.7em;font-weight:600;margin-top:6px}
+.tag-available{background:var(--gd);color:var(--green)}
+.tag-upcoming{background:var(--yd);color:var(--yellow)}
+
+.timeline{position:relative;padding-left:24px}
+.timeline::before{content:'';position:absolute;left:8px;top:0;bottom:0;width:2px;background:var(--border)}
+.tl-item{position:relative;margin-bottom:16px;padding:14px 18px;background:var(--bg);border:1px solid var(--border);border-radius:10px}
+.tl-item::before{content:'';position:absolute;left:-20px;top:18px;width:8px;height:8px;border-radius:50%;background:var(--accent)}
+.tl-date{font-size:.78em;color:var(--al);font-weight:600}.tl-text{font-size:.88em;margin-top:2px}
+
+.monitor-log{max-height:300px;overflow-y:auto;font-family:'SF Mono',Monaco,monospace;font-size:.78em;line-height:1.6;padding:14px;background:#000;border-radius:8px;border:1px solid #222}
+.log-time{color:#666}.log-ok{color:var(--green)}.log-warn{color:var(--yellow)}.log-info{color:var(--cyan)}
+
+.btn{padding:10px 24px;border-radius:8px;font-size:.9em;font-weight:600;cursor:pointer;border:none;transition:all .3s;display:inline-flex;align-items:center;gap:6px}
+.btn-primary{background:var(--accent);color:#fff}.btn-primary:hover{background:#7c6ef0}
+.btn-outline{background:transparent;border:1px solid var(--border);color:var(--dim)}.btn-outline:hover{border-color:var(--accent);color:var(--al)}
+.btn-group{display:flex;gap:8px;margin-top:16px;flex-wrap:wrap}
+
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
+.monitoring{animation:pulse 2s infinite}
+
+@media(max-width:768px){.resource-grid{grid-template-columns:1fr}.topnav{overflow-x:auto}}
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <span class="logo">OPC</span>
+  <a href="index.html">首页</a>
+  <a href="guangzhou.html">广州专版</a>
+  <a href="yuexiu.html" class="active">越秀区</a>
+  <a href="dashboard.html">数据看板</a>
+  <span class="spacer"></span>
+</nav>
+
+<div class="hero">
+  <h1>越秀区 OPC 政策监控</h1>
+  <p class="sub">实时跟踪越秀区OPC政策动态 · 每12小时自动扫描</p>
+  <span class="private-badge">专属监控面板</span>
+</div>
+
+<div class="container">
+
+  <!-- 监控状态 -->
+  <div class="panel">
+    <h2>监控状态</h2>
+    <p class="desc">自动扫描越秀区政府网站、广州市政策平台、新闻媒体</p>
+
+    <div class="status-card">
+      <div class="status-dot dot-red"></div>
+      <div class="info">
+        <div class="title">越秀区 OPC 专项政策</div>
+        <div class="detail">状态: 尚未发布 · 预计 2026年Q3-Q4 或 2027年初</div>
+      </div>
+    </div>
+    <div class="status-card">
+      <div class="status-dot dot-green"></div>
+      <div class="info">
+        <div class="title">广东省 OPC 行动方案</div>
+        <div class="detail">已发布 (2026-03-16) · 越秀企业可直接享受算力券等政策</div>
+      </div>
+    </div>
+    <div class="status-card">
+      <div class="status-dot dot-green"></div>
+      <div class="info">
+        <div class="title">广州市创业补贴 (不限区)</div>
+        <div class="detail">有效中 · 下一窗口: 2026-05-01 ~ 05-20</div>
+      </div>
+    </div>
+    <div class="status-card">
+      <div class="status-dot dot-green"></div>
+      <div class="info">
+        <div class="title">海珠区场景征集 (不限注册区)</div>
+        <div class="detail">征集中 · 截止: 2026-04-18 · 越秀企业可申报</div>
+      </div>
+    </div>
+    <div class="status-card">
+      <div class="status-dot dot-yellow monitoring"></div>
+      <div class="info">
+        <div class="title">越秀区政府网站监控</div>
+        <div class="detail" id="lastScanTime">上次扫描: 加载中...</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 越秀区现有可用资源 -->
+  <div class="panel">
+    <h2>越秀区现有可用资源</h2>
+    <p class="desc">虽然没有OPC专项政策，但越秀区有这些AI/创业资源可以利用</p>
+
+    <div class="resource-grid">
+      <div class="resource-item">
+        <h4>黄花岗科技园</h4>
+        <p>省级人工智能产业园区、市级AI特色产业园区</p>
+        <span class="tag tag-available">可对接</span>
+      </div>
+      <div class="resource-item">
+        <h4>国家超算中心越秀分中心</h4>
+        <p>提供算力资源，可用于AI模型训练和推理</p>
+        <span class="tag tag-available">可申请</span>
+      </div>
+      <div class="resource-item">
+        <h4>广州大模型和算法赋能服务中心</h4>
+        <p>免费大模型咨询和备案辅导，对你的AI语音业务有帮助</p>
+        <span class="tag tag-available">免费</span>
+      </div>
+      <div class="resource-item">
+        <h4>"越秀硅巷"创新街区</h4>
+        <p>东山口网信产业创新带、花果山视频文创基地</p>
+        <span class="tag tag-available">可入驻</span>
+      </div>
+      <div class="resource-item">
+        <h4>省级AI中小企业特色产业集群</h4>
+        <p>越秀区AI产业集群已获认定，可享受集群内政策</p>
+        <span class="tag tag-available">已认定</span>
+      </div>
+      <div class="resource-item">
+        <h4>OPC创新工坊 (市级·天河)</h4>
+        <p>珠江新城华利路61号五楼，免费Token+技术指导</p>
+        <span class="tag tag-available">可预约</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 你现在能申请的 -->
+  <div class="panel">
+    <h2>越秀企业现在能申请的</h2>
+    <p class="desc">不限注册区或越秀可用的政策，按优先级排列</p>
+
+    <div class="status-card" style="border-color:rgba(0,230,118,.2)">
+      <div class="status-dot dot-green"></div>
+      <div class="info">
+        <div class="title" style="color:var(--green)">1. 海珠区场景征集（第一批）</div>
+        <div class="detail">不限注册区 · AI语音产品匹配导览/客服/康养场景 · 截止 2026-04-18<br>
+          联系: 肖先生 020-89559809 · bcoal03@163.com</div>
+      </div>
+    </div>
+    <div class="status-card" style="border-color:rgba(255,214,0,.2)">
+      <div class="status-dot dot-yellow"></div>
+      <div class="info">
+        <div class="title" style="color:var(--yellow)">2. 创业带动就业补贴</div>
+        <div class="detail">5人社保基础，预估9000-12000元 · 窗口 2026-05-01 ~ 05-20<br>
+          需确认: 公司成立3年内 + 员工连续6个月社保</div>
+      </div>
+    </div>
+    <div class="status-card" style="border-color:rgba(255,214,0,.2)">
+      <div class="status-dot dot-yellow"></div>
+      <div class="info">
+        <div class="title" style="color:var(--yellow)">3. 一次性创业资助 + 租金补贴</div>
+        <div class="detail">资助1万 + 租金每年6000 x 3年 · 需法人属特定身份</div>
+      </div>
+    </div>
+    <div class="status-card">
+      <div class="status-dot dot-green"></div>
+      <div class="info">
+        <div class="title">4. 大模型赋能服务中心（越秀）</div>
+        <div class="detail">免费大模型咨询和备案辅导 · 先去对接，为后续备案奖励做准备</div>
+      </div>
+    </div>
+    <div class="status-card">
+      <div class="status-dot dot-green"></div>
+      <div class="info">
+        <div class="title">5. OPC创新工坊</div>
+        <div class="detail">免费Token + 技术指导 · 穗@i企平台预约 · 广州注册企业即可</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 预判时间线 -->
+  <div class="panel">
+    <h2>越秀 OPC 政策预判时间线</h2>
+    <p class="desc">基于广州各区出台OPC政策的节奏推断</p>
+
+    <div class="timeline">
+      <div class="tl-item" style="border-left:3px solid var(--green)">
+        <div class="tl-date">2026-03-16 ✓ 已发生</div>
+        <div class="tl-text">广东省发布全国首个省级OPC行动方案</div>
+      </div>
+      <div class="tl-item" style="border-left:3px solid var(--green)">
+        <div class="tl-date">2026-03-19 ✓ 已发生</div>
+        <div class="tl-text">海珠区OPC十条正式发布（广州首发）</div>
+      </div>
+      <div class="tl-item" style="border-left:3px solid var(--green)">
+        <div class="tl-date">2026-03-20 ✓ 已发生</div>
+        <div class="tl-text">番禺区OPC政策正式落地、黄埔鱼珠OPC社区签约</div>
+      </div>
+      <div class="tl-item" style="border-left:3px solid var(--green)">
+        <div class="tl-date">2026-03-31 ✓ 已发生</div>
+        <div class="tl-text">白云区AI+数据产业新政（含OPC算力券）4月1日施行</div>
+      </div>
+      <div class="tl-item" style="border-left:3px solid var(--yellow)">
+        <div class="tl-date">2026 Q2-Q3 ⏳ 关注窗口</div>
+        <div class="tl-text"><strong>越秀区可能启动OPC政策调研或征求意见</strong><br>
+        <span style="color:var(--dim)">海珠/番禺/黄埔/白云/南沙五区已密集布局，竞争压力下越秀不太可能长期缺位</span></div>
+      </div>
+      <div class="tl-item" style="border-left:3px solid var(--yellow)">
+        <div class="tl-date">2026 Q3-Q4 ⏳ 预计出台</div>
+        <div class="tl-text"><strong>越秀区OPC政策预计发布</strong><br>
+        <span style="color:var(--dim)">可能以"楼宇经济+创新街区"模式差异化推出，依托黄花岗科技园和越秀硅巷</span></div>
+      </div>
+      <div class="tl-item" style="border-left:3px solid var(--blue)">
+        <div class="tl-date">2027 Q1 🔮 备选时间</div>
+        <div class="tl-text">如果2026年未出台，最迟随新年度预算一起发布</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 监控源 -->
+  <div class="panel">
+    <h2>监控数据源</h2>
+    <p class="desc">每12小时自动扫描以下网站，发现OPC相关内容立即高亮</p>
+
+    <div class="resource-grid">
+      <div class="resource-item">
+        <h4>越秀区政府网站</h4>
+        <p><a href="http://www.yuexiu.gov.cn" target="_blank">yuexiu.gov.cn</a></p>
+        <span class="tag tag-available" id="src1Status">监控中</span>
+      </div>
+      <div class="resource-item">
+        <h4>越秀区科工信局</h4>
+        <p>科技创新和信息化政策公告</p>
+        <span class="tag tag-available">监控中</span>
+      </div>
+      <div class="resource-item">
+        <h4>黄花岗科技园</h4>
+        <p>AI产业园区动态</p>
+        <span class="tag tag-available">监控中</span>
+      </div>
+      <div class="resource-item">
+        <h4>广州市政策平台</h4>
+        <p><a href="https://www.gz.gov.cn" target="_blank">gz.gov.cn</a></p>
+        <span class="tag tag-available">监控中</span>
+      </div>
+      <div class="resource-item">
+        <h4>穗@i企平台</h4>
+        <p><a href="https://qyfw.gzonline.gov.cn" target="_blank">qyfw.gzonline.gov.cn</a></p>
+        <span class="tag tag-available">监控中</span>
+      </div>
+      <div class="resource-item">
+        <h4>全网新闻搜索</h4>
+        <p>关键词: "越秀 OPC" "越秀 一人公司" "越秀 AI 政策"</p>
+        <span class="tag tag-available">监控中</span>
+      </div>
+    </div>
+
+    <div class="btn-group">
+      <button class="btn btn-primary" onclick="runManualScan()">立即手动扫描</button>
+      <button class="btn btn-outline" onclick="toggleLog()">查看扫描日志</button>
+    </div>
+
+    <div id="scanLog" style="display:none;margin-top:16px">
+      <div class="monitor-log" id="logContent">
+        <span class="log-time">[等待扫描...]</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 建议行动 -->
+  <div class="panel">
+    <h2>当前建议行动</h2>
+    <div class="status-card" style="border-color:rgba(255,82,82,.3)">
+      <div class="info">
+        <div class="title" style="color:var(--red)">紧急: 海珠场景征集 4月18日截止</div>
+        <div class="detail">这是你当前最紧迫的机会，不限注册区。准备材料：营业执照、产品BP、AI语音方案、落地案例、知识产权</div>
+      </div>
+    </div>
+    <div class="status-card">
+      <div class="info">
+        <div class="title">近期: 大模型赋能服务中心</div>
+        <div class="detail">越秀区有这个中心，提供免费备案辅导。先去对接，为后续模型/算法备案做准备——一旦越秀出OPC政策或你申报其他区的备案奖励，这是前置条件</div>
+      </div>
+    </div>
+    <div class="status-card">
+      <div class="info">
+        <div class="title">5月: 创业补贴窗口</div>
+        <div class="detail">5月1-20日申报窗口，先核实公司是否成立3年内、员工是否连续6个月社保</div>
+      </div>
+    </div>
+    <div class="status-card">
+      <div class="info">
+        <div class="title">持续: 关注越秀区政策动态</div>
+        <div class="detail">本页面每12小时自动扫描越秀区政府网站。一旦出现OPC相关公告，会第一时间高亮显示</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<footer style="text-align:center;padding:30px 20px;color:var(--dim);font-size:.78em;border-top:1px solid var(--border)">
+  <p>越秀区 OPC 政策监控 · 专属面板 · 每12小时自动扫描</p>
+  <p style="margin-top:4px"><a href="index.html">全国版</a> · <a href="guangzhou.html">广州专版</a> · <a href="dashboard.html">数据看板</a></p>
+</footer>
+
+<script>
+// ===== MONITORING SYSTEM =====
+
+const SCAN_SOURCES = [
+  {name:'越秀区政府', url:'http://www.yuexiu.gov.cn', keywords:['OPC','一人公司','超级个体','人工智能OPC']},
+  {name:'越秀科工信', url:'http://www.yuexiu.gov.cn/yxqkgxj/', keywords:['OPC','AI','人工智能','创业']},
+  {name:'黄花岗科技园', url:'http://www.yuexiu.gov.cn', keywords:['OPC','孵化','科技园','AI']},
+  {name:'广州市政府', url:'https://www.gz.gov.cn', keywords:['越秀','OPC','一人公司']},
+  {name:'穗@i企', url:'https://qyfw.gzonline.gov.cn', keywords:['OPC','越秀']},
+];
+
+const SCAN_INTERVAL = 12 * 60 * 60 * 1000; // 12 hours
+
+function getLogStore() {
+  return JSON.parse(localStorage.getItem('yx_scan_log') || '[]');
+}
+
+function addLog(text, type) {
+  const logs = getLogStore();
+  const now = new Date();
+  const time = now.toLocaleString('zh-CN', {hour12:false});
+  logs.push({time, text, type});
+  if (logs.length > 200) logs.splice(0, logs.length - 200);
+  localStorage.setItem('yx_scan_log', JSON.stringify(logs));
+  renderLog();
+}
+
+function renderLog() {
+  const logs = getLogStore();
+  const el = document.getElementById('logContent');
+  el.innerHTML = logs.slice(-50).map(l =>
+    `<div><span class="log-time">[${l.time}]</span> <span class="log-${l.type||'info'}">${l.text}</span></div>`
+  ).join('');
+  el.scrollTop = el.scrollHeight;
+}
+
+function toggleLog() {
+  const el = document.getElementById('scanLog');
+  el.style.display = el.style.display === 'none' ? 'block' : 'none';
+  if (el.style.display === 'block') renderLog();
+}
+
+async function runManualScan() {
+  addLog('手动扫描启动...', 'info');
+
+  for (const src of SCAN_SOURCES) {
+    addLog(`扫描: ${src.name} (${src.url})`, 'info');
+
+    try {
+      // Try fetching through a CORS proxy or direct
+      const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(src.url)}`;
+      const resp = await fetch(proxyUrl, {signal: AbortSignal.timeout(10000)});
+
+      if (resp.ok) {
+        const text = await resp.text();
+        const found = src.keywords.filter(kw => text.includes(kw));
+        if (found.length > 0) {
+          const opcFound = found.some(f => f.includes('OPC') || f.includes('一人公司'));
+          if (opcFound) {
+            addLog(`⚠️ ${src.name} 发现OPC相关关键词: ${found.join(', ')}`, 'warn');
+          } else {
+            addLog(`✓ ${src.name} 发现关键词: ${found.join(', ')} (非OPC专项)`, 'ok');
+          }
+        } else {
+          addLog(`✓ ${src.name} 暂无OPC相关内容`, 'ok');
+        }
+      } else {
+        addLog(`✗ ${src.name} 请求失败 (${resp.status})`, 'warn');
+      }
+    } catch(e) {
+      addLog(`✗ ${src.name} 网络错误: ${e.message.substring(0,50)}`, 'warn');
+    }
+  }
+
+  const now = new Date().toLocaleString('zh-CN', {hour12:false});
+  localStorage.setItem('yx_last_scan', now);
+  document.getElementById('lastScanTime').textContent = `上次扫描: ${now}`;
+  addLog('扫描完成', 'ok');
+
+  // Show log
+  document.getElementById('scanLog').style.display = 'block';
+  renderLog();
+}
+
+// Auto scan check
+function checkAutoScan() {
+  const lastScan = localStorage.getItem('yx_last_scan');
+  if (lastScan) {
+    document.getElementById('lastScanTime').textContent = `上次扫描: ${lastScan}`;
+    const lastTime = new Date(lastScan).getTime();
+    const now = Date.now();
+    if (now - lastTime > SCAN_INTERVAL) {
+      addLog('定时扫描触发 (超过12小时)', 'info');
+      runManualScan();
+    }
+  } else {
+    document.getElementById('lastScanTime').textContent = '上次扫描: 从未扫描过';
+  }
+}
+
+checkAutoScan();
+
+// Set interval for auto scan (when page is open)
+setInterval(() => {
+  const lastScan = localStorage.getItem('yx_last_scan');
+  if (lastScan) {
+    const elapsed = Date.now() - new Date(lastScan).getTime();
+    if (elapsed > SCAN_INTERVAL) {
+      runManualScan();
+    }
+  }
+}, 60 * 60 * 1000); // Check every hour
+</script>
+
+</body>
+</html>
