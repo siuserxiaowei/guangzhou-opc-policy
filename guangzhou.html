@@ -1277,7 +1277,7 @@ function openProfileEditor() {
   const modal = document.getElementById('profileModal');
   modal.style.display = 'flex';
   // Load saved profile
-  const saved = JSON.parse(localStorage.getItem('gz_profile') || '{}');
+  const saved = JSON.parse(localStorage.getItem('opc_profile') || '{}');
   if (saved.district) document.getElementById('pDistrict').value = saved.district;
   if (saved.employees) document.getElementById('pEmployees').value = saved.employees;
   if (saved.age) document.getElementById('pAge').value = saved.age;
@@ -1307,7 +1307,19 @@ function saveProfile() {
     founder: document.getElementById('pFounder').value,
     quals: Array.from(document.querySelectorAll('.pchip.sel')).map(c => c.dataset.v)
   };
-  localStorage.setItem('gz_profile', JSON.stringify(profile));
+  // Save in unified format that both pages can read
+  const unified = {
+    province: '广东', city: '广州',
+    district: profile.district,
+    employees: profile.employees,
+    companyAge: profile.age, age: profile.age,
+    companyType: [],
+    industries: profile.industry ? profile.industry.split('/') : [],
+    industry: profile.industry,
+    qualifications: profile.quals, quals: profile.quals,
+    founder: [profile.founder].filter(Boolean)
+  };
+  localStorage.setItem('opc_profile', JSON.stringify(unified));
   closeProfileEditor();
   renderProfile(profile);
   renderPriorities(profile);
@@ -1390,15 +1402,63 @@ function renderPriorities(p) {
   `).join('');
 }
 
-// Load profile on page load
+// Load profile on page load - sync from both index.html and guangzhou formats
 (function() {
-  const saved = localStorage.getItem('gz_profile');
+  const saved = localStorage.getItem('opc_profile');
   if (saved) {
-    const p = JSON.parse(saved);
+    const raw = JSON.parse(saved);
+    // Normalize: index.html format -> guangzhou format
+    const p = {
+      district: raw.district || '',
+      employees: raw.employees || 0,
+      age: raw.age || raw.companyAge || 0,
+      industry: raw.industry || (raw.industries ? raw.industries.join('/') : ''),
+      founder: raw.founder || (Array.isArray(raw.founder) ? raw.founder[0] : ''),
+      quals: raw.quals || raw.qualifications || []
+    };
     renderProfile(p);
     renderPriorities(p);
+    // Update stats based on profile
+    updateStatsForProfile(p);
   }
 })();
+
+function updateStatsForProfile(p) {
+  // Dynamically update the hero stats based on user profile
+  const statCards = document.querySelectorAll('.stat-card');
+  if (!statCards.length) return;
+  let goCount = 1; // 海珠场景征集 always available
+  let checkCount = 0;
+  let newCount = 3; // fixed
+  let noCount = 0;
+
+  // 创业带动就业补贴
+  if (p.employees >= 1 && p.age > 0 && p.age <= 3) goCount++;
+  else if (p.employees >= 1) checkCount++;
+  else noCount++;
+
+  // 一次性创业资助
+  const founderOk = p.founder && !['以上都不是',''].includes(p.founder);
+  if (founderOk) checkCount++; else noCount++;
+
+  // 租金补贴
+  if (founderOk) checkCount++; else noCount++;
+
+  // District policies
+  const hasDistrictPolicy = ['海珠','黄埔','番禺','南沙','白云'].includes(p.district);
+  if (hasDistrictPolicy) goCount++;
+  else noCount += 2; // district-specific ones don't match
+
+  noCount += 4; // 备案类 always no for now
+  if (p.quals && (p.quals.includes('有模型备案') || p.quals.includes('有算法备案'))) {
+    noCount -= 2;
+    checkCount += 2;
+  }
+
+  // Update stat numbers
+  if (statCards[0]) statCards[0].querySelector('.stat-num').textContent = goCount;
+  if (statCards[1]) statCards[1].querySelector('.stat-num').textContent = checkCount;
+}
 
 // ===== Scroll to element =====
 function scrollToEl(sel) {
