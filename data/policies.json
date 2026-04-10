@@ -1,5 +1,5 @@
 {
-  "version": "4.2.0",
+  "version": "5.0.0",
   "updated_at": "2026-04-10",
   "policies": [
     {
@@ -519,7 +519,7 @@
       "issuer": "南沙区政务服务局",
       "status": "active",
       "category": "registration",
-      "summary": "最快0.5天注册拿照+免费5枚印章+OPC专窗一站式",
+      "summary": "最快0.5天注册拿照+免费5枚印章+OPC专窗一站式/初创算力补贴40%最高200万",
       "benefits": [
         {
           "item": "极速注册",
@@ -544,6 +544,12 @@
           "amount": "企业所得税优惠",
           "amount_max": 0,
           "type": "tax_reduction"
+        },
+        {
+          "item": "算力补贴(初创40%)",
+          "amount": "年最高200万",
+          "amount_max": 2000000,
+          "type": "cash"
         }
       ],
       "requirements": {
@@ -748,18 +754,24 @@
       "publish_date": "2026-01-15",
       "status": "active",
       "category": "comprehensive",
-      "summary": "十条：10家社区≥1万㎡3年减免/普惠算力免费+年最高100万/人才补贴博士10万硕士5万本科3万/政务场景最高500万/最高1000万跟投/贴息3年",
+      "summary": "十条：训力券年度5亿单企最高300万/模型券年度1亿单企200万/语料券年度5000万单企200万/人才补贴/政务场景500万/跟投1000万/贴息3年",
       "benefits": [
         {
-          "item": "OPC社区(10家)",
-          "amount": "单家≥1万㎡，最长3年减免",
-          "amount_max": 0,
-          "type": "rent_free"
+          "item": "训力券(50%)",
+          "amount": "年度5亿，单企最高300万",
+          "amount_max": 3000000,
+          "type": "voucher"
         },
         {
-          "item": "普惠算力+补贴",
-          "amount": "免费使用+年最高100万",
-          "amount_max": 1000000,
+          "item": "模型券",
+          "amount": "年度1亿，单企最高200万",
+          "amount_max": 2000000,
+          "type": "voucher"
+        },
+        {
+          "item": "语料券(30%)",
+          "amount": "年度5000万，单企最高200万",
+          "amount_max": 2000000,
           "type": "voucher"
         },
         {
@@ -769,15 +781,15 @@
           "type": "cash"
         },
         {
-          "item": "政务场景资助",
-          "amount": "最高500万",
-          "amount_max": 5000000,
+          "item": "安居补贴",
+          "amount": "1250元/月x24月 或 住房6折x36月",
+          "amount_max": 30000,
           "type": "cash"
         },
         {
-          "item": "行业示范资助",
-          "amount": "最高200万",
-          "amount_max": 2000000,
+          "item": "政务场景资助",
+          "amount": "最高500万",
+          "amount_max": 5000000,
           "type": "cash"
         },
         {
@@ -787,28 +799,28 @@
           "type": "loan"
         },
         {
-          "item": "贷款贴息(LPR 50%)",
+          "item": "贷款贴息(LPR50%)",
           "amount": "最长3年",
           "amount_max": 0,
           "type": "loan"
         },
         {
           "item": "高企奖励",
-          "amount": "最高50万(专精特新最高500万)",
+          "amount": "最高50万(专精特新500万)",
           "amount_max": 5000000,
           "type": "cash"
         },
         {
-          "item": "全周期一站式",
-          "amount": "工商/税务/海关/外汇",
-          "amount_max": 0,
-          "type": "service"
+          "item": "创业担保贷",
+          "amount": "个人60万/企业500万",
+          "amount_max": 5000000,
+          "type": "loan"
         },
         {
-          "item": "融通生态",
-          "amount": "上下楼即上下游",
+          "item": "前海15%企税",
+          "amount": "AI/信息服务适用",
           "amount_max": 0,
-          "type": "service"
+          "type": "tax_reduction"
         }
       ],
       "requirements": {
@@ -1018,13 +1030,67 @@
       "issuer": "龙岗区",
       "status": "active",
       "category": "comprehensive",
-      "summary": "首个聚焦OPC与开源AI智能体协同的区级政策",
+      "summary": "龙虾十条逐条：代码贡献200万/数字员工券40%最高200万/应用示范100万/AIGC补贴100万/示范场景400万/种子基金1000万/出海服务/赛事50万",
       "benefits": [
         {
-          "item": "OPC+智能体协同扶持",
-          "amount": "详见政策",
+          "item": "OpenClaw代码贡献",
+          "amount": "最高200万",
+          "amount_max": 2000000,
+          "type": "cash"
+        },
+        {
+          "item": "AI NAS龙虾盒子(30%)",
+          "amount": "按市价补贴",
           "amount_max": 0,
-          "type": "comprehensive"
+          "type": "voucher"
+        },
+        {
+          "item": "数字员工券(40%)",
+          "amount": "单企年最高200万",
+          "amount_max": 2000000,
+          "type": "voucher"
+        },
+        {
+          "item": "应用示范(30%)",
+          "amount": "最高100万",
+          "amount_max": 1000000,
+          "type": "cash"
+        },
+        {
+          "item": "AIGC模型调用(30%)",
+          "amount": "年最高100万",
+          "amount_max": 1000000,
+          "type": "cash"
+        },
+        {
+          "item": "示范场景项目",
+          "amount": "最高400万",
+          "amount_max": 4000000,
+          "type": "cash"
+        },
+        {
+          "item": "种子基金",
+          "amount": "最高1000万股权投资",
+          "amount_max": 10000000,
+          "type": "loan"
+        },
+        {
+          "item": "人才落户",
+          "amount": "最高10万+2月免住+18月优惠",
+          "amount_max": 100000,
+          "type": "cash"
+        },
+        {
+          "item": "赛事获奖",
+          "amount": "最高50万",
+          "amount_max": 500000,
+          "type": "cash"
+        },
+        {
+          "item": "OPC出海",
+          "amount": "服务站+出口信保",
+          "amount_max": 0,
+          "type": "service"
         }
       ],
       "requirements": {
@@ -3728,11 +3794,17 @@
       "publish_date": "2026-03-25",
       "status": "draft",
       "category": "comprehensive",
-      "summary": "赋能OPC十条：打样100%补贴/小批量20%最高80万/智能制造赋能券100万/出海补贴30万/上市奖励700万/1亿创投基金",
+      "summary": "赋能OPC十条(征求意见至4/23)：全球通行证/打样100%/智造券100万/小批量80万/鸿蒙补贴100万/出海30万/1亿创投/上市700万/算力券100万/50亿AI基金",
       "benefits": [
         {
-          "item": "首次打样(100%)",
-          "amount": "最高5万",
+          "item": "全球通行证",
+          "amount": "海外创始人3年居留+一周开业",
+          "amount_max": 0,
+          "type": "service"
+        },
+        {
+          "item": "打样补贴(100%)",
+          "amount": "单项最高5万",
           "amount_max": 50000,
           "type": "cash"
         },
@@ -3743,37 +3815,43 @@
           "type": "cash"
         },
         {
+          "item": "智造赋能券(50%)",
+          "amount": "年最高100万",
+          "amount_max": 1000000,
+          "type": "voucher"
+        },
+        {
           "item": "小批量生产(20%)",
           "amount": "最高80万",
           "amount_max": 800000,
           "type": "cash"
         },
         {
-          "item": "智能制造赋能券",
-          "amount": "最高100万/年",
-          "amount_max": 1000000,
-          "type": "voucher"
-        },
-        {
-          "item": "出海补贴",
-          "amount": "最高30万",
-          "amount_max": 300000,
+          "item": "柔性产线改造(30%)",
+          "amount": "年最高300万",
+          "amount_max": 3000000,
           "type": "cash"
         },
         {
-          "item": "创业社区免租",
-          "amount": "首年免，二三年5折/7折",
-          "amount_max": 0,
-          "type": "rent_free"
+          "item": "开源鸿蒙(额外20%)",
+          "amount": "最高100万",
+          "amount_max": 1000000,
+          "type": "cash"
+        },
+        {
+          "item": "出海补贴",
+          "amount": "服务费50%最高30万+信保50万+展会10万",
+          "amount_max": 900000,
+          "type": "cash"
         },
         {
           "item": "OPC创投基金",
-          "amount": "1亿元",
+          "amount": "首期1亿",
           "amount_max": 10000000,
           "type": "loan"
         },
         {
-          "item": "风投跟投奖励(5%)",
+          "item": "VC跟投奖励(5%)",
           "amount": "最高100万",
           "amount_max": 1000000,
           "type": "cash"
@@ -3785,10 +3863,40 @@
           "type": "cash"
         },
         {
-          "item": "创业担保贷款",
+          "item": "创业担保贷",
           "amount": "个人50万/企业500万",
           "amount_max": 5000000,
           "type": "loan"
+        },
+        {
+          "item": "算力券(50%)",
+          "amount": "年最高100万",
+          "amount_max": 1000000,
+          "type": "voucher"
+        },
+        {
+          "item": "模型券",
+          "amount": "最高100万",
+          "amount_max": 1000000,
+          "type": "voucher"
+        },
+        {
+          "item": "AI语音/机器人资助",
+          "amount": "最高100万",
+          "amount_max": 1000000,
+          "type": "cash"
+        },
+        {
+          "item": "50亿AI子基金群",
+          "amount": "推动15宗落户",
+          "amount_max": 500000000,
+          "type": "loan"
+        },
+        {
+          "item": "人才安居",
+          "amount": "A类500万/B类300万购房补贴",
+          "amount_max": 5000000,
+          "type": "cash"
         }
       ],
       "requirements": {
@@ -3808,9 +3916,10 @@
           "name": "松山湖模立方OPC社区",
           "address": "松山湖",
           "features": [
-            "2026年2月开营",
-            "打样补贴100%",
-            "制造业OPC特色"
+            "首期6000㎡",
+            "1+2莞深港跨域",
+            "首批7个AI+制造项目",
+            "四大核心区"
           ]
         }
       ],
