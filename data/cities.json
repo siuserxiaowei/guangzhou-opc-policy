@@ -44,7 +44,7 @@
       "id": "beijing",
       "name": "北京",
       "province": "北京",
-      "policy_count": 4,
+      "policy_count": 5,
       "highlight": "算力最高3000万·亦庄模数·海淀免费注册·通州OPC",
       "status": "hot",
       "color": "#ff5252",
@@ -358,6 +358,16 @@
       "highlight": "惠阳科技团队最高1000万·算力补贴年最高200万·仲恺AI产业园533亿·润泽智算中心·创业资助1万",
       "status": "active",
       "color": "#4db6ac",
+      "link": ""
+    },
+    {
+      "id": "meizhou",
+      "name": "梅州",
+      "province": "广东",
+      "policy_count": 1,
+      "highlight": "9个OPC集聚区·低成本空间·人才补贴3万",
+      "status": "active",
+      "color": "#a5d6a7",
       "link": ""
     }
   ]

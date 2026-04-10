@@ -1,5 +1,5 @@
 {
-  "version": "5.0.0",
+  "version": "5.1.0",
   "updated_at": "2026-04-10",
   "policies": [
     {
@@ -1810,6 +1810,15 @@
           "address": "光谷",
           "features": [
             "建设中"
+          ]
+        },
+        {
+          "name": "光谷首批8家OPC生态社区",
+          "address": "东湖高新区",
+          "features": [
+            "2026-03-31集中揭牌",
+            "最高奖励500万",
+            "开源聚变AI研究院"
           ]
         }
       ],
@@ -5461,6 +5470,91 @@
         "创业团队1000万",
         "专精特新",
         "技改"
+      ],
+      "updated_at": "2026-04-10",
+      "verified": true
+    },
+    {
+      "id": "meizhou-city-001",
+      "name": "梅州市人工智能OPC创新创业行动方案",
+      "city": "梅州",
+      "province": "广东",
+      "district": "",
+      "level": "city",
+      "issuer": "梅州市政府",
+      "status": "active",
+      "category": "comprehensive",
+      "summary": "9个OPC创新创业集聚区/低成本创业空间/投早投小产业基金/新引进人才最高3万",
+      "benefits": [
+        {
+          "item": "创业空间",
+          "amount": "低成本",
+          "amount_max": 0,
+          "type": "rent_free"
+        },
+        {
+          "item": "产业基金",
+          "amount": "投早投小",
+          "amount_max": 0,
+          "type": "loan"
+        },
+        {
+          "item": "人才补贴",
+          "amount": "新引进最高3万",
+          "amount_max": 30000,
+          "type": "cash"
+        }
+      ],
+      "requirements": {
+        "registration_location": "梅州市"
+      },
+      "links": {},
+      "communities": [],
+      "tags": [
+        "梅州",
+        "9个集聚区",
+        "人才补贴"
+      ],
+      "updated_at": "2026-04-10",
+      "verified": true
+    },
+    {
+      "id": "beijing-fengtai-001",
+      "name": "北京丰台区创思孵翼启Job·OPC社区",
+      "city": "北京",
+      "province": "北京",
+      "district": "丰台",
+      "level": "district",
+      "issuer": "丰台区",
+      "publish_date": "2026-04-02",
+      "status": "active",
+      "category": "space",
+      "summary": "全国启动仪式并揭牌，OPC创业社区",
+      "benefits": [
+        {
+          "item": "OPC社区空间",
+          "amount": "已揭牌",
+          "amount_max": 0,
+          "type": "rent_free"
+        }
+      ],
+      "requirements": {
+        "registration_location": "丰台区"
+      },
+      "links": {
+        "news": [
+          "https://finance.sina.com.cn/roll/2026-04-02/doc-inhtazsc9466318.shtml"
+        ]
+      },
+      "communities": [
+        {
+          "name": "创思孵翼启Job·OPC社区",
+          "address": "丰台区"
+        }
+      ],
+      "tags": [
+        "丰台",
+        "揭牌"
       ],
       "updated_at": "2026-04-10",
       "verified": true
