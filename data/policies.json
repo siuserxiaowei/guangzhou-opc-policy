@@ -4256,6 +4256,257 @@
       ],
       "updated_at": "2026-04-10",
       "verified": true
+    },
+    {
+      "id": "nantong-city-001",
+      "name": "南通紫琅智谷OPC创新社区",
+      "city": "南通",
+      "province": "江苏",
+      "district": "",
+      "level": "city",
+      "issuer": "南通市政府",
+      "status": "active",
+      "category": "space",
+      "summary": "全市首个OPC社区，规划2万㎡空间",
+      "benefits": [
+        {
+          "item": "OPC创新空间",
+          "amount": "2万㎡",
+          "amount_max": 0,
+          "type": "rent_free"
+        }
+      ],
+      "requirements": {
+        "registration_location": "南通市"
+      },
+      "links": {
+        "news": [
+          "https://news.jschina.com.cn/yw/202601/t20260125_s69757ebfe4b0c7ef34f34d4b.shtml"
+        ]
+      },
+      "communities": [
+        {
+          "name": "紫琅智谷OPC创新社区",
+          "address": "南通",
+          "features": [
+            "全市首个",
+            "2万㎡"
+          ]
+        }
+      ],
+      "tags": [
+        "南通",
+        "紫琅智谷"
+      ],
+      "updated_at": "2026-04-10",
+      "verified": true
+    },
+    {
+      "id": "yancheng-city-001",
+      "name": "盐城盐力超体OPC创新社区",
+      "city": "盐城",
+      "province": "江苏",
+      "district": "",
+      "level": "city",
+      "issuer": "盐城大数据产业园",
+      "status": "active",
+      "category": "space",
+      "summary": "211行动/聚焦硬核科技+跨境电商+短剧等7类业态/已入驻20家OPC",
+      "benefits": [
+        {
+          "item": "OPC创业空间",
+          "amount": "提供",
+          "amount_max": 0,
+          "type": "rent_free"
+        }
+      ],
+      "requirements": {
+        "registration_location": "盐城市"
+      },
+      "links": {
+        "news": [
+          "https://cj.sina.com.cn/articles/view/1653603955/628ffe7302001ulpo"
+        ]
+      },
+      "communities": [
+        {
+          "name": "盐力超体OPC创新社区",
+          "address": "盐城大数据产业园",
+          "features": [
+            "211行动",
+            "7类业态",
+            "20家入驻"
+          ]
+        }
+      ],
+      "tags": [
+        "盐城",
+        "盐力超体",
+        "跨境电商",
+        "短剧"
+      ],
+      "updated_at": "2026-04-10",
+      "verified": true
+    },
+    {
+      "id": "lianyungang-city-001",
+      "name": "连云港花果山下·人工智能OPC社区",
+      "city": "连云港",
+      "province": "江苏",
+      "district": "",
+      "level": "city",
+      "issuer": "海州区",
+      "publish_date": "2025-12-20",
+      "status": "active",
+      "category": "space",
+      "summary": "阿里云技术底座/OPC专属创业贷/算力+政策+人才+金融全链赋能",
+      "benefits": [
+        {
+          "item": "阿里云技术底座",
+          "amount": "AI能力接入",
+          "amount_max": 0,
+          "type": "service"
+        },
+        {
+          "item": "OPC专属创业贷",
+          "amount": "银行配套",
+          "amount_max": 0,
+          "type": "loan"
+        }
+      ],
+      "requirements": {
+        "registration_location": "连云港市"
+      },
+      "links": {
+        "news": [
+          "https://jsnews.jschina.com.cn/lyg/a/202512/t20251220_s69468bace4b06e2d8a5c468c.shtml"
+        ]
+      },
+      "communities": [
+        {
+          "name": "花果山下OPC社区",
+          "address": "海州数字科技大厦",
+          "features": [
+            "阿里云底座",
+            "OPC专属创业贷",
+            "全链赋能"
+          ]
+        }
+      ],
+      "tags": [
+        "连云港",
+        "花果山",
+        "阿里云",
+        "创业贷"
+      ],
+      "updated_at": "2026-04-10",
+      "verified": true
+    },
+    {
+      "id": "xuzhou-city-001",
+      "name": "徐州OPC社区",
+      "city": "徐州",
+      "province": "江苏",
+      "district": "",
+      "level": "city",
+      "issuer": "徐州数据局",
+      "publish_date": "2026-03-15",
+      "status": "active",
+      "category": "space",
+      "summary": "孔庙街区OPC社区试用辅导/免费部署体验/创业分享/项目征集",
+      "benefits": [
+        {
+          "item": "OPC社区空间",
+          "amount": "提供",
+          "amount_max": 0,
+          "type": "rent_free"
+        }
+      ],
+      "requirements": {
+        "registration_location": "徐州市"
+      },
+      "links": {
+        "news": [
+          "https://jsnews.jschina.com.cn/xz/a/202603/t20260315_s69b67bc3e4b0a737d394ceab.shtml"
+        ]
+      },
+      "communities": [
+        {
+          "name": "徐州OPC社区",
+          "address": "孔庙街区"
+        }
+      ],
+      "tags": [
+        "徐州",
+        "孔庙"
+      ],
+      "updated_at": "2026-04-10",
+      "verified": true
+    },
+    {
+      "id": "hangzhou-yuhang-001",
+      "name": "杭州余杭区AGI青创共同体+梦想小镇OPC",
+      "city": "杭州",
+      "province": "浙江",
+      "district": "余杭",
+      "level": "district",
+      "issuer": "余杭区/未来科技城",
+      "status": "active",
+      "category": "comprehensive",
+      "summary": "AGI青创共同体/梦想小镇OPC专区/免费办公+电商供应链/AI一人公司最高50万启动资金",
+      "benefits": [
+        {
+          "item": "启动资金补贴",
+          "amount": "最高50万",
+          "amount_max": 500000,
+          "type": "cash"
+        },
+        {
+          "item": "免费办公位",
+          "amount": "梦想小镇",
+          "amount_max": 0,
+          "type": "rent_free"
+        },
+        {
+          "item": "电商供应链对接",
+          "amount": "提供",
+          "amount_max": 0,
+          "type": "service"
+        }
+      ],
+      "requirements": {
+        "registration_location": "余杭区",
+        "industries": [
+          "人工智能"
+        ]
+      },
+      "links": {},
+      "communities": [
+        {
+          "name": "AGI青创共同体",
+          "address": "余杭区",
+          "features": [
+            "AI方向"
+          ]
+        },
+        {
+          "name": "梦想小镇OPC专区",
+          "address": "未来科技城",
+          "features": [
+            "免费办公",
+            "电商供应链",
+            "最高50万启动资金"
+          ]
+        }
+      ],
+      "tags": [
+        "余杭",
+        "梦想小镇",
+        "AGI",
+        "启动资金50万"
+      ],
+      "updated_at": "2026-04-10",
+      "verified": true
     }
   ]
 }
