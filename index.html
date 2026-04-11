@@ -123,6 +123,21 @@ select{cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%
 .btn-outline:hover{border-color:var(--accent);color:var(--al)}
 .btn-group{display:flex;gap:10px;margin-top:20px;flex-wrap:wrap}
 
+/* Checklist panel */
+.checklist-panel{margin-top:20px}
+.checklist-progress{margin-bottom:18px}
+.checklist-progress .progress-text{display:flex;justify-content:space-between;font-size:.82em;color:var(--al);margin-bottom:6px}
+.checklist-progress .progress-bar{height:8px;border-radius:4px;background:var(--border);overflow:hidden}
+.checklist-progress .progress-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,var(--accent),var(--cyan));transition:width .4s ease}
+.checklist-section{margin-bottom:16px}
+.checklist-section h4{font-size:.88em;color:var(--accent);margin-bottom:8px;padding-bottom:4px;border-bottom:1px solid var(--border)}
+.checklist-item{display:flex;align-items:flex-start;gap:10px;padding:8px 10px;border-radius:8px;transition:background .2s;cursor:pointer}
+.checklist-item:hover{background:rgba(108,92,231,.06)}
+.checklist-item input[type="checkbox"]{margin-top:3px;accent-color:var(--accent);cursor:pointer;flex-shrink:0;width:16px;height:16px}
+.checklist-item label{font-size:.88em;color:var(--text);cursor:pointer;line-height:1.5}
+.checklist-item.checked label{color:var(--dim);text-decoration:line-through}
+.checklist-note{font-size:.78em;color:var(--dim);margin-left:26px;margin-top:2px}
+
 /* Result card */
 .result-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:22px;margin-bottom:14px;
   transition:all .3s;animation:fadeInUp .4s ease backwards;cursor:default}
@@ -245,7 +260,7 @@ footer{text-align:center;padding:30px 20px;color:var(--dim);font-size:.78em;bord
   <a href="tax.html">税务指南</a>
   <a href="dashboard.html">数据看板</a>
   <span class="spacer"></span>
-  <a href="https://github.com/siuserxiaowei/guangzhou-opc-policy" target="_blank" style="font-size:.78em">GitHub</a>
+  <a href="https://github.com/siuserxiaowei/opc-policy" target="_blank" style="font-size:.78em">GitHub</a>
 </nav>
 
 <!-- Hero -->
@@ -427,6 +442,25 @@ footer{text-align:center;padding:30px 20px;color:var(--dim);font-size:.78em;bord
         <button class="btn btn-outline" onclick="goBack()">← 返回完整表单</button>
         <button class="btn btn-outline" onclick="exportResults('txt')">导出 TXT</button>
         <button class="btn btn-outline" onclick="exportResults('csv')">导出 CSV</button>
+        <button class="btn btn-primary" onclick="generateChecklist()">📋 生成材料清单</button>
+      </div>
+
+      <!-- 材料清单面板 -->
+      <div class="panel hidden checklist-panel" id="panelChecklist">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+          <h2 style="margin:0">📋 申报材料清单</h2>
+          <button class="btn btn-outline" onclick="document.getElementById('panelChecklist').classList.add('hidden')" style="font-size:.8em;padding:5px 14px">收起</button>
+        </div>
+        <p class="desc" id="checklistDesc"></p>
+        <div class="checklist-progress">
+          <div class="progress-text"><span id="checklistProgressText">已准备 0 / 0 项</span><span id="checklistProgressPct">0%</span></div>
+          <div class="progress-bar"><div class="progress-fill" id="checklistProgressFill" style="width:0%"></div></div>
+        </div>
+        <div id="checklistContent"></div>
+        <div class="btn-group">
+          <button class="btn btn-outline" onclick="exportChecklist()">导出清单 TXT</button>
+          <button class="btn btn-outline" onclick="clearChecklist()">清除勾选</button>
+        </div>
       </div>
     </div>
   </div>
@@ -542,7 +576,7 @@ footer{text-align:center;padding:30px 20px;color:var(--dim);font-size:.78em;bord
 <footer>
   <p>全国OPC政策导航 · 数据来源: 政府官网、公开政策文件、权威媒体报道</p>
   <p style="margin-top:4px"><a href="guangzhou.html">广州专版</a> · <a href="yuexiu.html">越秀区</a> · <a href="tax.html">税务指南</a>
-  <a href="dashboard.html">数据看板</a> · <a href="https://github.com/siuserxiaowei/guangzhou-opc-policy" target="_blank">GitHub</a></p>
+  <a href="dashboard.html">数据看板</a> · <a href="https://github.com/siuserxiaowei/opc-policy" target="_blank">GitHub</a></p>
   <p style="margin-top:6px;font-size:.8em">Made by <strong>siuser小伟</strong> · 微信: siuserxiaowei · AI语音对话机器人方案商</p>
 </footer>
 
@@ -1036,24 +1070,242 @@ function sendChat(){
   const answer = localAdvisor(q);
   msgs.innerHTML+=`<div class="chat-msg chat-ai">${answer}</div>`;
   msgs.scrollTop=msgs.scrollHeight;
+
+  // If answer contains a link to another page, make it clickable
+  msgs.querySelectorAll('a[href]').forEach(a=>{
+    a.style.color='var(--cyan)';
+    a.style.textDecoration='underline';
+  });
 }
 
 function localAdvisor(question){
   const q=question.toLowerCase();
   let relevant=[];
 
-  // Search by city
-  const cities=['广州','深圳','北京','上海','杭州','武汉','成都','南京','合肥','长沙','重庆'];
-  const matchedCity=cities.find(c=>q.includes(c.toLowerCase()));
+  // Dynamically extract all cities from POLICIES
+  const allCities=[...new Set(POLICIES.map(p=>p.city).filter(Boolean))];
 
-  // Search by keywords
-  const keywords=['免租','算力','补贴','备案','场景','注册','社区','贷款','赛事','创业','token'];
-  const matchedKw=keywords.filter(k=>q.includes(k));
+  // Fuzzy city matching: user input may partially match city name
+  let matchedCity=allCities.find(c=>q.includes(c));
+  if(!matchedCity){
+    // Try partial match: e.g. "苏州" matches "苏州", "广" matches "广州"
+    matchedCity=allCities.find(c=>{
+      if(c.length>=2){
+        // Check if any 2-char substring of city name appears in query
+        for(let i=0;i<=c.length-2;i++){
+          if(q.includes(c.substring(i,i+2))) return true;
+        }
+      }
+      return false;
+    });
+  }
 
+  // Find multiple cities mentioned (for comparison)
+  const mentionedCities=allCities.filter(c=>q.includes(c));
+
+  // Enhanced keyword categories
+  const kwCategories={
+    subsidy:['补贴','奖励','扶持','资金','资助','奖金'],
+    rent:['免租','免费','空间','办公','孵化器','众创'],
+    compute:['算力','算力券','GPU','芯片','服务器'],
+    filing:['备案','合规','审批','许可'],
+    scenario:['场景','应用','落地','试点','示范'],
+    register:['注册','营业执照','开户','工商','登记'],
+    community:['社区','OPC社区','入驻'],
+    loan:['贷款','融资','投资','风投','VC','基金','信贷'],
+    competition:['赛事','大赛','比赛','竞赛','挑战赛'],
+    startup:['创业','创客','双创','初创'],
+    talent:['人才','博士','硕士','人才公寓','安居','购房','落户','引才'],
+    tax:['税','个税','企税','税负','核定','税收','节税','税务','纳税','减税','免税','所得税','增值税'],
+    token:['token','代币','数字资产']
+  };
+
+  // Match keywords across all categories
+  const matchedKw=[];
+  const matchedCategories=[];
+  Object.entries(kwCategories).forEach(([cat,words])=>{
+    const found=words.filter(k=>q.includes(k));
+    if(found.length){
+      matchedKw.push(...found);
+      matchedCategories.push(cat);
+    }
+  });
+
+  // ===== SPECIAL HANDLERS (checked first) =====
+
+  // 1. Tax-related questions -> guide to tax.html
+  if(matchedCategories.includes('tax')){
+    let html='<b>💰 税务相关建议：</b><br><br>';
+    html+='OPC企业常见税务优化方向：<br>';
+    html+='· <b>核定征收</b>：部分园区可申请个体/个独核定，综合税负低至1.5%-3%<br>';
+    html+='· <b>研发加计扣除</b>：AI企业研发费用可加计100%扣除<br>';
+    html+='· <b>高新认定</b>：企业所得税减按15%征收<br>';
+    html+='· <b>个税优惠</b>：粤港澳大湾区、海南等地高端人才个税补贴<br>';
+    html+='· <b>增值税</b>：软件产品即征即退（实际税负超3%部分退还）<br><br>';
+    // Find tax-related policies
+    const taxPolicies=POLICIES.filter(p=>{
+      const txt=(p.name+p.summary+(p.tags||[]).join('')).toLowerCase();
+      return kwCategories.tax.some(k=>txt.includes(k));
+    });
+    if(matchedCity){
+      const cityTax=taxPolicies.filter(p=>p.city===matchedCity);
+      if(cityTax.length){
+        html+=`<b>${matchedCity}税务相关政策：</b><br>`;
+        cityTax.slice(0,5).forEach(p=>html+=`· ${p.name}<br>`);
+        html+='<br>';
+      }
+    }
+    html+=`<a href="tax.html" target="_blank" style="color:var(--cyan)">📖 查看完整税务指南 →</a>`;
+    return html;
+  }
+
+  // 2. Registration / business license questions
+  if(matchedCategories.includes('register')){
+    let html='<b>📝 OPC企业注册指南：</b><br><br>';
+    html+='<b style="color:var(--green)">推荐：广州南沙 0.5天极速注册</b><br>';
+    html+='· 全程线上办理，最快半天出执照<br>';
+    html+='· 南沙自贸区政策加持，跨境业务便利<br>';
+    html+='· 注册地址托管低至500元/年<br><br>';
+    html+='<b>一般注册流程：</b><br>';
+    html+='1. 核名（1-3个工作日）<br>';
+    html+='2. 提交工商材料（线上/线下）<br>';
+    html+='3. 领取营业执照<br>';
+    html+='4. 刻章、银行开户、税务登记<br>';
+    html+='5. 社保公积金开户<br><br>';
+    html+='<b>💡 Tips：</b><br>';
+    html+='· 经营范围建议包含"人工智能技术服务"、"软件开发"<br>';
+    html+='· 注册资本建议50-100万（认缴制）<br>';
+    html+='· 选择有OPC政策的园区注册，可叠加享受优惠<br><br>';
+    // Show registration-related policies
+    const regPolicies=POLICIES.filter(p=>{
+      const txt=(p.name+p.summary+(p.tags||[]).join('')).toLowerCase();
+      return kwCategories.register.some(k=>txt.includes(k));
+    });
+    if(matchedCity){
+      const cityReg=regPolicies.filter(p=>p.city===matchedCity);
+      if(cityReg.length){
+        html+=`<b>${matchedCity}注册相关政策：</b><br>`;
+        cityReg.slice(0,5).forEach(p=>html+=`· ${p.name}<br>`);
+        html+='<br>';
+      }
+    }
+    return html;
+  }
+
+  // 3. Talent-related questions
+  if(matchedCategories.includes('talent')){
+    let html='<b>🎓 人才政策速览：</b><br><br>';
+    const talentPolicies=POLICIES.filter(p=>{
+      const txt=(p.name+p.summary+(p.tags||[]).join('')).toLowerCase();
+      return kwCategories.talent.some(k=>txt.includes(k));
+    });
+    if(matchedCity){
+      const cityTalent=talentPolicies.filter(p=>p.city===matchedCity);
+      if(cityTalent.length){
+        html+=`<b>${matchedCity}人才政策：</b><br>`;
+        cityTalent.slice(0,5).forEach(p=>{
+          const maxA=Math.max(0,...(p.benefits||[]).map(b=>b.amount_max||0));
+          html+=`· <b>${p.name}</b>`;
+          if(maxA>0) html+=` <span style="color:var(--cyan)">${maxA>=10000?Math.round(maxA/10000)+'万':maxA+'元'}</span>`;
+          html+='<br>';
+        });
+      }else{
+        html+=`${matchedCity}暂未收录专项人才政策，以下是其他城市的：<br>`;
+        talentPolicies.slice(0,5).forEach(p=>html+=`· <b>${p.city}</b> ${p.name}<br>`);
+      }
+    }else{
+      html+='各城市人才政策亮点：<br>';
+      // Group by city, show top cities
+      const talentByCity={};
+      talentPolicies.forEach(p=>{
+        if(!talentByCity[p.city]) talentByCity[p.city]=[];
+        talentByCity[p.city].push(p);
+      });
+      Object.entries(talentByCity).slice(0,6).forEach(([city,ps])=>{
+        html+=`<b style="color:var(--al)">${city}</b>：${ps.map(p=>p.name).join('、')}<br>`;
+      });
+    }
+    return html;
+  }
+
+  // 4. Loan / financing questions
+  if(matchedCategories.includes('loan')){
+    let html='<b>🏦 融资贷款相关政策：</b><br><br>';
+    const loanPolicies=POLICIES.filter(p=>{
+      const txt=(p.name+p.summary+(p.tags||[]).join('')+(p.benefits||[]).map(b=>b.item+b.amount).join('')).toLowerCase();
+      return kwCategories.loan.some(k=>txt.includes(k));
+    });
+    if(matchedCity){
+      const cityLoan=loanPolicies.filter(p=>p.city===matchedCity);
+      if(cityLoan.length){
+        html+=`<b>${matchedCity}融资政策：</b><br>`;
+        cityLoan.slice(0,5).forEach(p=>html+=`· ${p.name} — ${p.summary}<br>`);
+      }else{
+        html+=`${matchedCity}暂无专项融资政策，以下是其他城市的：<br>`;
+        loanPolicies.slice(0,5).forEach(p=>html+=`· <b>${p.city}</b> ${p.name}<br>`);
+      }
+    }else{
+      loanPolicies.slice(0,8).forEach(p=>html+=`· <b>${p.city}</b> ${p.name}<br>`);
+    }
+    if(!loanPolicies.length) html+='暂未收录专项融资政策，建议咨询当地科技局或产业园区。<br>';
+    return html;
+  }
+
+  // 5. City comparison (support all 37 cities)
+  if(q.includes('比较') || q.includes('对比') || q.includes('vs') || (q.includes('和') && mentionedCities.length>=2)){
+    const compared=mentionedCities.length>=2 ? mentionedCities : [];
+    if(compared.length>=2){
+      let html=`<b>📊 ${compared.join(' vs ')} OPC政策对比：</b><br><br>`;
+      compared.forEach(city=>{
+        const cp=POLICIES.filter(p=>p.city===city);
+        const maxA=Math.max(0,...cp.flatMap(p=>(p.benefits||[]).map(b=>b.amount_max||0)));
+        const comms=cp.reduce((s,p)=>s+(p.communities||[]).length,0);
+        const cats=[...new Set(cp.map(p=>p.category).filter(Boolean))];
+        html+=`<b style="color:var(--al)">${city}</b>：${cp.length}条政策，最高补贴${maxA>=10000?Math.round(maxA/10000)+'万':maxA+'元'}，${comms}个OPC社区<br>`;
+        if(cats.length) html+=`  覆盖领域：${cats.join('、')}<br>`;
+        cp.slice(0,3).forEach(p=>html+=`  · ${p.name}<br>`);
+        html+='<br>';
+      });
+      html+='<span style="color:var(--dim);font-size:.85em">💡 可以问我具体城市的详情，如"广州补贴"</span>';
+      return html;
+    }
+  }
+
+  // 6. "Which city is best" / recommendation questions
+  if(q.includes('最好') || q.includes('推荐') || q.includes('哪个城市') || q.includes('去哪') || q.includes('选哪') || q.includes('排名') || q.includes('排行')){
+    // Rank cities by policy count and max subsidy
+    const cityStats={};
+    POLICIES.forEach(p=>{
+      if(!p.city) return;
+      if(!cityStats[p.city]) cityStats[p.city]={count:0,maxAmount:0,comms:0,categories:new Set()};
+      cityStats[p.city].count++;
+      const maxA=Math.max(0,...(p.benefits||[]).map(b=>b.amount_max||0));
+      if(maxA>cityStats[p.city].maxAmount) cityStats[p.city].maxAmount=maxA;
+      cityStats[p.city].comms+=(p.communities||[]).length;
+      if(p.category) cityStats[p.city].categories.add(p.category);
+    });
+    // Sort by count first, then by maxAmount
+    const ranked=Object.entries(cityStats).sort((a,b)=>{
+      if(b[1].count!==a[1].count) return b[1].count-a[1].count;
+      return b[1].maxAmount-a[1].maxAmount;
+    });
+    let html='<b>🏆 OPC政策城市推荐排行（按政策数量+最高补贴）：</b><br><br>';
+    ranked.slice(0,10).forEach(([city,s],i)=>{
+      const medal=i<3?['🥇','🥈','🥉'][i]:`${i+1}.`;
+      html+=`${medal} <b style="color:var(--al)">${city}</b>：${s.count}条政策`;
+      if(s.maxAmount>0) html+=`，最高${s.maxAmount>=10000?Math.round(s.maxAmount/10000)+'万':s.maxAmount+'元'}`;
+      if(s.comms>0) html+=`，${s.comms}个社区`;
+      html+='<br>';
+    });
+    html+=`<br><span style="color:var(--dim);font-size:.85em">共覆盖 ${ranked.length} 个城市，输入城市名查看详情</span>`;
+    return html;
+  }
+
+  // ===== KEYWORD + CITY FILTERING =====
   relevant=POLICIES.filter(p=>{
     if(matchedCity && p.city!==matchedCity) return false;
     if(matchedKw.length){
-      const txt=(p.name+p.summary+(p.tags||[]).join('')).toLowerCase();
+      const txt=(p.name+p.summary+(p.tags||[]).join('')+(p.benefits||[]).map(b=>b.item).join('')).toLowerCase();
       return matchedKw.some(k=>txt.includes(k));
     }
     return matchedCity ? true : false;
@@ -1063,30 +1315,23 @@ function localAdvisor(question){
     relevant=POLICIES.filter(p=>p.city===matchedCity);
   }
 
-  if(!relevant.length){
-    // Broad search
-    relevant=POLICIES.filter(p=>{
-      const txt=(p.name+p.summary+(p.tags||[]).join('')).toLowerCase();
-      return q.split('').some(ch=>txt.includes(ch)) || true;
-    }).slice(0,5);
-  }
-
-  if(q.includes('比较') || q.includes('哪个') || (q.includes('和') && cities.filter(c=>q.includes(c)).length>=2)){
-    const compared=cities.filter(c=>q.includes(c));
-    if(compared.length>=2){
-      let html=`<b>📊 ${compared.join(' vs ')} OPC政策对比：</b><br><br>`;
-      compared.forEach(city=>{
-        const cp=POLICIES.filter(p=>p.city===city);
-        const maxA=Math.max(0,...cp.flatMap(p=>(p.benefits||[]).map(b=>b.amount_max||0)));
-        const comms=cp.reduce((s,p)=>s+(p.communities||[]).length,0);
-        html+=`<b style="color:var(--al)">${city}</b>：${cp.length}条政策，最高补贴${maxA>=10000?Math.round(maxA/10000)+'万':maxA+'元'}，${comms}个OPC社区<br>`;
-        cp.slice(0,3).forEach(p=>html+=`· ${p.name}<br>`);
-        html+='<br>';
-      });
-      return html;
+  // Broad search: try matching any word segment from the query
+  if(!relevant.length && !matchedCity){
+    const queryChars=q.replace(/[？?！!。，, ]/g,'');
+    if(queryChars.length>=2){
+      relevant=POLICIES.filter(p=>{
+        const txt=(p.name+p.summary+(p.tags||[]).join('')).toLowerCase();
+        // Try 2-char sliding window match
+        for(let i=0;i<=queryChars.length-2;i++){
+          const seg=queryChars.substring(i,i+2);
+          if(txt.includes(seg)) return true;
+        }
+        return false;
+      }).slice(0,8);
     }
   }
 
+  // Materials / preparation question
   if(q.includes('材料') || q.includes('准备')){
     const target=relevant[0];
     if(target){
@@ -1100,11 +1345,25 @@ function localAdvisor(question){
     }
   }
 
+  // Free space / rent-free question
   if(q.includes('免费') || q.includes('免租') || q.includes('空间')){
     const freeSpace=POLICIES.filter(p=>
       (p.benefits||[]).some(b=>b.type==='rent_free')||
       (p.communities||[]).length>0
     );
+    if(matchedCity){
+      const cityFree=freeSpace.filter(p=>p.city===matchedCity);
+      if(cityFree.length){
+        let html=`<b>🏢 ${matchedCity}免费/低成本办公空间：</b><br><br>`;
+        cityFree.slice(0,8).forEach(p=>{
+          html+=`· <b>${p.name}</b>`;
+          const comm=(p.communities||[])[0];
+          if(comm) html+=` — ${comm.name}`;
+          html+='<br>';
+        });
+        return html;
+      }
+    }
     let html='<b>🏢 提供免费/低成本办公空间的政策：</b><br><br>';
     freeSpace.slice(0,8).forEach(p=>{
       html+=`· <b>${p.city}</b> ${p.name}`;
@@ -1116,7 +1375,7 @@ function localAdvisor(question){
   }
 
   // Default: show relevant policies
-  let html=matchedCity?`<b>📍 ${matchedCity}的OPC政策：</b><br><br>`:'<b>🔍 相关政策：</b><br><br>';
+  let html=matchedCity?`<b>📍 ${matchedCity}的OPC政策（共${relevant.length}条）：</b><br><br>`:'<b>🔍 相关政策：</b><br><br>';
   relevant.slice(0,6).forEach(p=>{
     const maxA=Math.max(0,...(p.benefits||[]).map(b=>b.amount_max||0));
     html+=`<b>${p.name}</b>`;
@@ -1126,7 +1385,7 @@ function localAdvisor(question){
     html+='<br>';
   });
 
-  if(!relevant.length) html='抱歉，没有找到相关政策。试试换个关键词？例如"广州补贴"、"深圳免租"、"算力券"。';
+  if(!relevant.length) html='抱歉，没有找到相关政策。试试以下问法：<br>· 输入城市名，如"广州"、"深圳"、"苏州"<br>· 输入关键词，如"补贴"、"免租"、"算力券"<br>· 问"推荐"或"哪个城市最好"查看排行<br>· 问"税务"了解节税方案<br>· 问"注册"了解开公司流程';
 
   return html;
 }
@@ -1192,6 +1451,182 @@ function copyWx(){
 }
 // Show QR
 function showQR(){document.getElementById('qrModal').style.display='flex'}
+
+// ===== 材料清单生成器 =====
+function generateChecklist(){
+  if(!window._allResults||!window._allResults.length){alert('请先完成政策匹配');return;}
+  const highResults=window._allResults.filter(r=>r.level==='high');
+  if(!highResults.length){alert('暂无高度匹配的政策，无法生成材料清单。\n请先调整条件获得高度匹配结果。');return;}
+
+  // 基础材料
+  const materials=[
+    {section:'基础材料（所有申报必备）',items:[
+      {id:'base_license',text:'公司营业执照（副本复印件）'},
+      {id:'base_id',text:'法人身份证复印件'},
+      {id:'base_charter',text:'公司章程'},
+      {id:'base_bank',text:'银行开户许可证'}
+    ]}
+  ];
+
+  // 收集所有高匹配政策的类型信息
+  const allBenefitTypes=new Set();
+  const allCategories=new Set();
+  let needSocialInsurance=false;
+  let socialInsuranceMonths=0;
+  let needQualifications=false;
+  let needRegistrationProof=false;
+  let maxCompanyAge=0;
+
+  highResults.forEach(r=>{
+    const p=r.policy;
+    allCategories.add(p.category);
+    (p.benefits||[]).forEach(b=>allBenefitTypes.add(b.type));
+    const req=p.requirements||{};
+    if(req.social_insurance_months){
+      needSocialInsurance=true;
+      socialInsuranceMonths=Math.max(socialInsuranceMonths,req.social_insurance_months);
+    }
+    if(req.qualifications&&req.qualifications.length) needQualifications=true;
+    if(req.company_age_max_years){
+      needRegistrationProof=true;
+      maxCompanyAge=Math.max(maxCompanyAge,req.company_age_max_years);
+    }
+  });
+
+  // 根据政策类型动态添加材料
+  const dynamicItems=[];
+
+  if(allBenefitTypes.has('voucher')||allCategories.has('computing')){
+    dynamicItems.push({id:'dyn_computing',text:'算力消耗证明 / 云服务账单'});
+  }
+  if(allBenefitTypes.has('rent_free')||allBenefitTypes.has('space')||allCategories.has('space')){
+    dynamicItems.push({id:'dyn_bp',text:'项目BP / 商业计划书'});
+    dynamicItems.push({id:'dyn_team',text:'团队介绍'});
+  }
+  if(allCategories.has('scenario')){
+    dynamicItems.push({id:'dyn_scenario',text:'应用场景说明'});
+    dynamicItems.push({id:'dyn_partner',text:'合作方意向书'});
+    dynamicItems.push({id:'dyn_plan',text:'项目实施方案'});
+  }
+  if(allBenefitTypes.has('cash')||allCategories.has('subsidy')){
+    dynamicItems.push({id:'dyn_finance',text:'财务报表'});
+    dynamicItems.push({id:'dyn_tax',text:'纳税证明'});
+  }
+  if(needSocialInsurance){
+    dynamicItems.push({id:'dyn_social',text:`社保缴费记录（连续${socialInsuranceMonths}个月）`});
+  }
+  if(needQualifications){
+    dynamicItems.push({id:'dyn_ip',text:'软件著作权 / 专利证书'});
+  }
+  if(needRegistrationProof){
+    dynamicItems.push({id:'dyn_reg',text:`公司注册满${maxCompanyAge*12}个月证明`});
+  }
+  if(allCategories.has('competition')){
+    dynamicItems.push({id:'dyn_demo',text:'参赛作品 / 项目Demo'});
+  }
+
+  if(dynamicItems.length){
+    materials.push({section:'政策专项材料（根据匹配政策生成）',items:dynamicItems});
+  }
+
+  // 读取 localStorage 已勾选状态
+  let checkedState={};
+  try{checkedState=JSON.parse(localStorage.getItem('opc_checklist_state')||'{}');}catch(e){}
+
+  // 渲染
+  const panel=document.getElementById('panelChecklist');
+  const policyNames=highResults.map(r=>r.policy.name);
+  document.getElementById('checklistDesc').textContent=
+    `基于 ${highResults.length} 条高度匹配政策生成：${policyNames.slice(0,3).join('、')}${policyNames.length>3?'等':''}`;
+
+  let html='';
+  let totalItems=0;
+  materials.forEach(sec=>{
+    html+=`<div class="checklist-section"><h4>${sec.section}</h4>`;
+    sec.items.forEach(item=>{
+      totalItems++;
+      const isChecked=!!checkedState[item.id];
+      html+=`<div class="checklist-item${isChecked?' checked':''}" onclick="toggleChecklistItem(this,'${item.id}')">
+        <input type="checkbox" ${isChecked?'checked':''} onclick="event.stopPropagation();toggleChecklistItem(this.parentElement,'${item.id}')">
+        <label>${item.text}</label>
+      </div>`;
+    });
+    html+='</div>';
+  });
+
+  document.getElementById('checklistContent').innerHTML=html;
+  window._checklistTotalItems=totalItems;
+  window._checklistMaterials=materials;
+  updateChecklistProgress();
+  panel.classList.remove('hidden');
+  panel.scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+function toggleChecklistItem(el,id){
+  const cb=el.querySelector('input[type="checkbox"]');
+  const newState=!el.classList.contains('checked');
+  cb.checked=newState;
+  el.classList.toggle('checked',newState);
+
+  // 保存到 localStorage
+  let state={};
+  try{state=JSON.parse(localStorage.getItem('opc_checklist_state')||'{}');}catch(e){}
+  if(newState) state[id]=true; else delete state[id];
+  localStorage.setItem('opc_checklist_state',JSON.stringify(state));
+
+  updateChecklistProgress();
+}
+
+function updateChecklistProgress(){
+  const items=document.querySelectorAll('#checklistContent .checklist-item');
+  const checked=document.querySelectorAll('#checklistContent .checklist-item.checked');
+  const total=items.length;
+  const done=checked.length;
+  const pct=total>0?Math.round((done/total)*100):0;
+  document.getElementById('checklistProgressText').textContent=`已准备 ${done} / ${total} 项`;
+  document.getElementById('checklistProgressPct').textContent=pct+'%';
+  document.getElementById('checklistProgressFill').style.width=pct+'%';
+}
+
+function exportChecklist(){
+  if(!window._checklistMaterials) return;
+  let state={};
+  try{state=JSON.parse(localStorage.getItem('opc_checklist_state')||'{}');}catch(e){}
+
+  let txt='OPC 申报材料清单\n';
+  txt+='生成时间：'+new Date().toLocaleString('zh-CN')+'\n';
+  txt+='═'.repeat(40)+'\n\n';
+
+  window._checklistMaterials.forEach(sec=>{
+    txt+='【'+sec.section+'】\n';
+    sec.items.forEach(item=>{
+      txt+=(state[item.id]?'[✓]':'[ ]')+' '+item.text+'\n';
+    });
+    txt+='\n';
+  });
+
+  const items=document.querySelectorAll('#checklistContent .checklist-item');
+  const checked=document.querySelectorAll('#checklistContent .checklist-item.checked');
+  txt+='─'.repeat(40)+'\n';
+  txt+=`进度：${checked.length} / ${items.length} 项已准备\n`;
+
+  const blob=new Blob([txt],{type:'text/plain;charset=utf-8'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download='OPC申报材料清单.txt';
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+
+function clearChecklist(){
+  if(!confirm('确定清除所有勾选状态？')) return;
+  localStorage.removeItem('opc_checklist_state');
+  document.querySelectorAll('#checklistContent .checklist-item').forEach(el=>{
+    el.classList.remove('checked');
+    el.querySelector('input[type="checkbox"]').checked=false;
+  });
+  updateChecklistProgress();
+}
 </script>
 </body>
 </html>
