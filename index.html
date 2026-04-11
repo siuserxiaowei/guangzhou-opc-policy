@@ -1478,15 +1478,8 @@ function renderCities(){
       <div class="city-hl">${c.highlight||''}</div>`;
     card.onclick=()=>{
       if(c.link){window.location.href=c.link;return;}
-      // Switch to match mode and fill
-      switchModeDirectly('match');
-      document.getElementById('fProvince').value=c.province;
-      document.getElementById('fProvince').dispatchEvent(new Event('change'));
-      setTimeout(()=>{
-        document.getElementById('fCity').value=c.name;
-        document.getElementById('fCity').dispatchEvent(new Event('change'));
-        document.getElementById('panelForm').scrollIntoView({behavior:'smooth'});
-      },80);
+      // Go to city detail page
+      window.location.href=`city.html?name=${encodeURIComponent(c.name)}`;
     };
     grid.appendChild(card);
   });

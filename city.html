@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OPC政策详情</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏢</text></svg>">
+<style>
+:root{--bg:#0a0a0f;--card:#12121a;--card2:#1a1a28;--border:#2a2a3a;--text:#e0e0e8;--dim:#8888a0;
+  --accent:#6c5ce7;--al:#a29bfe;--green:#00e676;--gd:#1b5e20;--yellow:#ffd600;--yd:#5d4e00;
+  --red:#ff5252;--cyan:#00e5ff;--blue:#448aff;--orange:#ff9100}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,'PingFang SC','Microsoft YaHei',sans-serif;background:var(--bg);color:var(--text);line-height:1.7}
+a{color:var(--al);text-decoration:none}a:hover{color:#fff}
+
+.topnav{display:flex;align-items:center;gap:8px;padding:10px 20px;background:rgba(10,10,15,.9);
+  border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;backdrop-filter:blur(12px)}
+.topnav .logo{font-weight:800;font-size:1em;color:var(--al)}
+.topnav a{padding:6px 14px;border-radius:6px;font-size:.82em;color:var(--dim);transition:all .2s;white-space:nowrap}
+.topnav a:hover,.topnav a.active{color:var(--al);background:rgba(108,92,231,.1)}
+
+.hero{padding:50px 20px 30px;text-align:center;background:linear-gradient(135deg,#0a0a1a 0%,#1a0a2e 50%,#0a1a2e 100%)}
+.hero h1{font-size:2.2em;font-weight:800;background:linear-gradient(135deg,#fff,var(--al),var(--cyan));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero .sub{color:var(--dim);font-size:.95em;margin:8px 0}
+
+.stats-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;
+  max-width:900px;margin:20px auto;padding:0 20px}
+.stat{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px;text-align:center}
+.stat .n{font-size:1.8em;font-weight:800;line-height:1}
+.stat .l{font-size:.75em;color:var(--dim);margin-top:4px}
+
+.container{max-width:900px;margin:0 auto;padding:20px}
+
+.section-title{font-size:1.3em;font-weight:700;margin:30px 0 16px;padding-left:12px;
+  border-left:4px solid var(--accent)}
+
+.policy-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:24px;
+  margin-bottom:16px;transition:all .3s}
+.policy-card:hover{border-color:rgba(108,92,231,.3);transform:translateY(-2px)}
+.policy-card h3{font-size:1.1em;margin-bottom:6px;line-height:1.4}
+.policy-card .meta{font-size:.78em;color:var(--dim);margin-bottom:10px;display:flex;flex-wrap:wrap;gap:8px}
+.policy-card .summary{font-size:.88em;color:var(--dim);margin-bottom:12px}
+
+.benefits-table{width:100%;font-size:.85em;border-collapse:collapse;margin:10px 0}
+.benefits-table th{text-align:left;padding:8px 10px;background:rgba(108,92,231,.08);color:var(--al);
+  border-bottom:1px solid var(--border);font-weight:600}
+.benefits-table td{padding:8px 10px;border-bottom:1px solid rgba(255,255,255,.03)}
+.benefits-table .amount{color:var(--cyan);font-weight:700}
+
+.tag{display:inline-block;padding:2px 8px;border-radius:4px;font-size:.72em;font-weight:600;margin-right:4px}
+.tag-active{background:var(--gd);color:var(--green)}
+.tag-draft{background:var(--yd);color:var(--yellow)}
+.tag-province{background:rgba(108,92,231,.15);color:var(--al)}
+.tag-city{background:rgba(0,229,255,.1);color:var(--cyan)}
+.tag-district{background:rgba(255,145,0,.1);color:var(--orange)}
+
+.community-card{background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:16px;margin-bottom:10px}
+.community-card h4{font-size:.95em;margin-bottom:4px;color:var(--cyan)}
+.community-card .detail{font-size:.82em;color:var(--dim)}
+
+.links{margin-top:12px;display:flex;flex-wrap:wrap;gap:8px}
+.links a{padding:4px 12px;background:rgba(108,92,231,.1);border:1px solid rgba(108,92,231,.2);
+  border-radius:6px;font-size:.78em}
+
+.empty{text-align:center;padding:60px 20px;color:var(--dim)}
+.empty h2{font-size:1.4em;margin-bottom:8px;color:var(--text)}
+
+.back-btn{display:inline-flex;align-items:center;gap:6px;padding:8px 18px;background:var(--card);
+  border:1px solid var(--border);border-radius:8px;font-size:.85em;color:var(--dim);margin-bottom:20px;transition:all .2s}
+.back-btn:hover{color:var(--al);border-color:var(--accent)}
+
+footer{text-align:center;padding:30px 20px;color:var(--dim);font-size:.78em;border-top:1px solid var(--border)}
+
+@media(max-width:768px){.hero h1{font-size:1.6em}.stats-row{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:480px){.hero h1{font-size:1.3em}.policy-card{padding:16px}.container{padding:14px 12px}}
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <span class="logo">OPC</span>
+  <a href="index.html">首页</a>
+  <a href="guangzhou.html">广州专版</a>
+  <a href="tax.html">税务指南</a>
+  <a href="dashboard.html">数据看板</a>
+</nav>
+
+<div class="hero">
+  <h1 id="cityTitle">加载中...</h1>
+  <p class="sub" id="citySub"></p>
+</div>
+
+<div class="stats-row" id="statsRow"></div>
+
+<div class="container">
+  <a href="index.html" class="back-btn">← 返回全国导航</a>
+  <div id="content"></div>
+</div>
+
+<footer>
+  <p>OPC政策导航 · <a href="index.html">全国政策</a> · <a href="guangzhou.html">广州专版</a> · <a href="dashboard.html">数据看板</a></p>
+</footer>
+
+<script>
+const params = new URLSearchParams(window.location.search);
+const cityName = params.get('name') || '';
+
+async function loadCity() {
+  if (!cityName) {
+    document.getElementById('cityTitle').textContent = '未指定城市';
+    document.getElementById('content').innerHTML = '<div class="empty"><h2>请从首页选择城市</h2><p><a href="index.html">返回首页 →</a></p></div>';
+    return;
+  }
+
+  document.title = `${cityName} OPC政策详情 - OPC政策导航`;
+  document.getElementById('cityTitle').textContent = `${cityName} OPC 政策`;
+
+  let policies = [];
+  try {
+    const resp = await fetch('data/policies.json');
+    const data = await resp.json();
+    policies = (data.policies || []).filter(p => p.city === cityName);
+  } catch(e) {}
+
+  // Try merging crawler data
+  try {
+    const resp = await fetch('https://opc-crawler.siuserxy.workers.dev/extracted', {signal: AbortSignal.timeout(5000)});
+    if (resp.ok) {
+      const data = await resp.json();
+      const ids = new Set(policies.map(p => p.id));
+      const names = new Set(policies.map(p => p.name));
+      for (const p of (data.policies || [])) {
+        if (p.city === cityName && !ids.has(p.id) && !names.has(p.name)) {
+          policies.push(p);
+        }
+      }
+    }
+  } catch(e) {}
+
+  if (!policies.length) {
+    document.getElementById('citySub').textContent = '暂无收录政策';
+    document.getElementById('content').innerHTML = `<div class="empty"><h2>${cityName}暂未收录OPC政策</h2><p>我们正在持续扩展数据库，该城市的政策信息即将更新。</p><p style="margin-top:16px"><a href="index.html">返回首页查看已收录城市 →</a></p></div>`;
+    return;
+  }
+
+  // Stats
+  const totalBenefits = policies.reduce((s, p) => s + (p.benefits || []).length, 0);
+  const maxAmount = Math.max(0, ...policies.flatMap(p => (p.benefits || []).map(b => b.amount_max || 0)));
+  const communities = policies.reduce((s, p) => s + (p.communities || []).length, 0);
+  const province = policies[0]?.province || '';
+
+  document.getElementById('citySub').textContent = `${province} · ${policies.length}条政策 · ${communities}个OPC社区`;
+  document.getElementById('statsRow').innerHTML = `
+    <div class="stat"><div class="n" style="color:var(--cyan)">${policies.length}</div><div class="l">政策总数</div></div>
+    <div class="stat"><div class="n" style="color:var(--green)">${totalBenefits}</div><div class="l">补贴项目</div></div>
+    <div class="stat"><div class="n" style="color:var(--yellow)">${maxAmount >= 10000 ? Math.round(maxAmount/10000) + '万' : maxAmount}</div><div class="l">最高补贴</div></div>
+    <div class="stat"><div class="n" style="color:var(--al)">${communities}</div><div class="l">OPC社区</div></div>
+  `;
+
+  // Render policies
+  let html = '';
+
+  // Group by level
+  const levels = [
+    { key: 'province', label: '省级政策', policies: policies.filter(p => p.level === 'province') },
+    { key: 'city', label: '市级政策', policies: policies.filter(p => p.level === 'city') },
+    { key: 'district', label: '区级政策', policies: policies.filter(p => p.level === 'district') },
+    { key: 'other', label: '其他', policies: policies.filter(p => !['province','city','district'].includes(p.level)) },
+  ];
+
+  for (const group of levels) {
+    if (!group.policies.length) continue;
+    html += `<div class="section-title">${group.label}（${group.policies.length}条）</div>`;
+
+    for (const p of group.policies) {
+      const statusMap = { active: ['已实施', 'tag-active'], draft: ['征求意见', 'tag-draft'] };
+      const [statusText, statusClass] = statusMap[p.status] || [p.status || '未知', 'tag-draft'];
+      const levelMap = { province: ['省级', 'tag-province'], city: ['市级', 'tag-city'], district: ['区级', 'tag-district'] };
+      const [levelText, levelClass] = levelMap[p.level] || ['', ''];
+
+      html += `<div class="policy-card">`;
+      html += `<h3>${p.name}</h3>`;
+      html += `<div class="meta">`;
+      if (levelText) html += `<span class="tag ${levelClass}">${levelText}</span>`;
+      html += `<span class="tag ${statusClass}">${statusText}</span>`;
+      if (p.district) html += `<span>${p.district}</span>`;
+      if (p.issuer) html += `<span>${p.issuer}</span>`;
+      if (p.publish_date) html += `<span>${p.publish_date}</span>`;
+      if (p.auto_extracted) html += `<span class="tag" style="background:rgba(255,145,0,.1);color:var(--orange)">AI提取</span>`;
+      html += `</div>`;
+
+      if (p.summary) html += `<p class="summary">${p.summary}</p>`;
+
+      // Benefits
+      const benefits = p.benefits || [];
+      if (benefits.length) {
+        html += `<table class="benefits-table"><thead><tr><th>补贴项目</th><th>金额</th></tr></thead><tbody>`;
+        for (const b of benefits) {
+          const amt = b.amount_max > 0
+            ? (b.amount_max >= 10000 ? `最高 <strong>${Math.round(b.amount_max/10000)}万元</strong>` : `最高 <strong>${b.amount_max}元</strong>`)
+            : (b.amount || '—');
+          html += `<tr><td>${b.item}</td><td class="amount">${amt}</td></tr>`;
+        }
+        html += `</tbody></table>`;
+      }
+
+      // Requirements
+      const reqs = p.requirements || {};
+      const reqItems = [];
+      if (reqs.registration_location) reqItems.push(`注册地：${reqs.registration_location}`);
+      if (reqs.registration_months) reqItems.push(`注册满${reqs.registration_months}个月`);
+      if (reqs.min_employees != null) reqItems.push(`员工≥${reqs.min_employees}人`);
+      if (reqs.industries?.length) reqItems.push(`行业：${reqs.industries.join('、')}`);
+      if (reqItems.length) {
+        html += `<p style="font-size:.82em;color:var(--dim);margin-top:8px"><strong style="color:var(--al)">申请条件：</strong>${reqItems.join('；')}</p>`;
+      }
+
+      // Application
+      if (p.application?.method) {
+        html += `<p style="font-size:.82em;color:var(--dim);margin-top:4px"><strong style="color:var(--al)">申请方式：</strong>${p.application.method}</p>`;
+      }
+      if (p.application?.deadline) {
+        html += `<p style="font-size:.82em;color:var(--red);margin-top:4px"><strong>截止日期：</strong>${p.application.deadline}</p>`;
+      }
+
+      // Communities
+      const comms = p.communities || [];
+      if (comms.length) {
+        html += `<div style="margin-top:12px">`;
+        for (const c of comms) {
+          html += `<div class="community-card">`;
+          html += `<h4>${c.name}</h4>`;
+          const details = [];
+          if (c.address) details.push(`地址：${c.address}`);
+          if (c.operator) details.push(`运营方：${c.operator}`);
+          if (c.features?.length) details.push(`特色：${c.features.join('、')}`);
+          html += `<p class="detail">${details.join(' · ')}</p>`;
+          html += `</div>`;
+        }
+        html += `</div>`;
+      }
+
+      // Links
+      const links = p.links || {};
+      if (links.official || (links.news && links.news.length)) {
+        html += `<div class="links">`;
+        if (links.official) html += `<a href="${links.official}" target="_blank">查看政策原文 →</a>`;
+        for (const n of (links.news || [])) {
+          html += `<a href="${n}" target="_blank">新闻报道</a>`;
+        }
+        html += `</div>`;
+      }
+
+      html += `</div>`;
+    }
+  }
+
+  document.getElementById('content').innerHTML = html;
+}
+
+loadCity();
+</script>
+</body>
+</html>
