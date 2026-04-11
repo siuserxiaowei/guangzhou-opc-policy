@@ -239,13 +239,22 @@ footer{text-align:center;padding:30px 20px;color:var(--dim);font-size:.78em;bord
 
   <!-- Advisor Card -->
   <div class="panel" style="background:linear-gradient(135deg,rgba(108,92,231,.08) 0%,rgba(0,229,255,.05) 100%);border:1px solid rgba(108,92,231,.25)">
-    <div style="display:flex;align-items:center;gap:20px;flex-wrap:wrap">
-      <div style="width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--cyan));display:flex;align-items:center;justify-content:center;font-size:1.8em;flex-shrink:0">💼</div>
+    <div style="display:flex;align-items:center;gap:24px;flex-wrap:wrap">
+      <div style="flex-shrink:0;text-align:center">
+        <img src="assets/zhang-qr.png" style="width:160px;border-radius:12px;border:1px solid var(--border);cursor:pointer" onclick="showZhangQR()" title="扫码添加张总微信">
+        <p style="font-size:.7em;color:var(--dim);margin-top:6px">扫码添加微信</p>
+      </div>
       <div style="flex:1;min-width:200px">
         <p style="font-size:.72em;color:var(--accent);text-transform:uppercase;letter-spacing:2px;margin-bottom:4px">税务顾问</p>
         <h3 style="font-size:1.3em;margin:0 0 4px;color:var(--text)">张永航</h3>
-        <p style="font-size:.88em;color:var(--cyan);margin-bottom:8px">盈丰税务规划</p>
-        <p style="font-size:.82em;color:var(--dim);margin-bottom:12px">专注 OPC 一人公司财税合规，从架构选择到税务优化，提供全链路专业咨询。</p>
+        <p style="font-size:.88em;color:var(--cyan);margin-bottom:8px">盈丰税务规划 · 广州</p>
+        <div style="display:flex;flex-wrap:wrap;gap:5px;margin-bottom:10px">
+          <span style="padding:2px 8px;border-radius:4px;font-size:.72em;background:rgba(0,229,255,.08);color:var(--cyan);border:1px solid rgba(0,229,255,.12)">OPC财税合规</span>
+          <span style="padding:2px 8px;border-radius:4px;font-size:.72em;background:rgba(108,92,231,.12);color:var(--al);border:1px solid rgba(108,92,231,.18)">企业税务架构</span>
+          <span style="padding:2px 8px;border-radius:4px;font-size:.72em;background:rgba(0,230,118,.08);color:var(--green);border:1px solid rgba(0,230,118,.12)">核定征收</span>
+          <span style="padding:2px 8px;border-radius:4px;font-size:.72em;background:rgba(255,214,0,.08);color:var(--yellow);border:1px solid rgba(255,214,0,.12)">税收优惠申报</span>
+        </div>
+        <p style="font-size:.82em;color:var(--dim);margin-bottom:12px">多年财税从业经验，专注 OPC 一人公司财税合规。从主体选择、注册落地到税务优化，提供全链路专业咨询。</p>
         <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
           <div style="display:flex;align-items:center;gap:8px">
             <span style="color:var(--dim);font-size:.85em">微信号：</span>
@@ -277,7 +286,13 @@ footer{text-align:center;padding:30px 20px;color:var(--dim);font-size:.78em;bord
 <div id="qrModal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.8);z-index:600;align-items:center;justify-content:center;cursor:pointer" onclick="this.style.display='none'">
   <div style="background:#fff;border-radius:16px;padding:20px;max-width:320px;text-align:center" onclick="event.stopPropagation()">
     <img src="assets/wechat-qr.jpg" style="width:100%;border-radius:8px">
-    <p style="color:#333;font-size:.85em;margin-top:10px">微信扫码添加好友，备注「OPC税务」</p>
+    <p style="color:#333;font-size:.85em;margin-top:10px">微信扫码添加小伟，备注「OPC」</p>
+  </div>
+</div>
+<div id="zhangQrModal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.8);z-index:600;align-items:center;justify-content:center;cursor:pointer" onclick="this.style.display='none'">
+  <div style="background:#fff;border-radius:16px;padding:20px;max-width:320px;text-align:center" onclick="event.stopPropagation()">
+    <img src="assets/zhang-qr.png" style="width:100%;border-radius:8px">
+    <p style="color:#333;font-size:.85em;margin-top:10px">微信扫码添加张永航老师，备注「OPC税务」</p>
   </div>
 </div>
 
@@ -290,6 +305,9 @@ footer{text-align:center;padding:30px 20px;color:var(--dim);font-size:.78em;bord
 
 <script>
 function showQR(){document.getElementById('qrModal').style.display='flex'}
+function showZhangQR(){
+  document.getElementById('zhangQrModal').style.display='flex';
+}
 function copyAdvisorWx(){
   navigator.clipboard.writeText('pp667899').then(()=>{
     const tip=document.getElementById('advisorCopyTip');tip.style.opacity='1';

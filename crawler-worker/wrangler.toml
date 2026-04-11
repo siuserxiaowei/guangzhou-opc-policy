@@ -8,3 +8,8 @@ crons = ["0 */12 * * *"]
 [[kv_namespaces]]
 binding = "OPC_DATA"
 id = "07d90d6a87e14b19bd4c30f2f64f0235"
+
+# Gemini API Key - set via: wrangler secret put GEMINI_API_KEY
+# Get your key from: https://aistudio.google.com/apikey
+# Uses Gemini 2.0 Flash ($0.075/M input tokens)
+# $300 free credits = ~200万次政策提取
