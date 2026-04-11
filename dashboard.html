@@ -278,14 +278,14 @@ function renderDashboard(d) {
   const maxCount = Math.max(...cities.map(c => c[1].count));
   const colors = ['#00e676','#448aff','#ff5252','#ffd600','#00e5ff','#ff9100','#e040fb','#76ff03','#64b5f6','#ffab40','#ff6e40'];
   document.getElementById('cityBars').innerHTML = cities.map(([city, s], i) => `
-    <div class="bar-row">
+    <a href="city.html?name=${encodeURIComponent(city)}" class="bar-row" style="text-decoration:none;color:inherit">
       <div class="bar-label">${city}</div>
       <div class="bar-track">
         <div class="bar-fill" style="width:${(s.count/maxCount*100)}%;background:${colors[i%colors.length]}">
           <span>${s.count} 条</span>
         </div>
       </div>
-    </div>
+    </a>
   `).join('');
 
   // Category donut
@@ -313,11 +313,11 @@ function renderDashboard(d) {
   // Amount ranking
   const amtRank = cities.filter(c => c[1].max_amount > 0).sort((a,b) => b[1].max_amount - a[1].max_amount);
   document.getElementById('amountRanking').innerHTML = amtRank.map(([city, s], i) => `
-    <div class="rank-item">
+    <a href="city.html?name=${encodeURIComponent(city)}" class="rank-item" style="text-decoration:none;color:inherit">
       <div class="rank-num ${i<3?'rank-'+(i+1):'rank-other'}">${i+1}</div>
       <div class="rank-name">${city}</div>
       <div class="rank-val">${(s.max_amount/10000).toLocaleString()}万</div>
-    </div>
+    </a>
   `).join('');
 
   // Deadlines
@@ -418,8 +418,8 @@ function renderDashboard(d) {
     }
     document.getElementById('compareTable').style.display = 'table';
     document.getElementById('comparePlaceholder').style.display = 'none';
-    document.getElementById('thA').textContent = a;
-    document.getElementById('thB').textContent = b;
+    document.getElementById('thA').innerHTML = `<a href="city.html?name=${encodeURIComponent(a)}" style="color:var(--al)">${a} →</a>`;
+    document.getElementById('thB').innerHTML = `<a href="city.html?name=${encodeURIComponent(b)}" style="color:var(--al)">${b} →</a>`;
     const sa = d.city_stats[a], sb = d.city_stats[b];
     const topCat = s => {
       const entries = Object.entries(s.main_category||{});
