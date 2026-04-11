@@ -178,8 +178,19 @@ async function loadCity() {
       const [statusText, statusClass] = statusMap[p.status] || [p.status || '未知', 'tag-draft'];
       const levelMap = { province: ['省级', 'tag-province'], city: ['市级', 'tag-city'], district: ['区级', 'tag-district'] };
       const [levelText, levelClass] = levelMap[p.level] || ['', ''];
+      const landingMap = { active: ['✅ 已在兑现','background:var(--gd);color:var(--green)'], draft: ['⚠️ 征求意见中','background:var(--yd);color:var(--yellow)'], announced: ['📢 仅发布','background:rgba(68,138,255,.12);color:var(--blue)'] };
+      const diffMap = { easy: ['易','color:var(--green)'], medium: ['中','color:var(--yellow)'], hard: ['难','color:var(--red)'] };
 
       html += `<div class="policy-card">`;
+      // 落地状态横幅
+      if (p.landing_status) {
+        const [lText, lStyle] = landingMap[p.landing_status] || ['未知',''];
+        const [dText, dStyle] = diffMap[p.landing_difficulty] || ['',''];
+        html += `<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;padding:8px 12px;border-radius:8px;${lStyle};font-size:.8em;font-weight:600">`;
+        html += `<span>${lText}</span>`;
+        if (dText) html += `<span style="font-size:.85em">兑现难度：<span style="${dStyle};font-weight:700">${dText}</span></span>`;
+        html += `</div>`;
+      }
       html += `<h3>${p.name}</h3>`;
       html += `<div class="meta">`;
       if (levelText) html += `<span class="tag ${levelClass}">${levelText}</span>`;
@@ -220,8 +231,31 @@ async function loadCity() {
       if (p.application?.method) {
         html += `<p style="font-size:.82em;color:var(--dim);margin-top:4px"><strong style="color:var(--al)">申请方式：</strong>${p.application.method}</p>`;
       }
+      if (p.application_url) {
+        html += `<p style="margin-top:4px"><a href="${p.application_url}" target="_blank" style="font-size:.82em;padding:4px 12px;background:rgba(108,92,231,.15);border:1px solid rgba(108,92,231,.25);border-radius:6px;display:inline-block">在线申请入口 →</a></p>`;
+      }
       if (p.application?.deadline) {
         html += `<p style="font-size:.82em;color:var(--red);margin-top:4px"><strong>截止日期：</strong>${p.application.deadline}</p>`;
+      }
+
+      // Materials
+      const mats = p.materials || [];
+      if (mats.length) {
+        html += `<div style="margin-top:10px;padding:12px;background:var(--bg);border:1px solid var(--border);border-radius:8px">`;
+        html += `<p style="font-size:.82em;font-weight:600;color:var(--al);margin-bottom:6px">📋 需要准备的材料：</p>`;
+        html += `<div style="display:flex;flex-wrap:wrap;gap:4px">`;
+        for (const m of mats) {
+          html += `<span style="font-size:.78em;padding:3px 10px;background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:5px;color:var(--dim)">${m}</span>`;
+        }
+        html += `</div></div>`;
+      }
+
+      // Actual cases
+      if (p.actual_cases) {
+        html += `<div style="margin-top:10px;padding:12px;background:rgba(0,230,118,.04);border:1px solid rgba(0,230,118,.12);border-radius:8px">`;
+        html += `<p style="font-size:.82em;font-weight:600;color:var(--green);margin-bottom:4px">📊 实际案例：</p>`;
+        html += `<p style="font-size:.82em;color:var(--dim)">${p.actual_cases}</p>`;
+        html += `</div>`;
       }
 
       // Communities

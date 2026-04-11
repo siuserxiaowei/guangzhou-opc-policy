@@ -65,7 +65,10 @@
         "金融"
       ],
       "updated_at": "2026-04-10",
-      "verified": true
+      "verified": true,
+      "landing_status": "active",
+      "landing_difficulty": "medium",
+      "actual_cases": "各市自行制定实施细则，暂无统一申请入口"
     },
     {
       "id": "guangzhou-city-001",
@@ -121,7 +124,17 @@
         "现金"
       ],
       "updated_at": "2026-04-10",
-      "verified": true
+      "verified": true,
+      "landing_status": "active",
+      "landing_difficulty": "easy",
+      "application_url": "https://www.gdzwfw.gov.cn/",
+      "materials": [
+        "身份证",
+        "营业执照",
+        "劳动合同",
+        "社保缴纳记录",
+        "银行账户信息"
+      ]
     },
     {
       "id": "guangzhou-city-002",
@@ -167,7 +180,18 @@
         "身份限制"
       ],
       "updated_at": "2026-04-10",
-      "verified": true
+      "verified": true,
+      "landing_status": "active",
+      "landing_difficulty": "easy",
+      "application_url": "https://www.gdzwfw.gov.cn/",
+      "materials": [
+        "身份证",
+        "学历证明/毕业证/转业证",
+        "营业执照",
+        "社保缴纳记录（连续3个月）",
+        "银行账户信息",
+        "经营异常名录查询截图"
+      ]
     },
     {
       "id": "guangzhou-city-003",
@@ -214,7 +238,18 @@
         "身份限制"
       ],
       "updated_at": "2026-04-10",
-      "verified": true
+      "verified": true,
+      "landing_status": "active",
+      "landing_difficulty": "easy",
+      "application_url": "https://www.gdzwfw.gov.cn/",
+      "materials": [
+        "身份证",
+        "学历/身份证明",
+        "营业执照",
+        "场地租赁合同",
+        "租金发票",
+        "社保记录"
+      ]
     },
     {
       "id": "guangzhou-city-004",
@@ -281,7 +316,10 @@
         "低门槛"
       ],
       "updated_at": "2026-04-10",
-      "verified": true
+      "verified": true,
+      "landing_status": "active",
+      "landing_difficulty": "easy",
+      "application_url": "https://qyfw.gzonline.gov.cn/qyfw/home"
     },
     {
       "id": "guangzhou-haizhu-001",
@@ -347,7 +385,10 @@
         "客服"
       ],
       "updated_at": "2026-04-10",
-      "verified": true
+      "verified": true,
+      "landing_status": "draft",
+      "landing_difficulty": "hard",
+      "actual_cases": "琶洲模方：不到1年孵化45个项目，累计融资10.88亿元，2家估值超10亿。代表案例：烁谷科技'悟声VOCU'语音大模型HuggingFace全球第一，估值2亿元"
     },
     {
       "id": "guangzhou-haizhu-002",
@@ -445,7 +486,9 @@
         "琶洲"
       ],
       "updated_at": "2026-04-10",
-      "verified": true
+      "verified": true,
+      "landing_status": "draft",
+      "landing_difficulty": "medium"
     },
     {
       "id": "guangzhou-huangpu-001",
@@ -507,7 +550,10 @@
         "免租"
       ],
       "updated_at": "2026-04-10",
-      "verified": true
+      "verified": true,
+      "landing_status": "active",
+      "landing_difficulty": "medium",
+      "actual_cases": "鱼珠·元启OPC社区已落地运营，TOKEN 8条由区属国企园区发放"
     },
     {
       "id": "guangzhou-nansha-001",
@@ -580,7 +626,16 @@
         "跨境"
       ],
       "updated_at": "2026-04-10",
-      "verified": true
+      "verified": true,
+      "landing_status": "active",
+      "landing_difficulty": "easy",
+      "application_url": "https://scjgj.gz.gov.cn/ywt/",
+      "materials": [
+        "1-5个企业字号备选",
+        "住所产权证明+租赁合同",
+        "经营范围表述",
+        "企业成员身份证件"
+      ]
     },
     {
       "id": "guangzhou-panyu-001",
@@ -658,7 +713,9 @@
         "信贷"
       ],
       "updated_at": "2026-04-10",
-      "verified": true
+      "verified": true,
+      "landing_status": "draft",
+      "landing_difficulty": "medium"
     },
     {
       "id": "guangzhou-baiyun-001",
@@ -700,7 +757,9 @@
         "小微优惠"
       ],
       "updated_at": "2026-04-10",
-      "verified": true
+      "verified": true,
+      "landing_status": "active",
+      "landing_difficulty": "medium"
     },
     {
       "id": "guangzhou-city-005",
@@ -741,7 +800,9 @@
         "奖金"
       ],
       "updated_at": "2026-04-10",
-      "verified": true
+      "verified": true,
+      "landing_status": "active",
+      "landing_difficulty": "hard"
     },
     {
       "id": "shenzhen-city-001",
