@@ -104,11 +104,11 @@
       "id": "chengdu",
       "name": "成都",
       "province": "四川",
-      "policy_count": 1,
-      "highlight": "13条·揭榜1000万·算力券500万·智能体80万·核心技术200万·F类人才直通·15亿基金",
+      "policy_count": 13,
+      "highlight": "13条举措·最高2500万·算力券500万/年·7大OPC社区·4月30日申报截止",
       "status": "hot",
       "color": "#ff9100",
-      "link": ""
+      "link": "chengdu.html"
     },
     {
       "id": "dongguan",
