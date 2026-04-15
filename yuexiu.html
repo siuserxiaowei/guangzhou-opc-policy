@@ -79,6 +79,7 @@ a{color:var(--al);text-decoration:none}a:hover{color:#fff}
   <a href="yuexiu.html" class="active">越秀区</a>
   <a href="tax.html">税务指南</a>
   <a href="dashboard.html">数据看板</a>
+  <a href="changelog.html">维护日志</a>
   <span class="spacer"></span>
 </nav>
 
@@ -474,5 +475,20 @@ setInterval(() => {
 }, 60 * 60 * 1000); // Check every hour
 </script>
 
+
+<!-- 百度自动推送 -->
+<script>
+(function(){
+  var bp = document.createElement('script');
+  var curProtocol = window.location.protocol.split(':')[0];
+  if (curProtocol === 'https') {
+    bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+  } else {
+    bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+  }
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(bp, s);
+})();
+</script>
 </body>
 </html>

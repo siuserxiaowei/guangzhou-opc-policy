@@ -16,6 +16,7 @@
 <meta name="twitter:description" content="覆盖36城79条OPC政策，填写公司情况一键匹配可申请的补贴。">
 <meta name="author" content="siuser小伟">
 <link rel="canonical" href="https://opcgate.com">
+<link rel="alternate" type="application/rss+xml" title="opcgate.com · 全国 OPC 政策更新" href="https://opcgate.com/rss.xml">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"WebApplication","name":"OPC政策导航","description":"全国OPC一人公司政策导航，一键匹配可申请的补贴","url":"https://opcgate.com","author":{"@type":"Person","name":"siuser小伟"},"applicationCategory":"BusinessApplication","operatingSystem":"Web"}
 </script>
@@ -247,6 +248,58 @@ footer{text-align:center;padding:30px 20px;color:var(--dim);font-size:.78em;bord
   .step .step-label{font-size:.65em}
   .chat-user,.chat-ai{margin-left:0!important;margin-right:0!important;max-width:100%!important}
 }
+
+/* Trust banner - 反 AI 编造定位条 */
+.trust-slogan{display:flex;align-items:center;justify-content:center;gap:10px;
+  padding:8px 16px;background:linear-gradient(90deg,rgba(0,229,255,.06),rgba(108,92,231,.06),rgba(0,229,255,.06));
+  border-bottom:1px solid rgba(0,229,255,.15);font-size:.78em;color:var(--cyan);
+  font-weight:500;flex-wrap:wrap;text-align:center}
+.trust-slogan .icon{font-size:1em}
+.trust-slogan .dot{color:var(--dim);margin:0 4px}
+.trust-slogan a{color:var(--al);text-decoration:underline;text-decoration-style:dotted}
+@media(max-width:640px){.trust-slogan{font-size:.7em;padding:6px 10px;gap:4px}}
+
+/* Verified badge - 政策卡片"已核验"标签 */
+.verified-badge{display:inline-flex;align-items:center;gap:3px;padding:2px 7px;border-radius:4px;
+  font-size:.65em;font-weight:700;background:rgba(0,229,255,.1);color:var(--cyan);
+  border:1px solid rgba(0,229,255,.25);margin-left:6px;vertical-align:middle;letter-spacing:.3px}
+
+/* Source link - 来源跳转按钮 */
+.source-link{display:inline-flex;align-items:center;gap:3px;padding:3px 8px;margin:4px 4px 0 0;
+  border-radius:5px;font-size:.72em;color:var(--cyan);background:rgba(0,229,255,.05);
+  border:1px solid rgba(0,229,255,.12);transition:all .2s;text-decoration:none}
+.source-link:hover{background:rgba(0,229,255,.12);color:#fff;border-color:rgba(0,229,255,.3)}
+
+/* Countdown urgency - 申报截止倒计时 */
+.countdown{display:inline-flex;align-items:center;gap:4px;padding:3px 9px;border-radius:5px;
+  font-size:.72em;font-weight:700;margin-right:6px;letter-spacing:.2px}
+.countdown-urgent{background:rgba(255,82,82,.12);color:var(--red);
+  border:1px solid rgba(255,82,82,.3);animation:pulseFade 2s ease-in-out infinite}
+.countdown-warn{background:rgba(255,145,0,.12);color:var(--orange);
+  border:1px solid rgba(255,145,0,.25)}
+.countdown-ok{background:rgba(0,230,118,.08);color:var(--green);
+  border:1px solid rgba(0,230,118,.15)}
+.countdown-expired{background:rgba(136,136,160,.1);color:var(--dim);
+  border:1px solid rgba(136,136,160,.2)}
+@keyframes pulseFade{0%,100%{opacity:1}50%{opacity:.65}}
+
+/* Correction CTA - 纠错按钮 */
+.correction-btn{display:inline-flex;align-items:center;gap:4px;padding:6px 14px;border-radius:6px;
+  background:rgba(108,92,231,.08);border:1px solid rgba(108,92,231,.2);
+  font-size:.78em;color:var(--al);transition:all .2s;text-decoration:none}
+.correction-btn:hover{background:rgba(108,92,231,.18);color:#fff;border-color:var(--accent)}
+
+/* Source section in detail - 已核验·官方来源区块 */
+.src-section{margin-top:10px;padding-top:10px;border-top:1px solid rgba(255,255,255,.04)}
+.src-section-label{font-size:.72em;color:var(--dim);margin-bottom:4px;font-weight:600}
+
+/* Community item with source */
+.comm-item{padding:8px 10px;background:rgba(255,255,255,.015);border-radius:6px;margin-bottom:6px;
+  border-left:2px solid rgba(108,92,231,.3)}
+.comm-item b{color:var(--al)}
+.comm-item .comm-meta{font-size:.74em;color:var(--dim);margin-top:3px}
+.comm-item .comm-src{font-size:.7em;margin-top:4px}
+.comm-item .comm-src a{color:var(--cyan)}
 </style>
 </head>
 <body>
@@ -261,9 +314,24 @@ footer{text-align:center;padding:30px 20px;color:var(--dim);font-size:.78em;bord
   <a href="yuexiu.html">越秀区</a>
   <a href="tax.html">税务指南</a>
   <a href="dashboard.html">数据看板</a>
+  <a href="changelog.html">维护日志</a>
   <span class="spacer"></span>
   <a href="https://github.com/siuserxiaowei/opc-policy" target="_blank" style="font-size:.78em">GitHub</a>
 </nav>
+
+<!-- Trust banner：反 AI 编造定位条 -->
+<div class="trust-slogan">
+  <span class="icon">🛡️</span>
+  <span><strong>每条政策附官方链接</strong></span>
+  <span class="dot">·</span>
+  <span>拒绝 AI 编造</span>
+  <span class="dot">·</span>
+  <span>多源交叉核实</span>
+  <span class="dot">·</span>
+  <a href="changelog.html">维护日志</a>
+  <span class="dot">·</span>
+  <a href="rss.xml" title="订阅 RSS · 新政策自动推送">📡 RSS 订阅</a>
+</div>
 
 <!-- Hero -->
 <div class="hero">
@@ -927,6 +995,74 @@ function showResults(results, profile){
   renderResults(results);
 }
 
+// 计算距截止日期的天数
+function calcCountdown(deadline){
+  if(!deadline) return null;
+  const d = new Date(deadline);
+  if(isNaN(d.getTime())) return null;
+  const now = new Date();
+  now.setHours(0,0,0,0);
+  const diff = Math.ceil((d - now) / 86400000);
+  if(diff < 0) return {days: diff, cls: 'countdown-expired', label: '已截止'};
+  if(diff === 0) return {days: 0, cls: 'countdown-urgent', label: '今天截止'};
+  if(diff <= 7) return {days: diff, cls: 'countdown-urgent', label: `${diff} 天后截止`};
+  if(diff <= 30) return {days: diff, cls: 'countdown-warn', label: `${diff} 天后截止`};
+  return {days: diff, cls: 'countdown-ok', label: `${diff} 天后截止`};
+}
+
+// 从 URL 提取域名（用于 source badge 显示）
+function extractDomain(url){
+  if(!url) return '';
+  try { return new URL(url).hostname.replace(/^www\./,''); }
+  catch(e){ return ''; }
+}
+
+// 生成 verified badge（如果政策有 verified 和 official source）
+function verifiedBadgeHtml(p){
+  if(!p.verified) return '';
+  const src = p.links?.official || (p.links?.news||[])[0];
+  const domain = extractDomain(src);
+  return `<span class="verified-badge" title="${domain?'来源：'+domain:'已核验'}">✓ 已核验${domain?' · '+domain:''}</span>`;
+}
+
+// 生成来源跳转区块（官方来源 + 新闻 + 众创汇总）
+function sourceSectionHtml(p){
+  const links = [];
+  if(p.links?.official) links.push(`<a class="source-link" href="${p.links.official}" target="_blank" rel="noopener">🏛️ 政策原文 · ${extractDomain(p.links.official)}</a>`);
+  (p.links?.news||[]).forEach(n => links.push(`<a class="source-link" href="${n}" target="_blank" rel="noopener">📰 ${extractDomain(n)}</a>`));
+  if(p.application?.url) links.push(`<a class="source-link" href="${p.application.url}" target="_blank" rel="noopener">📝 申报入口</a>`);
+  if(!links.length) return '';
+  return `<div class="src-section">
+    <div class="src-section-label">官方来源（可点击验证）：</div>
+    ${links.join('')}
+  </div>`;
+}
+
+// 渲染 communities 时带 source 链接
+function communitiesHtml(communities){
+  if(!communities || !communities.length) return '';
+  return '<p style="font-size:.83em;color:var(--al);margin:12px 0 6px"><b>关联社区:</b></p>' +
+    communities.map(c => {
+      const meta = [c.address, c.operator, c.track].filter(Boolean).join(' · ');
+      const features = c.features ? c.features.join(', ') : '';
+      const srcLink = c.source ? `<div class="comm-src">来源：<a href="${c.source}" target="_blank" rel="noopener">${extractDomain(c.source)} ↗</a></div>` : '';
+      const verifiedTag = c.verified ? '<span class="verified-badge" style="margin-left:4px">✓</span>' : '';
+      return `<div class="comm-item">
+        <b>${c.name}</b>${verifiedTag}
+        ${meta ? `<div class="comm-meta">${meta}</div>` : ''}
+        ${features ? `<div class="comm-meta" style="color:var(--cyan)">— ${features}</div>` : ''}
+        ${srcLink}
+      </div>`;
+    }).join('');
+}
+
+// 构造政策纠错链接 (GitHub Issue)
+function correctionUrl(p){
+  const title = encodeURIComponent(`纠错/补充：${p.name}`);
+  const body = encodeURIComponent(`**政策 ID**: ${p.id}\n**城市**: ${p.city}${p.district?' · '+p.district:''}\n\n**问题类型**: [ ] 数据错误 [ ] 链接失效 [ ] 新增信息 [ ] 其他\n\n**具体内容**:\n请描述您发现的问题或补充，谢谢！\n\n**来源** (可选):\n请提供您的信息来源链接以便核实。`);
+  return `https://github.com/siuserxiaowei/opc-policy/issues/new?title=${title}&body=${body}&labels=data-correction`;
+}
+
 function renderResults(results){
   const list = document.getElementById('resultsList');
   list.innerHTML = '';
@@ -937,16 +1073,18 @@ function renderResults(results){
     const lc = r.level==='high'?'var(--green)':r.level==='mid'?'var(--yellow)':'var(--red)';
     const lt = r.level==='high'?'高度匹配':r.level==='mid'?'条件匹配':'暂不匹配';
     const tc = r.level==='high'?'tag-go':r.level==='mid'?'tag-check':'tag-no';
+    const cd = calcCountdown(p.application?.deadline);
     const card = document.createElement('div');
     card.className='result-card'; card.dataset.level=r.level;
     card.style.animationDelay=(i*.04)+'s';
     card.innerHTML = `
-      <h3>${p.name} <span class="tag ${tc}">${lt} ${r.score}%</span></h3>
+      <h3>${p.name} <span class="tag ${tc}">${lt} ${r.score}%</span>${verifiedBadgeHtml(p)}</h3>
       <div class="meta">
+        ${cd?`<span class="countdown ${cd.cls}">⏰ ${cd.label}</span>`:''}
         <span>${p.city}${p.district?' · '+p.district+'区':''}</span>
         <span>${{province:'省级',city:'市级',district:'区级'}[p.level]||''}政策</span>
         <span>${p.status==='active'?'生效中':'征求意见'}</span>
-        ${p.application?.deadline?`<span style="color:var(--red)">截止:${p.application.deadline}</span>`:''}
+        ${p.application?.deadline?`<span style="color:var(--dim)">截止 ${p.application.deadline}</span>`:''}
       </div>
       <p style="font-size:.88em;color:var(--dim);margin-bottom:6px">${p.summary}</p>
       <div class="benefits">${benefits.map(b=>`<span class="benefit-tag">${b.item}: ${b.amount}</span>`).join('')}</div>
@@ -957,11 +1095,12 @@ function renderResults(results){
       <div class="detail-content">
         ${r.reasons.length?'<p style="font-size:.83em;color:var(--green);margin:6px 0"><b>匹配原因:</b></p><ul>'+r.reasons.map(x=>'<li>'+x+'</li>').join('')+'</ul>':''}
         ${r.blockers.length?'<p style="font-size:.83em;color:var(--red);margin:6px 0"><b>阻碍:</b></p><ul>'+r.blockers.map(x=>'<li style="color:var(--red)">'+x+'</li>').join('')+'</ul>':''}
-        ${p.application?.url?`<a class="link-btn" href="${p.application.url}" target="_blank">申报入口</a>`:''}
-        ${p.links?.official?`<a class="link-btn" href="${p.links.official}" target="_blank">政策原文</a>`:''}
-        ${(p.links?.news||[]).map(n=>`<a class="link-btn" href="${n}" target="_blank">新闻报道</a>`).join('')}
+        ${sourceSectionHtml(p)}
         ${p.application?.email?`<div style="margin-top:8px;font-size:.82em;color:var(--dim)">联系: ${p.application.contact||''} ${p.application.phone||''} ${p.application.email||''}</div>`:''}
-        ${(p.communities||[]).length?'<p style="font-size:.83em;color:var(--al);margin:10px 0 4px"><b>关联社区:</b></p><ul>'+p.communities.map(c=>`<li><b>${c.name}</b>${c.address?' · '+c.address:''}${c.features?' — '+c.features.join(', '):''}</li>`).join('')+'</ul>':''}
+        ${communitiesHtml(p.communities)}
+        <div style="margin-top:12px;padding-top:10px;border-top:1px solid rgba(255,255,255,.04);text-align:right">
+          <a href="${correctionUrl(p)}" target="_blank" rel="noopener" class="correction-btn">🔧 发现错误？提交纠错</a>
+        </div>
       </div>`;
     list.appendChild(card);
   });
@@ -1111,24 +1250,27 @@ function filterBrowse(){
   list.innerHTML='';
   filtered.forEach(p=>{
     const maxA=Math.max(0,...(p.benefits||[]).map(b=>b.amount_max||0));
+    const cd=calcCountdown(p.application?.deadline);
     const card=document.createElement('div');
     card.className='result-card';
     card.innerHTML=`
-      <h3>${p.name} <span class="tag tag-info">${p.city}${p.district?' · '+p.district:''}</span></h3>
+      <h3>${p.name} <span class="tag tag-info">${p.city}${p.district?' · '+p.district:''}</span>${verifiedBadgeHtml(p)}</h3>
       <div class="meta">
+        ${cd?`<span class="countdown ${cd.cls}">⏰ ${cd.label}</span>`:''}
         <span>${{province:'省级',city:'市级',district:'区级'}[p.level]||''}</span>
         <span>${p.status==='active'?'生效中':'征求意见'}</span>
         ${maxA>0?`<span style="color:var(--cyan)">最高${maxA>=10000?Math.round(maxA/10000)+'万':maxA+'元'}</span>`:''}
-        ${p.application?.deadline?`<span style="color:var(--red)">截止:${p.application.deadline}</span>`:''}
+        ${p.application?.deadline?`<span style="color:var(--dim)">截止 ${p.application.deadline}</span>`:''}
       </div>
       <p style="font-size:.88em;color:var(--dim);margin-bottom:6px">${p.summary}</p>
       <div class="benefits">${(p.benefits||[]).map(b=>`<span class="benefit-tag">${b.item}: ${b.amount}</span>`).join('')}</div>
       <div class="detail-toggle" onclick="toggleDetail(this)">展开详情 ▾</div>
       <div class="detail-content">
-        ${p.application?.url?`<a class="link-btn" href="${p.application.url}" target="_blank">申报入口</a>`:''}
-        ${p.links?.official?`<a class="link-btn" href="${p.links.official}" target="_blank">政策原文</a>`:''}
-        ${(p.links?.news||[]).map(n=>`<a class="link-btn" href="${n}" target="_blank">新闻</a>`).join('')}
-        ${(p.communities||[]).length?'<p style="font-size:.83em;color:var(--al);margin:10px 0 4px"><b>OPC社区:</b></p><ul>'+p.communities.map(c=>`<li><b>${c.name}</b>${c.address?' · '+c.address:''}${c.features?' — '+c.features.join(', '):''}</li>`).join('')+'</ul>':''}
+        ${sourceSectionHtml(p)}
+        ${communitiesHtml(p.communities)}
+        <div style="margin-top:12px;padding-top:10px;border-top:1px solid rgba(255,255,255,.04);text-align:right">
+          <a href="${correctionUrl(p)}" target="_blank" rel="noopener" class="correction-btn">🔧 发现错误？提交纠错</a>
+        </div>
       </div>`;
     list.appendChild(card);
   });
@@ -1698,6 +1840,21 @@ function clearChecklist(){
   });
   updateChecklistProgress();
 }
+</script>
+
+<!-- 百度自动推送 -->
+<script>
+(function(){
+  var bp = document.createElement('script');
+  var curProtocol = window.location.protocol.split(':')[0];
+  if (curProtocol === 'https') {
+    bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+  } else {
+    bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+  }
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(bp, s);
+})();
 </script>
 </body>
 </html>

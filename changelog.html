@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>维护日志 · 核实记录 | opcgate.com</title>
+<meta name="description" content="opcgate.com 全部数据核验和更新日志。每条数据都可追溯到具体的 git commit，拒绝 AI 编造，每次改动都公开透明。">
+<meta name="keywords" content="OPC政策 更新日志,核实日志,changelog,opcgate,数据核验">
+<meta property="og:title" content="维护日志 · 核实记录 | opcgate.com">
+<meta property="og:description" content="每条数据都可追溯到具体 commit，拒绝 AI 编造，每次改动都公开透明">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://opcgate.com/changelog.html">
+<link rel="canonical" href="https://opcgate.com/changelog.html">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📋</text></svg>">
+<style>
+:root{--bg:#0a0a0f;--card:#12121a;--card2:#1a1a28;--border:#2a2a3a;--text:#e0e0e8;--dim:#8888a0;
+  --accent:#6c5ce7;--al:#a29bfe;--green:#00e676;--gd:#1b5e20;--yellow:#ffd600;--yd:#5d4e00;
+  --red:#ff5252;--rd:#4a1515;--cyan:#00e5ff;--blue:#448aff;--orange:#ff9100}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,'PingFang SC','Microsoft YaHei',sans-serif;background:var(--bg);color:var(--text);line-height:1.7}
+a{color:var(--al);text-decoration:none}a:hover{color:#fff}
+
+.topnav{display:flex;align-items:center;gap:8px;padding:10px 20px;background:rgba(10,10,15,.9);
+  border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;backdrop-filter:blur(12px);overflow-x:auto}
+.topnav .logo{font-weight:800;font-size:1em;color:var(--al)}
+.topnav a{padding:6px 14px;border-radius:6px;font-size:.82em;color:var(--dim);transition:all .2s;white-space:nowrap}
+.topnav a:hover,.topnav a.active{color:var(--al);background:rgba(108,92,231,.1)}
+
+.trust-slogan{display:flex;align-items:center;justify-content:center;gap:10px;
+  padding:8px 16px;background:linear-gradient(90deg,rgba(0,229,255,.06),rgba(108,92,231,.06),rgba(0,229,255,.06));
+  border-bottom:1px solid rgba(0,229,255,.15);font-size:.78em;color:var(--cyan);font-weight:500}
+.trust-slogan .dot{color:var(--dim);margin:0 4px}
+
+.hero{padding:50px 20px 20px;text-align:center;background:linear-gradient(135deg,#0a0a1a,#1a0a2e,#0a1a3a)}
+.hero h1{font-size:2em;font-weight:800;background:linear-gradient(135deg,#fff,var(--cyan),var(--al));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:8px}
+.hero p{color:var(--dim);font-size:.92em;max-width:720px;margin:0 auto 16px}
+
+.stats{display:flex;justify-content:center;gap:12px;margin-top:16px;flex-wrap:wrap}
+.stats .s{padding:10px 18px;background:var(--card);border:1px solid var(--border);border-radius:10px;min-width:130px}
+.stats .s .n{font-size:1.6em;font-weight:800;color:var(--cyan)}
+.stats .s .l{font-size:.72em;color:var(--dim);margin-top:2px}
+
+.container{max-width:900px;margin:0 auto;padding:30px 20px}
+
+.months{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:20px;padding:14px 18px;background:var(--card);border:1px solid var(--border);border-radius:10px}
+.months .ml{font-size:.82em;color:var(--dim);margin-right:4px}
+.m-chip{padding:4px 10px;background:rgba(108,92,231,.08);border:1px solid rgba(108,92,231,.2);border-radius:14px;font-size:.76em;color:var(--al)}
+
+.cm-item{background:var(--card);border:1px solid var(--border);border-left:3px solid var(--border);
+  border-radius:10px;padding:16px 20px;margin-bottom:12px;transition:all .2s}
+.cm-item:hover{border-color:rgba(108,92,231,.3);transform:translateX(2px)}
+.cm-item.cat-city{border-left-color:var(--cyan)}
+.cm-item.cat-verify{border-left-color:var(--green)}
+.cm-item.cat-feat{border-left-color:var(--orange)}
+.cm-item.cat-fix{border-left-color:var(--red)}
+.cm-item.cat-docs{border-left-color:var(--al)}
+.cm-item.cat-move{border-left-color:var(--blue)}
+.cm-item.cat-ops{border-left-color:var(--yellow)}
+
+.cm-head{display:flex;align-items:center;gap:10px;margin-bottom:6px;flex-wrap:wrap}
+.cm-icon{font-size:1em}
+.cm-label{font-size:.7em;font-weight:700;padding:2px 8px;background:rgba(255,255,255,.04);
+  border:1px solid var(--border);border-radius:4px;color:var(--al);letter-spacing:.4px}
+.cm-date{font-size:.78em;color:var(--dim);font-family:'JetBrains Mono',monospace}
+.cm-sha{font-size:.72em;color:var(--cyan);font-family:'JetBrains Mono',monospace;
+  background:rgba(0,229,255,.05);padding:1px 6px;border-radius:3px;border:1px solid rgba(0,229,255,.12)}
+.cm-sha:hover{background:rgba(0,229,255,.12)}
+.cm-stats{font-size:.72em;color:var(--dim);margin-left:auto}
+.st-plus{color:var(--green);font-weight:600}
+.st-minus{color:var(--red);font-weight:600}
+
+.cm-subject{font-size:.95em;font-weight:600;color:var(--text);margin-bottom:6px}
+.cm-body{font-size:.82em;color:var(--dim);line-height:1.7;padding:10px 12px;background:rgba(0,0,0,.2);border-radius:6px;margin-top:8px;border-left:2px solid rgba(108,92,231,.2);white-space:pre-wrap}
+
+footer{text-align:center;padding:30px 20px;color:var(--dim);font-size:.78em;border-top:1px solid var(--border)}
+@media(max-width:640px){.hero h1{font-size:1.5em}.stats .s{min-width:calc(50% - 6px)}.cm-head{font-size:.88em}.cm-stats{margin-left:0}}
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <span class="logo">OPC</span>
+  <a href="index.html">首页</a>
+  <a href="guangzhou.html">广州专版</a>
+  <a href="chengdu.html">成都专版</a>
+  <a href="suzhou.html">苏州专版</a>
+  <a href="yuexiu.html">越秀区</a>
+  <a href="tax.html">税务指南</a>
+  <a href="dashboard.html">数据看板</a>
+  <a href="changelog.html" class="active">维护日志</a>
+  <span style="flex:1"></span>
+  <a href="https://github.com/siuserxiaowei/opc-policy" target="_blank" style="font-size:.78em">GitHub</a>
+</nav>
+
+<div class="trust-slogan">
+  <span>🛡️</span>
+  <span><strong>每条政策附官方链接</strong></span>
+  <span class="dot">·</span>
+  <span>拒绝 AI 编造</span>
+  <span class="dot">·</span>
+  <span>多源交叉核实</span>
+  <span class="dot">·</span>
+  <a href="index.html" style="color:var(--al)">返回首页</a>
+</div>
+
+<div class="hero">
+  <h1>维护日志 · 核实记录</h1>
+  <p>本页记录 opcgate.com 的所有数据核验、更新、修复动作。每条都可追溯到具体的 git commit，拒绝 AI 编造，每次改动都公开透明。</p>
+  <div class="stats">
+    <div class="s"><div class="n">61</div><div class="l">总维护次数</div></div>
+    <div class="s"><div class="n">5</div><div class="l">数据核验动作</div></div>
+    <div class="s"><div class="n">1</div><div class="l">活跃月份</div></div>
+    <div class="s"><div class="n" style="color:var(--green)">LIVE</div><div class="l">持续维护中</div></div>
+  </div>
+</div>
+
+<div class="container">
+
+  <div class="months">
+    <span class="ml">按月分布：</span>
+    <span class="m-chip">2026-04 · 61 次</span>
+  </div>
+
+  
+    <div class="cm-item cat-ops">
+      <div class="cm-head">
+        <span class="cm-icon">⚙️</span>
+        <span class="cm-label">运维</span>
+        <span class="cm-date">2026-04-15 20:09</span>
+        <a href="https://github.com/siuserxiaowei/opc-policy/commit/12b79989bda53d12b7ab51232d8eb310472e77fa" target="_blank" rel="noopener" class="cm-sha">12b7998</a>
+        <span class="cm-stats">1 文件 <span class="st-plus">+1</span> <span class="st-minus">−0</span></span>
+      </div>
+      <div class="cm-subject">ops: 添加 CNAME 文件以绑定 opcgate.com 到 GitHub Pages</div>
+      <div class="cm-body">之前 opcgate.com 挂在 Cloudflare Pages，但 CF Pages 的 Git 集成断了，<br>最近 4 个 commit 都没同步到线上（仍显示旧版 加微信免费咨询）。<br>GitHub Pages 那边 Actions workflow 全部 success，域名直接切过去最快。<br>配合该 commit 需要的 DNS 侧操作（用户自行完成）：<br>1. Cloudflare DNS 把 opcgate.com 记录改为 CNAME -&gt; siuserxiaowei.github.io<br>2. GitHub repo Settings -&gt; Pages -&gt; Custom domain 填 opcgate.com</div>
+    </div>
+    <div class="cm-item cat-city">
+      <div class="cm-head">
+        <span class="cm-icon">🏙️</span>
+        <span class="cm-label">城市数据</span>
+        <span class="cm-date">2026-04-15 20:03</span>
+        <a href="https://github.com/siuserxiaowei/opc-policy/commit/99583c0b2788eb9fdf184f025cc91b6c8cf4309b" target="_blank" rel="noopener" class="cm-sha">99583c0</a>
+        <span class="cm-stats">8 文件 <span class="st-plus">+462</span> <span class="st-minus">−0</span></span>
+      </div>
+      <div class="cm-subject">苏州: 新增 suzhou.html 专版页面 + 全站 nav 栏加入口</div>
+      <div class="cm-body">新增 suzhou.html:<br>- 工业园区 OPC 十条核心指标（100万㎡ / 10亿基金 / 5000万领军人才 / 1800+企业）<br>- 首批 20 家标杆 OPC 社区（工业园区内已确认 5 家：模术空间/独墅湖青创港/中科创谷/南湖梦AI/河海未来水谷）<br>- 同批授牌工业园区外已确认社区（姑苏云谷/苏州创业园/平江新城/城市智谷等 8 家）<br>- 苏州市 AI+ 2026 政策表<br>- 🛡️ 反 AI 编造 banner + docx 辟谣专区（南岸新地/苏大星巢/新药篮地址错误）<br>- 苏州 OPC 品牌&#x27;模力星空&#x27;介绍<br>- 每个社区卡片底部带官方来源链接（sipac.gov.cn / zgjssw.gov.cn / yangtse.com 等）<br>- 完整参考来源列表（官方 7 + 媒体 7）<br>全站 nav 栏插入苏州专版链接:<br>- index.html / guangzhou.html / chengdu.html / yuexiu.html<br>- tax.html / dashboard.html / city.html</div>
+    </div>
+    <div class="cm-item cat-city">
+      <div class="cm-head">
+        <span class="cm-icon">🏙️</span>
+        <span class="cm-label">城市数据</span>
+        <span class="cm-date">2026-04-15 19:47</span>
+        <a href="https://github.com/siuserxiaowei/opc-policy/commit/630102efa4defbd23539e4c0152e4a7e55c66238" target="_blank" rel="noopener" class="cm-sha">630102e</a>
+        <span class="cm-stats">2 文件 <span class="st-plus">+467</span> <span class="st-minus">−47</span></span>
+      </div>
+      <div class="cm-subject">苏州: 补充首批标杆 OPC 社区 + 工业园区专栏</div>
+      <div class="cm-body">基于 sipac.gov.cn 等官方来源核实一份流传的 docx 对比表，补充以下<br>经多源官方确认的首批 20 家标杆 OPC 社区信息（2026-04-12 授牌）：<br>工业园区 (suzhou-sipd-001 communities):<br>- 模术空间OPC社区 (金鸡湖大道88号 / SISPARK / 全省首个大模型生态社区 / 24000P算力)<br>- 中科创谷OPC社区 (AI+生物医药+智能新材料)<br>- 南湖梦AI OPC求解社区 (南湖梦科技集团 / 联动百度飞桨)<br>- 河海大学苏州未来水谷OPC社区 (河海大学苏州高等研究院)<br>- 独墅湖青创港补充慧湖小领军政策<br>其他区:<br>- suzhou-gaoxin-001 新增 苏州创业园OPC社区 (高新技术创业服务中心)<br>- suzhou-gusu-001 新增 平江新城OPC社区 + 城市智谷OPC社区<br>- suzhou-xiangcheng-001 新增 高铁新城环秀湖人工智能OPC社区<br>- suzhou-kunshan-001 新增 中新昆承OPC社区<br>每个条目都带可追溯的官方来源链接 (sipac.gov.cn / zgjssw.gov.cn / yangtse.com 等)。<br>docx 中涉嫌 AI 编造的 南岸新地 / 苏大星巢 未入库，<br>新药篮地址与官方汇总表冲突亦未入库，核实详情见专栏文档。<br>新增 cities/苏州/苏州工业园区-OPC专栏.md：<br>- 政策主干：OPC 十条核心指标 (100万㎡ / 10亿基金 / 5000万领军人才 / 1800+企业)<br>- 首批授牌：工业园区内 + 工业园区外已确认社区<br>- 核实清单：docx 逐条核实结果，标注 ✅ / ⚠ / ❌<br>- 完整参考来源列表<br>policies.json 版本 5.1.0 -&gt; 5.1.1</div>
+    </div>
+    <div class="cm-item cat-move">
+      <div class="cm-head">
+        <span class="cm-icon">📦</span>
+        <span class="cm-label">素材迁移</span>
+        <span class="cm-date">2026-04-15 12:45</span>
+        <a href="https://github.com/siuserxiaowei/opc-policy/commit/55545fb80b6556e3cec701df618184c845a7e981" target="_blank" rel="noopener" class="cm-sha">55545fb</a>
+        <span class="cm-stats">18 文件 <span class="st-plus">+2211</span> <span class="st-minus">−0</span></span>
+      </div>
+      <div class="cm-subject">素材: 迁移本地政策文档、产品记录、营销素材到 repo</div>
+      <div class="cm-body">- 9 个广州各区政策 markdown 文档 (01-09.md)<br>- 广州OPC政策汇总完整版 (已验证的源数据)<br>- OPC 政策导航独立开发者产品实战记录<br>- 深圳政策源数据 (新内容.md)<br>- 飞书表单设计文档<br>- 营销素材: 小红书 3 篇/知乎回答/公众号文章 (已移除白嫖党 CTA)<br>- tax-cases.html 税务案例页<br>- 新增 .gitignore: 排除敏感申报材料、zip 备份、docx 等<br>private/ 目录存放敏感内容（申报表、私人笔记、旧 zip），<br>被 .gitignore 完全屏蔽，仅本地可见，不会推到 GitHub。</div>
+    </div>
+    <div class="cm-item cat-docs">
+      <div class="cm-head">
+        <span class="cm-icon">📝</span>
+        <span class="cm-label">文档与文案</span>
+        <span class="cm-date">2026-04-15 12:28</span>
+        <a href="https://github.com/siuserxiaowei/opc-policy/commit/eaab4ab89a1b6132735a114bdceff7c0e267789d" target="_blank" rel="noopener" class="cm-sha">eaab4ab</a>
+        <span class="cm-stats">3 文件 <span class="st-plus">+3</span> <span class="st-minus">−3</span></span>
+      </div>
+      <div class="cm-subject">文案: 移除 CTA 中的免费咨询措辞</div>
+      <div class="cm-body">避免吸引白嫖党，改为加微信咨询，业务意向用户自然会联系。<br>政策数据中的免费（免费工位/免费Token/免费注册地址等）保留，<br>因为那是各地政府真实提供的政策内容。</div>
+    </div>
+    <div class="cm-item cat-feat">
+      <div class="cm-head">
+        <span class="cm-icon">✨</span>
+        <span class="cm-label">新功能</span>
+        <span class="cm-date">2026-04-14 15:25</span>
+        <a href="https://github.com/siuserxiaowei/opc-policy/commit/f14ad68db231267cab5f11ebcbe419d93032d597" target="_blank" rel="noopener" class="cm-sha">f14ad68</a>
+        <span class="cm-stats">4 文件 <span class="st-plus">+110</span> <span class="st-minus">−1</span></span>
+      </div>
+      <div class="cm-subject">feat: urgent deadlines + personal subsidy calculator + competition data</div>
+      <div class="cm-body">- index.html: update stats 38 cities 85 policies, add competition banner<br>- guangzhou.html: add competition urgency bar (May 10 deadline)<br>- private.html: add urgent actions (Apr 18 scene + May 10 competition + May subsidy window), add personal subsidy table (5 employees = ~30K claimable)<br>- policies.json: add competition entries (zhongchuangbei 500K + pazhou algorithm contest 5M)<br>- policies.json: update actual_cases for subsidy policies</div>
+    </div>
+    <div class="cm-item cat-add">
+      <div class="cm-head">
+        <span class="cm-icon">➕</span>
+        <span class="cm-label">新增</span>
+        <span class="cm-date">2026-04-14 12:46</span>
+        <a href="https://github.com/siuserxiaowei/opc-policy/commit/f0f21c01fffb54b20038a54b2ac2179c8482b7a2" target="_blank" rel="noopener" class="cm-sha">f0f21c0</a>
+        <span class="cm-stats">1 文件 <span class="st-plus">+286</span> <span class="st-minus">−0</span></span>
+      </div>
+      <div class="cm-subject">add: private Chengdu OPC guide page (password protected)</div>
+      
+    </div>
+    <div class="cm-item cat-feat">
+      <div class="cm-head">
+        <span class="cm-icon">✨</span>
+        <span class="cm-label">新功能</span>
+        <span class="cm-date">2026-04-14 10:38</span>
+        <a href="https://github.com/siuserxiaowei/opc-policy/commit/dc42faf575df1c99e6a8b541bb918070733af30b" target="_blank" rel="noopener" class="cm-sha">dc42faf</a>
+        <span class="cm-stats">3 文件 <span class="st-plus">+273</span> <span class="st-minus">−62</span></span>
+      </div>
+      <div class="cm-subject">feat: major data update - Chengdu 3 new policies + Guangzhou Baiyun district</div>
+      <div class="cm-body">Chengdu:<br>- chengdu-city-001: updated 13 measures with full benefits<br>- chengdu-city-002: new - tech finance policy, loan interest 100% subsidy<br>- chengdu-chenghua-001: new - 1B yuan AI fund + OPC Hub<br>- chengdu.html: added tech finance section + 3 new community cards<br>- cities.json: policy_count 13-&gt;15<br>Guangzhou:<br>- guangzhou-baiyun-002: new - Baiyun AI+data policy, OPC 15% computing voucher<br>- haizhu communities: added Pazhou Yuanchuang + TIT communities<br>- cities.json: policy_count 12-&gt;13</div>
+    </div>
+    <div class="cm-item cat-fix">
+      <div class="cm-head">
+        <span class="cm-icon">🔧</span>
+        <span class="cm-label">修复</span>
+        <span class="cm-date">2026-04-14 10:28</span>
+        <a href="https://github.com/siuserxiaowei/opc-policy/commit/9963ab945a57129fb8c911ec647fe8c04774a2c0" target="_blank" rel="noopener" class="cm-sha">9963ab9</a>
+        <span class="cm-stats">6 文件 <span class="st-plus">+6</span> <span class="st-minus">−0</span></span>
+      </div>
+      <div class="cm-subject">fix: add Chengdu link to all page nav bars</div>
+      
+    </div>
+    <div class="cm-item cat-feat">
+      <div class="cm-head">
+        <span class="cm-icon">✨</span>
+        <span class="cm-label">新功能</span>
+        <span class="cm-date">2026-04-14 10:16</span>
+        <a href="https://github.com/siuserxiaowei/opc-policy/commit/43ea86e6ade864363f7cbd499a16f89e1bc799f5" target="_blank" rel="noopener" class="cm-sha">43ea86e</a>
+        <span class="cm-stats">2 文件 <span class="st-plus">+350</span> <span class="st-minus">−3</span></span>
+      </div>
+      <div class="cm-subject">feat: add Chengdu OPC dedicated page with 13 policies + 7 communities</div>
+      <div class="cm-body">- chengdu.html: full dedicated page with subsidy tables, 7 OPC communities,<br>  timeline, urgent deadline (Apr 30), application links, tax advisor contact<br>- cities.json: Chengdu linked to chengdu.html, policy_count updated to 13</div>
+    </div>
+    <div class="cm-item cat-feat">
+      <div class="cm-head">
+        <span class="cm-icon">✨</span>
+        <span class="cm-label">新功能</span>
+        <span class="cm-date">2026-04-12 18:38</span>
+        <a href="https://github.com/siuserxiaowei/opc-policy/commit/9e83b02b5b959d40c54b02202fe32fcf1730b5e8" target="_blank" rel="noopener" class="cm-sha">9e83b02</a>
+        <span class="cm-stats">4 文件 <span class="st-plus">+552</span> <span class="st-minus">−0</span></span>
+      </div>
+      <div class="cm-subject">feat: add Zhengzhou 4 policies + about article</div>
+      <div class="cm-body">- policies.json: 4 Zhengzhou policies (Zhengdong OPC, city AI, Henan province, airport zone)<br>- cities.json: add Zhengzhou entry<br>- cities/郑州/README.md: full policy doc with sources<br>- about.md: project story article</div>
+    </div>
+    <div class="cm-item cat-feat">
+      <div class="cm-head">
+        <span class="cm-icon">✨</span>
+        <span class="cm-label">新功能</span>
+        <span class="cm-date">2026-04-11 21:36</span>
+        <a href="https://github.com/siuserxiaowei/opc-policy/commit/4f42d4c0d56b37ce4e1aa613b4d30bd407421799" target="_blank" rel="noopener" class="cm-sha">4f42d4c</a>
+        <span class="cm-stats">3 文件 <span class="st-plus">+196</span> <span class="st-minus">−12</span></span>
+      </div>
+      <div class="cm-subject">feat: 政策落地状态+兑现流程+成功案例 全面上线</div>
+      <div class="cm-body">policies.json:<br>- 广州12条政策全部标注 landing_status（已兑现/征求意见/仅发布）<br>- 标注 landing_difficulty（易/中/难）<br>- 可直接申请的政策加了 application_url 和 materials 清单<br>city.html 城市详情模板:<br>- 每条政策顶部显示落地状态横幅+兑现难度<br>- 显示&quot;在线申请入口&quot;按钮<br>- 显示需要准备的材料标签<br>- 显示实际案例（如有）<br>guangzhou.html 广州专版:<br>- 新增&quot;成功案例&quot;板块（4个案例卡片）<br>- 烁谷科技：HuggingFace全球第一，估值2亿<br>- 奥象原力：AI广告智能体，前小红书/小鹏高管创业<br>- 芯宠工场：AI情感陪伴宠物Lito<br>- 琶洲模方整体：45项目/10.88亿融资/2家超10亿<br>- 导航栏加入&quot;成功案例&quot;锚点</div>
+    </div>
+    <div class="cm-item cat-fix">
+      <div class="cm-head">
+        <span class="cm-icon">🔧</span>
+        <span class="cm-label">修复</span>
+        <span class="cm-date">2026-04-11 21:05</span>
+        <a href="https://github.com/siuserxiaowei/opc-policy/commit/62e1e02fc7afce8b9a3e458d4f3a15372916a939" target="_blank" rel="noopener" class="cm-sha">62e1e02</a>
+        <span class="cm-stats">1 文件 <span class="st-plus">+16</span> <span class="st-minus">−2</span></span>
+      </div>
+      <div class="cm-subject">fix: 税务对比表加入增值税+附加税+全税种综合税负</div>
+      <div class="cm-body">- 增值税板块：小规模1%税率、免征条件、一般纳税人6%/13%、进项抵扣<br>- 附加税费：城建+教育附加12%，小微减半<br>- 全税种综合税负行：含增值税+所得税+附加的真实税负对比<br>- 补充说明：月销≤10万三种主体均免增值税</div>
+    </div>
+    <div class="cm-item cat-feat">
+      <div class="cm-head">
+        <span class="cm-icon">✨</span>
+        <span class="cm-label">新功能</span>
+        <span class="cm-date">2026-04-11 20:54</span>
+        <a href="https://github.com/siuserxiaowei/opc-policy/commit/4c0516c905a54c2bb86485b415aa5b1ad007cf9b" target="_blank" rel="noopener" class="cm-sha">4c0516c</a>
+        <span class="cm-stats">1 文件 <span class="st-plus">+6</span> <span class="st-minus">−6</span></span>
+      </div>
+      <div class="cm-subject">feat: 数据看板所有城市名可点击跳转详情页</div>
+      <div class="cm-body">- 城市对比表格：表头城市名加链接<br>- 城市政策数量柱状图：整行可点击<br>- 补贴金额排行榜：整行可点击</div>
+    </div>
+    <div class="cm-item cat-fix">
+      <div class="cm-head">
+        <span class="cm-icon">🔧</span>
+        <span class="cm-label">修复</span>
+        <span class="cm-date">2026-04-11 17:45</span>
+        <a href="https://github.com/siuserxiaowei/opc-policy/commit/d735ec8288c0c4dd380de02cda0a35b05943949b" target="_blank" rel="noopener" class="cm-sha">d735ec8</a>
+        <span class="cm-stats">1 文件 <span class="st-plus">+6</span> <span class="st-minus">−6</span></span>
+      </div>
+      <div class="cm-subject">fix: 城市卡片改用&lt;a&gt;标签跳转，解决onclick无响应问题</div>
+      
+    </div>
+    <div class="cm-item cat-feat">
+      <div class="cm-head">
+        <span class="cm-icon">✨</span>
+        <span class="cm-label">新功能</span>
+        <span class="cm-date">2026-04-11 11:40</span>
+        <a href="https://github.com/siuserxiaowei/opc-policy/commit/a7e17073e7a8acf7dee89fba270d70bf13e64301" target="_blank" rel="noopener" class="cm-sha">a7e1707</a>
+        <span class="cm-stats">2 文件 <span class="st-plus">+267</span> <span class="st-minus">−9</span></span>
+      </div>
+      <div class="cm-subject">feat: 城市卡片点击进入详情页，新增通用城市详情模板</div>
+      <div class="cm-body">- 新增 city.html：通用城市政策详情页，URL参数 ?name=城市名<br>- 按省/市/区分组展示政策，含补贴表格、申请条件、社区信息、官方链接<br>- 自动合并爬虫新数据<br>- 城市卡片点击从&quot;填充表单&quot;改为&quot;跳转详情页&quot;<br>- 广州仍保留专版 guangzhou.html 入口<br>- 适配手机端（480px断点）</div>
+    </div>
+    <div class="cm-item cat-feat">
+      <div class="cm-head">
+        <span class="cm-icon">✨</span>
+        <span class="cm-label">新功能</span>
+        <span class="cm-date">2026-04-11 10:11</span>
+        <a href="https://github.com/siuserxiaowei/opc-policy/commit/9da0ffb164626f0fee2b874f54dacf634605206b" target="_blank" rel="noopener" class="cm-sha">9da0ffb</a>
+        <span class="cm-stats">2 文件 <span class="st-plus">+66</span> <span class="st-minus">−13</span></span>
+      </div>
+      <div class="cm-subject">feat: 前端接入爬虫数据，自动合并新政策到页面</div>
+      <div class="cm-body">- index.html: loadData 后异步调用爬虫 /extracted 接口，合并新政策<br>- dashboard.html: 看板也合并爬虫数据，统计包含最新发现<br>- 去重逻辑：按 id + name 双重检查，防止重复<br>- 爬虫不可用时不影响正常功能（5s超时自动跳过）<br>- 新政策标记 auto_extracted: true，可区分人工录入和自动提取<br>数据链路已打通：<br>  爬虫(每12h) → Gemini提取 → KV存储 → 前端自动拉取合并 → 用户看到最新政策</div>
+    </div>
+    <div class="cm-item cat-docs">
+      <div class="cm-head">
+        <span class="cm-icon">📝</span>
+        <span class="cm-label">文档与文案</span>
+        <span class="cm-date">2026-04-11 10:04</span>
+        <a href="https://github.com/siuserxiaowei/opc-policy/commit/1add5cdbc6a5cbf72fae702caf5b9b973b0a2d2f" target="_blank" rel="noopener" class="cm-sha">1add5cd</a>
+        <span class="cm-stats">2 文件 <span class="st-plus">+272</span> <span class="st-minus">−32</span></span>
+      </div>
+      <div class="cm-subject">docs: 爬虫技术文档 + 关键词扩充至22个 + 源扩充至44个</div>
+      <div class="cm-body">- 关键词从3个扩充到22个，分5类：核心/政策/AI/场景/人才<br>- 爬取源从27个扩充到44个，新增广州各区、广东省发改委等<br>- 重点城市用完整22关键词，一般城市用标准11关键词<br>- 新增 crawler-worker/README.md 技术文档</div>
+    </div>
+    <div class="cm-item cat-feat">
+      <div class="cm-head">
+        <span class="cm-icon">✨</span>
+        <span class="cm-label">新功能</span>
+        <span class="cm-date">2026-04-11 09:50</span>
+        <a href="https://github.com/siuserxiaowei/opc-policy/commit/c5ef1bec8304b487fe34f4271166a495662066e5" target="_blank" rel="noopener" class="cm-sha">c5ef1be</a>
+        <span class="cm-stats">6 文件 <span class="st-plus">+332</span> <span class="st-minus">−28</span></span>
+      </div>
+      <div class="cm-subject">feat: 张总二维码+顾问卡升级 + 爬虫接入Gemini + 政策变动追踪</div>
+      <div class="cm-body">张总信息：<br>- tax.html: 顾问卡加入微信二维码图片，点击放大<br>- tax.html: 新增专业标签（OPC财税合规/税务架构/核定征收/税收优惠）<br>- index.html: 首页底部新增张总顾问卡（二维码+微信号+标签）<br>爬虫升级（crawler-worker/index.js）：<br>- 接入 Google Gemini 2.0 Flash API 提取结构化政策数据<br>- 新增政策变动检测（新增/状态变更/过期）<br>- 变动日志持久化到 KV（保留最近200条）<br>- 新增 /extracted 和 /changes API 端点<br>- 爬取源扩展到27个政府网站<br>- 增加请求间隔（2s/批次，3s/Gemini调用）遵守礼貌爬取<br>部署步骤：<br>  wrangler secret put GEMINI_API_KEY<br>  wrangler deploy</div>
+    </div>
+    <div class="cm-item cat-feat">
+      <div class="cm-head">
+        <span class="cm-icon">✨</span>
+        <span class="cm-label">新功能</span>
+        <span class="cm-date">2026-04-11 09:44</span>
+        <a href="https://github.com/siuserxiaowei/opc-policy/commit/e1e10ce39110cc90c6b486bf67a12694a51481cc" target="_blank" rel="noopener" class="cm-sha">e1e10ce</a>
+        <span class="cm-stats">3 文件 <span class="st-plus">+597</span> <span class="st-minus">−32</span></span>
+      </div>
+      <div class="cm-subject">feat: 完成3个功能 — AI政策顾问增强 + 数据看板升级 + 材料清单生成器</div>
+      <div class="cm-body">AI政策顾问：<br>- 城市匹配从11城硬编码改为37城动态提取<br>- 新增税务/注册/人才/贷款等关键词分类<br>- 支持城市推荐排行、模糊匹配<br>- 税务问题引导到tax.html<br>数据看板：<br>- 新增省份分布图<br>- 新增城市对比工具（双城PK）<br>- 新增补贴类型分布饼图<br>材料清单生成器：<br>- 根据匹配政策动态生成所需材料<br>- 基础材料+政策类型动态材料<br>- checkbox可勾选+进度条+localStorage持久化<br>- 支持导出TXT</div>
+    </div>
+    <div class="cm-item cat-other">
+      <div class="cm-head">
+        <span class="cm-icon">📌</span>
+        <span class="cm-label">其他</span>
+        <span class="cm-date">2026-04-11 09:37</span>
+        <a href="https://github.com/siuserxiaowei/opc-policy/commit/4bd374e13a559a2eb20224c34778af194fe6b093" target="_blank" rel="noopener" class="cm-sha">4bd374e</a>
+        <span class="cm-stats">48 文件 <span class="st-plus">+2025</span> <span class="st-minus">−31</span></span>
+      </div>
+      <div class="cm-subject">refactor: 广州md移入cities/guangzhou，新增36城政策文档</div>
+      <div class="cm-body">- 根目录广州md文件移入 cities/guangzhou/ 子目录<br>- 从policies.json自动生成36个城市的政策文档<br>- README更新：37城81条政策、新项目结构、城市文档索引<br>- 已收录城市数从11更新为37</div>
+    </div>
+    <div class="cm-item cat-add">
+      <div class="cm-head">
+        <span class="cm-icon">➕</span>
+        <span class="cm-label">新增</span>
+        <span class="cm-date">2026-04-11 09:30</span>
+        <a href="https://github.com/siuserxiaowei/opc-policy/commit/ae4e3d6f183ba93c179afbbd0d9b9d7736f31466" target="_blank" rel="noopener" class="cm-sha">ae4e3d6</a>
+        <span class="cm-stats">1 文件 <span class="st-plus">+13</span> <span class="st-minus">−3</span></span>
+      </div>
+      <div class="cm-subject">add: 税务顾问卡片加入张总微信号 pp667899，点击复制</div>
+      
+    </div>
+    <div class="cm-item cat-add">
+      <div class="cm-head">
+        <span class="cm-icon">➕</span>
+        <span class="cm-label">新增</span>
+        <span class="cm-date">2026-04-11 09:28</span>
+        <a href="https://github.com/siuserxiaowei/opc-policy/commit/065def0228386ca3b0e7c3baf1a8c19dfb9d8114" target="_blank" rel="noopener" class="cm-sha">065def0</a>
+        <span class="cm-stats">1 文件 <span class="st-plus">+16</span> <span class="st-minus">−5</span></span>
+      </div>
+      <div class="cm-subject">add: 税务指南页加入张永航（盈丰税务规划）顾问卡片</div>
+      <div class="cm-body">- CTA改为税务顾问个人卡片，突出专业身份<br>- footer加入税务顾问署名</div>
+    </div>
+    <div class="cm-item cat-add">
+      <div class="cm-head">
+        <span class="cm-icon">➕</span>
+        <span class="cm-label">新增</span>
+        <span class="cm-date">2026-04-11 09:24</span>
+        <a href="https://github.com/siuserxiaowei/opc-policy/commit/8ad60fae189edbf786129560707d5ee81da11c30" target="_blank" rel="noopener" class="cm-sha">8ad60fa</a>
+        <span class="cm-stats">1 文件 <span class="st-plus">+7</span> <span class="st-minus">−0</span></span>
+      </div>
+      <div class="cm-subject">add: 团队栏位，加入税务顾问张永航</div>
+      
+    </div>
+    <div class="cm-item cat-fix">
+      <div class="cm-head">
+        <span class="cm-icon">🔧</span>
+        <span class="cm-label">修复</span>
+        <span class="cm-date">2026-04-11 09:21</span>
+        <a href="https://github.com/siuserxiaowei/opc-policy/commit/3b93916f7ec9909fc14a41ccc6d33270291b15dc" target="_blank" rel="noopener" class="cm-sha">3b93916</a>
+        <span class="cm-stats">2 文件 <span class="st-plus">+114</span> <span class="st-minus">−11</span></span>
+      </div>
+      <div class="cm-subject">fix: 手机端适配优化，新增480px小屏断点</div>
+      <div class="cm-body">- index.html: 内联3列grid加class响应式处理，480px下变单列<br>- index.html: 联系人卡片窄屏自动纵向排列，头像缩小<br>- index.html: 顶部导航隐藏scrollbar，按钮组窄屏纵向堆叠<br>- guangzhou.html: 顶部导航从inline style改为class，支持响应式<br>- guangzhou.html: 二级导航加渐变遮罩提示可横滑<br>- guangzhou.html: 表格加&quot;左右滑动查看&quot;文字提示<br>- guangzhou.html: 480px下缩小倒计时/统计卡/标签/时间线等<br>- 两页均隐藏导航栏scrollbar，保持滑动功能</div>
+    </div>
+    <div class="cm-item cat-other">
+      <div class="cm-head">
+        <span class="cm-icon">📌</span>
+        <span class="cm-label">其他</span>
+        <span class="cm-date">2026-04-10 20:26</span>
+        <a href="https://github.com/siuserxiaowei/opc-policy/commit/be31fb895f3ef822964fa8fd4203f3855022dd44" target="_blank" rel="noopener" class="cm-sha">be31fb8</a>
+        <span class="cm-stats">1 文件 <span class="st-plus">+32</span> <span class="st-minus">−0</span></span>
+      </div>
+      <div class="cm-subject">私密面板入口放到税务指南页面底部</div>
+      <div class="cm-body">税务指南最下方新增管理员专区：<br>- 默认显示密码输入框<br>- 输入正确密码后显示&quot;进入私密面板&quot;链接<br>- 已认证过的自动显示入口（localStorage）<br>- 样式不显眼（虚线边框），普通访客不会注意</div>
+    </div>
+    <div class="cm-item cat-other">
+      <div class="cm-head">
+        <span class="cm-icon">📌</span>
+        <span class="cm-label">其他</span>
+        <span class="cm-date">2026-04-10 20:24</span>
+        <a href="https://github.com/siuserxiaowei/opc-policy/commit/0deed8d860ddb7f414c791f014d3fd9cb8dd4f74" target="_blank" rel="noopener" class="cm-sha">0deed8d</a>
+        <span class="cm-stats">1 文件 <span class="st-plus">+1</span> <span class="st-minus">−0</span></span>
+      </div>
+      <div class="cm-subject">私密面板优化：搜索校准后更新行动清单</div>
+      <div class="cm-body">根据搜索结果校准：<br>- 南沙子公司建议利润超300万再设（300万内小微5%更划算）<br>- 南沙15%政策截止2026年12月31日<br>- 行动清单改为：先申请软著→建研发台账→办即征即退→利润大了再设子公司<br>- 新增社保合规优化（非全日制用工+外包）<br>- 软著申请时间30-60天</div>
+    </div>
+    <div class="cm-item cat-add">
+      <div class="cm-head">
+        <span class="cm-icon">➕</span>
+        <span class="cm-label">新增</span>
+        <span class="cm-date">2026-04-10 20:22</span>
+        <a href="https://github.com/siuserxiaowei/opc-policy/commit/9016b0557594b8dfd939ccbcb65819d74de421bb" target="_blank" rel="noopener" class="cm-sha">9016b05</a>
+        <span class="cm-stats">1 文件 <span class="st-plus">+303</span> <span class="st-minus">−0</span></span>
+      </div>
+      <div class="cm-subject">新增私密面板：针对小伟公司的实操级财税策略（密码保护）</div>
+      <div class="cm-body">private.html - 密码保护页面（密码: opc2026）<br>- meta robots noindex nofollow 搜索引擎不收录<br>- 认证后存localStorage免重复输入<br>5大实操策略：<br>1. 南沙/前海设子公司：企税25%→15%，含操作路径<br>2. 研发费用加计扣除120%：AI语音研发费用清单+申报流程<br>3. 软件产品增值税即征即退：13%→实际3%<br>4. 高新技术企业认定：企税15%+各区奖励叠加<br>5. 多主体架构资金优化：母公司+南沙子公司+个体户</div>
+    </div>
+    <div class="cm-item cat-add">
+      <div class="cm-head">
+        <span class="cm-icon">➕</span>
+        <span class="cm-label">新增</span>
+        <span class="cm-date">2026-04-10 20:14</span>
+        <a href="https://github.com/siuserxiaowei/opc-policy/commit/eedbbaaaeda76fc5a6e09a47170892006e7a90e3" target="_blank" rel="noopener" class="cm-sha">eedbbaa</a>
+        <span class="cm-stats">6 文件 <span class="st-plus">+338</span> <span class="st-minus">−2</span></span>
+      </div>
+      <div class="cm-subject">新增OPC税务指南页面（tax.html）</div>
+      <div class="cm-body">包含6大板块：<br>1. 三种主体形态税负对比（一人有限/个人独资/个体户）<br>2. 小微企业普惠税收政策（5%企税/增值税免征/个税减半/六税两费减半）<br>3. 特殊区域15%企税优惠（海南/前海/横琴/南沙）<br>4. 研发费用加计扣除（100%/120%/200%）<br>5. OPC税负速算器（输入营收自动对比三种形态税负）<br>6. 最优税务架构建议（按营收分档推荐）<br>7. 2026-2027关键政策时间节点<br>全站导航新增&quot;税务指南&quot;入口<br>sitemap.xml更新</div>
+    </div>
+    <div class="cm-item cat-other">
+      <div class="cm-head">
+        <span class="cm-icon">📌</span>
+        <span class="cm-label">其他</span>
+        <span class="cm-date">2026-04-10 20:05</span>
+        <a href="https://github.com/siuserxiaowei/opc-policy/commit/daae270e9cbf0e2c34a1d91790c1fa602e636137" target="_blank" rel="noopener" class="cm-sha">daae270</a>
+        <span class="cm-stats">1 文件 <span class="st-plus">+95</span> <span class="st-minus">−2</span></span>
+      </div>
+      <div class="cm-subject">结果页可直接修改条件重新匹配</div>
+      <div class="cm-body">- 结果页顶部新增&quot;修改条件&quot;按钮<br>- 点击展开内嵌快速编辑区（城市/区/人数/年限/法人身份）<br>- 修改后点&quot;重新匹配&quot;实时刷新结果，无需返回完整表单<br>- 底部按钮改为&quot;返回完整表单&quot;（需要改更多字段时用）<br>- 自动读取上次填写的值</div>
+    </div>
+    <div class="cm-item cat-other">
+      <div class="cm-head">
+        <span class="cm-icon">📌</span>
+        <span class="cm-label">其他</span>
+        <span class="cm-date">2026-04-10 19:06</span>
+        <a href="https://github.com/siuserxiaowei/opc-policy/commit/e7339b1c0a77edc938d849bb4c18a08355d74091" target="_blank" rel="noopener" class="cm-sha">e7339b1</a>
+        <span class="cm-stats">1 文件 <span class="st-plus">+0</span> <span class="st-minus">−0</span></span>
+      </div>
+      <div class="cm-subject">裁剪微信二维码，去掉底部按钮栏</div>
+      
+    </div>
+    <div class="cm-item cat-other">
+      <div class="cm-head">
+        <span class="cm-icon">📌</span>
+        <span class="cm-label">其他</span>
+        <span class="cm-date">2026-04-10 19:00</span>
+        <a href="https://github.com/siuserxiaowei/opc-policy/commit/2bba2991442afb65bdcdc631a437c04e68ce4a36" target="_blank" rel="noopener" class="cm-sha">2bba299</a>
+        <span class="cm-stats">3 文件 <span class="st-plus">+108</span> <span class="st-minus">−4</span></span>
+      </div>
+      <div class="cm-subject">v5.1: 81条政策37城 — 新增梅州/北京丰台 + 武汉光谷8家社区</div>
+      <div class="cm-body">- 梅州：9个OPC集聚区+人才补贴3万（广东非珠城市）<br>- 北京丰台：创思孵翼启Job·OPC社区揭牌（北京第5个区）<br>- 武汉光谷：首批8家OPC生态社区集中揭牌+开源聚变AI研究院</div>
+    </div>
+    <div class="cm-item cat-other">
+      <div class="cm-head">
+        <span class="cm-icon">📌</span>
+        <span class="cm-label">其他</span>
+        <span class="cm-date">2026-04-10 18:57</span>
+        <a href="https://github.com/siuserxiaowei/opc-policy/commit/40e1a540b64895d50ec183245f0450152705f495" target="_blank" rel="noopener" class="cm-sha">40e1a54</a>
+        <span class="cm-stats">2 文件 <span class="st-plus">+13</span> <span class="st-minus">−7</span></span>
+      </div>
+      <div class="cm-subject">修复匹配引擎3个Bug</div>
+      <div class="cm-body">Bug1: 华强北/海淀OPC街区的registration_location错误设为&quot;不限&quot;<br>  → 改为&quot;深圳市&quot;/&quot;北京市&quot;，外地用户不再100%匹配<br>Bug2: 法人身份不符时仍可能判为&quot;高度匹配&quot;<br>  → 有身份阻碍时最高只能是&quot;条件匹配&quot;<br>Bug3: 同城不同区的政策判定逻辑优化<br>  → 有注册地阻碍时不再判high<br>重新内嵌79条最新数据</div>
+    </div>
+    <div class="cm-item cat-other">
+      <div class="cm-head">
+        <span class="cm-icon">📌</span>
+        <span class="cm-label">其他</span>
+        <span class="cm-date">2026-04-10 17:29</span>
+        <a href="https://github.com/siuserxiaowei/opc-policy/commit/1541ea633eddc9e1fae25e48993277cb8c96061a" target="_blank" rel="noopener" class="cm-sha">1541ea6</a>
+        <span class="cm-stats">1 文件 <span class="st-plus">+4</span> <span class="st-minus">−3</span></span>
+      </div>
+      <div class="cm-subject">标签优化：独立开发者/连续创业者/AIGC从业者/OPC超级个体</div>
+      
+    </div>
+    <div class="cm-item cat-other">
+      <div class="cm-head">
+        <span class="cm-icon">📌</span>
+        <span class="cm-label">其他</span>
+        <span class="cm-date">2026-04-10 17:27</span>
+        <a href="https://github.com/siuserxiaowei/opc-policy/commit/7fc2fc845959f664186557151f0585c68e381de6" target="_blank" rel="noopener" class="cm-sha">7fc2fc8</a>
+        <span class="cm-stats">4 文件 <span class="st-plus">+192</span> <span class="st-minus">−2</span></span>
+      </div>
+      <div class="cm-subject">更新个人标签：独立开发者/连续创业者/AI语音对话机器人方案商/AIGC</div>
+      
+    </div>
+    <div class="cm-item cat-other">
+      <div class="cm-head">
+        <span class="cm-icon">📌</span>
+        <span class="cm-label">其他</span>
+        <span class="cm-date">2026-04-10 17:07</span>
+        <a href="https://github.com/siuserxiaowei/opc-policy/commit/6b9c1e4c35122b383412f385b0656b05138fbe72" target="_blank" rel="noopener" class="cm-sha">6b9c1e4</a>
+        <span class="cm-stats">5 文件 <span class="st-plus">+42</span> <span class="st-minus">−5</span></span>
+      </div>
+      <div class="cm-subject">SEO优化 + 微信导流横幅置顶 + sitemap + robots.txt</div>
+      <div class="cm-body">SEO:<br>- title加入36城79条关键数据+opcgate.com品牌词<br>- description扩展到包含所有主要城市名<br>- 新增keywords标签覆盖OPC核心搜索词<br>- OG image设置头像<br>- Twitter Card支持<br>- canonical指向opcgate.com<br>- JSON-LD结构化数据(WebApplication)<br>- 新增sitemap.xml和robots.txt<br>导流:<br>- Hero下方新增渐变色微信横幅(最显眼位置)<br>- 头像+文案+扫码按钮一体化<br>- 点击弹出微信二维码</div>
+    </div>
+    <div class="cm-item cat-other">
+      <div class="cm-head">
+        <span class="cm-icon">📌</span>
+        <span class="cm-label">其他</span>
+        <span class="cm-date">2026-04-10 16:46</span>
+        <a href="https://github.com/siuserxiaowei/opc-policy/commit/beb30bfc6b1e3e381da9e5224fde9c8218ab320a" target="_blank" rel="noopener" class="cm-sha">beb30bf</a>
+        <span class="cm-stats">3 文件 <span class="st-plus">+40</span> <span class="st-minus">−21</span></span>
+      </div>
+      <div class="cm-subject">添加真实头像+微信二维码+个人网站风格联系卡片</div>
+      <div class="cm-body">- 头像照片 + 微信二维码图片上传到 assets/<br>- 联系卡片改为个人网站风格（圆形头像+渐变背景+信息排版）<br>- 复制微信号按钮（点击复制到剪贴板）<br>- 扫码加微信弹窗（显示真实QR码）<br>- 广告合作和AI语音方案卡片点击直接弹QR<br>- 备注&quot;OPC&quot;提示</div>
+    </div>
+    <div class="cm-item cat-other">
+      <div class="cm-head">
+        <span class="cm-icon">📌</span>
+        <span class="cm-label">其他</span>
+        <span class="cm-date">2026-04-10 16:22</span>
+        <a href="https://github.com/siuserxiaowei/opc-policy/commit/e887ed98a67f4cef9cb7fa7d86f2c84434be7cd2" target="_blank" rel="noopener" class="cm-sha">e887ed9</a>
+        <span class="cm-stats">3 文件 <span class="st-plus">+81</span> <span class="st-minus">−3</span></span>
+      </div>
+      <div class="cm-subject">紧急：全站添加联系方式+广告位+变现入口</div>
+      <div class="cm-body">所有页面（index/guangzhou/yuexiu）添加：<br>- 联系方式卡片：微信 siuserxiaowei / 负责人 siuser小伟<br>- CTA区块：&quot;需要OPC创业咨询？&quot; — AI语音方案/政策申报/资源对接<br>- 广告合作入口：OPC社区/孵化器/服务商精准触达<br>- AI语音对话机器人方案推广卡片<br>- Footer署名：Made by siuser小伟</div>
+    </div>
+    <div class="cm-item cat-other">
+      <div class="cm-head">
+        <span class="cm-icon">📌</span>
+        <span class="cm-label">其他</span>
+        <span class="cm-date">2026-04-10 13:37</span>
+        <a href="https://github.com/siuserxiaowei/opc-policy/commit/4878789b036742f9008758868c35585c0418eccb" target="_blank" rel="noopener" class="cm-sha">4878789</a>
+        <span class="cm-stats">3 文件 <span class="st-plus">+162</span> <span class="st-minus">−53</span></span>
+      </div>
+      <div class="cm-subject">深度更新v5：广州/深圳/东莞三城60个关键词全面遍历</div>
+      <div class="cm-body">深圳大幅更新：<br>- 训力券年度总额5亿，单企最高300万（之前只知道1000万上限）<br>- 模型券年度1亿单企200万，语料券年度5000万单企200万<br>- 龙岗龙虾十条逐条金额：代码贡献200万/数字员工券200万/示范场景400万/种子基金1000万<br>- 创业担保贷个人最高60万（之前记为50万）<br>- 前海15%企税扩至全域，AI/信息服务适用<br>- 10个OPC社区完整名单和地址<br>广州补充：<br>- 南沙初创企业算力补贴40%年最高200万<br>- 海珠流量券+OPC专项信贷+以赛代评入孵<br>- 各区高企奖励差异（黄埔研发补贴最高1200万）<br>东莞完整版：<br>- 十条逐条金额全部录入<br>- 新增：算力券50%最高100万+模型券100万+AI语音机器人资助100万<br>- 50亿AI子基金群<br>- 人才安居A类购房500万<br>- 模立方社区详情（莞深港跨域布局）</div>
+    </div>
+    <div class="cm-item cat-add">
+      <div class="cm-head">
+        <span class="cm-icon">➕</span>
+        <span class="cm-label">新增</span>
+        <span class="cm-date">2026-04-10 13:27</span>
+        <a href="https://github.com/siuserxiaowei/opc-policy/commit/61c5aabf8a05f1c6b63909044eebc7edcb5a1377" target="_blank" rel="noopener" class="cm-sha">61c5aab</a>
+        <span class="cm-stats">3 文件 <span class="st-plus">+198</span> <span class="st-minus">−5</span></span>
+      </div>
+      <div class="cm-subject">新增惠州/惠阳（用户重点关注城市）</div>
+      <div class="cm-body">惠州市级：<br>- 创业资助1万+租金补贴1.8万/3年+孵化基地2年全免<br>- 算力补贴10-20%年最高200万<br>- AI示范项目奖国家级50万/省级20万<br>- 软件企业奖最高200万<br>- 仲恺AI产业园（产值533亿，511个项目）<br>- 润泽智算中心（大湾区首个超大规模，2026年建成）<br>惠阳区：<br>- 领军人才最高300万<br>- 科技创业团队最高1000万<br>- 专精特新：小巨人30万/专精特新20万<br>- 技改补贴单项目最高50万<br>- 厂房租赁补贴5元/月/㎡<br>统计：36城 / 79条政策 / 130+ OPC社区<br>惠州加入广东省CITY_MAP选项</div>
+    </div>
+    <div class="cm-item cat-other">
+      <div class="cm-head">
+        <span class="cm-icon">📌</span>
+        <span class="cm-label">其他</span>
+        <span class="cm-date">2026-04-10 13:18</span>
+        <a href="https://github.com/siuserxiaowei/opc-policy/commit/d5ea7a28406d321a9b9c5d0d2feae5c1e7b35ba8" target="_blank" rel="noopener" class="cm-sha">d5ea7a2</a>
+        <span class="cm-stats">3 文件 <span class="st-plus">+266</span> <span class="st-minus">−10</span></span>
+      </div>
+      <div class="cm-subject">最终查漏v4.1：77条政策 — 新增萧山/滨江/徐汇/浦东/宝安</div>
+      <div class="cm-body">最终一轮查漏补缺：<br>- 杭州萧山：算力券50%年最高2000万！Token补贴/数据200万/以赛代评450万/5000万基金<br>- 杭州滨江：联合阿里云Token专区，算力补助60%每家年最高100万<br>- 上海徐汇：超级创业者社区，上半年新增2500工位，一月吸引近百家OPC<br>- 上海浦东：青创3年300万补贴，临港零界魔方办公住宿双免月费90元<br>- 深圳宝安：全国首个AI+硬创OPC体系<br>杭州从1条→4条，上海3→5条，深圳6→7条<br>统计：35城 / 77条政策 / 130+ OPC社区</div>
+    </div>
+    <div class="cm-item cat-other">
+      <div class="cm-head">
+        <span class="cm-icon">📌</span>
+        <span class="cm-label">其他</span>
+        <span class="cm-date">2026-04-10 13:02</span>
+        <a href="https://github.com/siuserxiaowei/opc-policy/commit/577f7f359da8ef9126c4844373fa3d6d918cef4f" target="_blank" rel="noopener" class="cm-sha">577f7f3</a>
+        <span class="cm-stats">3 文件 <span class="st-plus">+352</span> <span class="st-minus">−59</span></span>
+      </div>
+      <div class="cm-subject">深度补充v4：72条政策，大量数据点更新</div>
+      <div class="cm-body">根据3轮深度搜索补充遗漏数据：<br>大幅扩展(5城)：<br>- 武汉：垂直模型500万/API采购100万/算力贷1000万/社区认定500万/3区社区详情<br>- 成都：智能体平台80万/核心技术200万/F类人才直通/科研转化300万/15亿产业基金<br>- 扬州：顶尖人才最高1亿！18社区完整名单/四券/1000万股权+3000万低息贷/购房券200万<br>- 无锡：十条+养龙虾12条/具身智能500万/示范200万/数据50万/开源100万/3年免租<br>- 东莞：完整十条(全球通行证/开源鸿蒙/品牌出海30万/赋能券100万/上市700万)<br>新增(3条)：<br>- 深圳龙华区AI智能体十大行动（社区运营200万/大赛80万/技术攻关100万）<br>- 江苏省AI+行动方案（省级，OPC写入政府工作报告）<br>- 南京建邺区（研发500万+算力200万）</div>
+    </div>
+    <div class="cm-item cat-other">
+      <div class="cm-head">
+        <span class="cm-icon">📌</span>
+        <span class="cm-label">其他</span>
+        <span class="cm-date">2026-04-10 12:49</span>
+        <a href="https://github.com/siuserxiaowei/opc-policy/commit/261d03b13eac799fd128b51ed3722a2476b124e0" target="_blank" rel="noopener" class="cm-sha">261d03b</a>
+        <span class="cm-stats">2 文件 <span class="st-plus">+236</span> <span class="st-minus">−120</span></span>
+      </div>
+      <div class="cm-subject">根据微信文章校准6城政策数据，补充官方链接</div>
+      <div class="cm-body">根据&quot;全国六城OPC政策完整汇编&quot;微信文章，校准并补充：<br>- 济南：人才补贴2000-5000元/月最长5年、购房最高100万、1200家企业订单对接<br>- 杭州上城：OPC一码通平台、OPC百强评选、分层培育体系<br>- 北京海淀：9+1条完整版（研发加计扣除120%、前3年税减半、京津冀通办）<br>- 苏州工业园区：算力200万/数据100万/领军人才最高5000万/贴息200万/300+场景<br>- 青岛：算力券50-80%、创业贷400万全额贴息、梯度培育体系<br>- 深圳：高企最高50万/专精特新500万、跟投最高1000万<br>所有官方链接已替换为政府官网有效链接<br>同步更新内嵌数据</div>
+    </div>
+    <div class="cm-item cat-other">
+      <div class="cm-head">
+        <span class="cm-icon">📌</span>
+        <span class="cm-label">其他</span>
+        <span class="cm-date">2026-04-10 09:54</span>
+        <a href="https://github.com/siuserxiaowei/opc-policy/commit/caca6735b7a100a32d0596582b4a37b0b56a9c16" target="_blank" rel="noopener" class="cm-sha">caca673</a>
+        <span class="cm-stats">1 文件 <span class="st-plus">+10</span> <span class="st-minus">−6</span></span>
+      </div>
+      <div class="cm-subject">修复：首页填写的画像在广州版不同步的bug</div>
+      <div class="cm-body">根本原因：index.html保存的founder是数组[&quot;以上都不是&quot;]，<br>guangzhou.html的归一化代码用 || 判断，数组是truthy直接返回，<br>导致后续字符串比较全部失败。<br>修复：显式判断Array.isArray后取第一个元素，<br>同时对employees/age做parseInt/parseFloat确保类型正确。</div>
+    </div>
+    <div class="cm-item cat-other">
+      <div class="cm-head">
+        <span class="cm-icon">📌</span>
+        <span class="cm-label">其他</span>
+        <span class="cm-date">2026-04-10 09:45</span>
+        <a href="https://github.com/siuserxiaowei/opc-policy/commit/74cf1fac27972605273b284de36f1b34e57e5d29" target="_blank" rel="noopener" class="cm-sha">74cf1fa</a>
+        <span class="cm-stats">1 文件 <span class="st-plus">+65</span> <span class="st-minus">−5</span></span>
+      </div>
+      <div class="cm-subject">统一用户画像：全国版和广州版共享同一份profile数据</div>
+      <div class="cm-body">- 统一 localStorage key 为 opc_profile<br>- 广州版兼容两种数据格式（全国版的和广州版的）<br>- 保存时同时写入两种格式的字段，确保双向兼容<br>- 广州页加载时自动读取全国版填写的信息<br>- 统计卡片根据用户画像动态更新数字</div>
+    </div>
+    <div class="cm-item cat-other">
+      <div class="cm-head">
+        <span class="cm-icon">📌</span>
+        <span class="cm-label">其他</span>
+        <span class="cm-date">2026-04-10 09:42</span>
+        <a href="https://github.com/siuserxiaowei/opc-policy/commit/eee597a8b7449891225411df7a7e00a18a917da5" target="_blank" rel="noopener" class="cm-sha">eee597a</a>
+        <span class="cm-stats">1 文件 <span class="st-plus">+10</span> <span class="st-minus">−5</span></span>
+      </div>
+      <div class="cm-subject">修复：本地打开时数据加载失败（file://协议CORS限制）</div>
+      <div class="cm-body">将69条政策和35个城市的数据内嵌到index.html中作为fallback。<br>fetch加载失败时自动切换到内嵌数据，本地和线上都能正常工作。</div>
+    </div>
+    <div class="cm-item cat-add">
+      <div class="cm-head">
+        <span class="cm-icon">➕</span>
+        <span class="cm-label">新增</span>
+        <span class="cm-date">2026-04-10 09:39</span>
+        <a href="https://github.com/siuserxiaowei/opc-policy/commit/e8da254c3b5d5e85aa7a833bdf3d7f41304e7f81" target="_blank" rel="noopener" class="cm-sha">e8da254</a>
+        <span class="cm-stats">4 文件 <span class="st-plus">+460</span> <span class="st-minus">−1</span></span>
+      </div>
+      <div class="cm-subject">新增越秀区专属监控面板</div>
+      <div class="cm-body">越秀区专属页面 yuexiu.html：<br>- 实时监控状态面板（越秀OPC政策/省级/市级/海珠场景征集）<br>- 越秀区现有6大可用资源（黄花岗科技园/超算分中心/大模型赋能中心/越秀硅巷/AI集群/OPC工坊）<br>- 越秀企业现在能申请的5项政策（按优先级排列）<br>- OPC政策预判时间线（基于各区出台节奏推断Q3-Q4）<br>- 6个监控数据源（越秀区政府/科工信局/黄花岗/广州市/穗@i企/全网新闻）<br>- 每12小时自动扫描，支持手动触发<br>- 扫描日志实时展示（终端风格）<br>- 当前建议行动清单<br>四个页面统一添加越秀区导航入口</div>
+    </div>
+    <div class="cm-item cat-city">
+      <div class="cm-head">
+        <span class="cm-icon">🏙️</span>
+        <span class="cm-label">城市数据</span>
+        <span class="cm-date">2026-04-10 09:14</span>
+        <a href="https://github.com/siuserxiaowei/opc-policy/commit/b5a952234804303fb51d61937d8f02c3bd20ca82" target="_blank" rel="noopener" class="cm-sha">b5a9522</a>
+        <span class="cm-stats">1 文件 <span class="st-plus">+205</span> <span class="st-minus">−26</span></span>
+      </div>
+      <div class="cm-subject">广州页个性化：公司画像可编辑，推荐因人而异</div>
+      <div class="cm-body">核心改动：<br>- 「我的公司画像」从写死改为可编辑（点击&quot;编辑&quot;弹出表单）<br>- 用户填写：注册区域/社保人数/公司年限/行业/资质/法人身份<br>- 画像保存到 localStorage，刷新后保留<br>- 优先级推荐根据用户画像动态生成：<br>  - 根据注册区自动匹配区级专属政策（海珠/黄埔/番禺/南沙/白云）<br>  - 根据社保人数计算创业补贴预估金额<br>  - 根据公司年限判断是否符合3年内要求<br>  - 根据法人身份判断创业资助是否可申<br>- Hero 副标题根据用户行业动态显示<br>- 未填写画像时显示引导提示</div>
+    </div>
+    <div class="cm-item cat-other">
+      <div class="cm-head">
+        <span class="cm-icon">📌</span>
+        <span class="cm-label">其他</span>
+        <span class="cm-date">2026-04-10 09:03</span>
+        <a href="https://github.com/siuserxiaowei/opc-policy/commit/aa60f4b97cd90fb602d2b9e46592beba8bf417ac" target="_blank" rel="noopener" class="cm-sha">aa60f4b</a>
+        <span class="cm-stats">3 文件 <span class="st-plus">+294</span> <span class="st-minus">−3</span></span>
+      </div>
+      <div class="cm-subject">最终版：35城69条政策 — 新增南通/盐城/连云港/徐州/杭州余杭</div>
+      <div class="cm-body">长三角补充搜索最后一批：<br>- 南通：紫琅智谷OPC社区（全市首个，2万㎡）<br>- 盐城：盐力超体OPC社区（211行动，20家入驻，跨境电商+短剧）<br>- 连云港：花果山下OPC社区（阿里云底座+OPC专属创业贷）<br>- 徐州：孔庙街区OPC社区<br>- 杭州余杭：AGI青创共同体+梦想小镇OPC（最高50万启动资金）<br>最终统计：35座城市 / 69条政策 / 100+ OPC社区<br>江苏省成为全国OPC社区密度最高的省份（苏州/南京/无锡/扬州/宿迁/常州/南通/盐城/连云港/徐州）</div>
+    </div>
+    <div class="cm-item cat-other">
+      <div class="cm-head">
+        <span class="cm-icon">📌</span>
+        <span class="cm-label">其他</span>
+        <span class="cm-date">2026-04-10 09:02</span>
+        <a href="https://github.com/siuserxiaowei/opc-policy/commit/d2bbac2bc32b4925d120111554925a63a83b8e19" target="_blank" rel="noopener" class="cm-sha">d2bbac2</a>
+        <span class="cm-stats">3 文件 <span class="st-plus">+4318</span> <span class="st-minus">−690</span></span>
+      </div>
+      <div class="cm-subject">大规模数据更新v3：31城64条政策100+社区</div>
+      <div class="cm-body">新增城市(4个)：<br>- 珠海：算力券200万/年+模型券100万/年+3年免费3000㎡+6110万AI场景<br>- 海口：OPC国际社区+算力50万+应用100万+实验室最高500万+自贸港<br>- 天津：滨海高新区五个一服务+应用示范补贴30万<br>- 石家庄：河北首个OPC基地+四免一减一供<br>大幅更新(4个)：<br>- 成都：升级为13条措施(揭榜最高1000万/模型券100万/3区社区)<br>- 长沙：经开区十条(算力100万/数据100万/场景累计500万/开源300万)<br>- 东莞：补充(智能制造赋能券100万/出海30万/上市700万)<br>- 重庆：补充(两江/渝中/南岸4个社区)</div>
+    </div>
+    <div class="cm-item cat-city">
+      <div class="cm-head">
+        <span class="cm-icon">🏙️</span>
+        <span class="cm-label">城市数据</span>
+        <span class="cm-date">2026-04-10 08:53</span>
+        <a href="https://github.com/siuserxiaowei/opc-policy/commit/45069ea2da202a6fb94ff9950747fe545785eb84" target="_blank" rel="noopener" class="cm-sha">45069ea</a>
+        <span class="cm-stats">3 文件 <span class="st-plus">+9</span> <span class="st-minus">−2</span></span>
+      </div>
+      <div class="cm-subject">苏州展开为14条政策（全国最多），新增7个板块独立社区</div>
+      <div class="cm-body">苏州现为全国OPC政策最多的城市（14条），超过广州（12条）：<br>- 市级：AI+城市若干措施<br>- 工业园区：OPC十条 + 独墅湖青创港<br>- 吴江区：力度最大（3年免租+100亿信贷+20亿直投）<br>- 昆山：极速注册+魔滴空间<br>- 高新区：中国移动AI Agent社区（3000㎡/算力1.5折）<br>- 吴中：太湖科创中心<br>- 相城：大数据开发者创新中心<br>- 姑苏：校园里青年社区<br>- 张家港：东渡人才港<br>- 常熟：常春藤AIGC社区<br>- 太仓：智汇谷科创园<br>- 十大青年社区（总览）<br>- 国际OPC创业大赛<br>统计：27城 / 62条政策 / 80+ OPC社区<br>苏州14条 &gt; 广州12条 &gt; 深圳5条 &gt; 北京4条</div>
+    </div>
+    <div class="cm-item cat-add">
+      <div class="cm-head">
+        <span class="cm-icon">➕</span>
+        <span class="cm-label">新增</span>
+        <span class="cm-date">2026-04-10 08:43</span>
+        <a href="https://github.com/siuserxiaowei/opc-policy/commit/c6f4e6001e5cce009da3194007813c234573b863" target="_blank" rel="noopener" class="cm-sha">c6f4e60</a>
+        <span class="cm-stats">3 文件 <span class="st-plus">+77</span> <span class="st-minus">−4</span></span>
+      </div>
+      <div class="cm-subject">新增西安/厦门/福州/昆明，总计27城55条政策</div>
+      <div class="cm-body">- 西安：国家超算共享算力池+商汤/京东云/阿里云技术开放<br>- 厦门：福建首个OPC社区+自建算力+市区两级算力券<br>- 福州：OPC联盟12家+闽商AI伴飞+2800㎡创客空间+福AI夜校<br>- 昆明：云南首个OPC社区+零租金+AI算力Token+青创启航贷<br>统计更新：27座城市 / 55���政策 / 70+ OPC社区<br>新增陕西/福建/云南省份选项和城市区域映射</div>
+    </div>
+    <div class="cm-item cat-other">
+      <div class="cm-head">
+        <span class="cm-icon">📌</span>
+        <span class="cm-label">其他</span>
+        <span class="cm-date">2026-04-10 08:42</span>
+        <a href="https://github.com/siuserxiaowei/opc-policy/commit/9342dcb2e47cd63977ca3410c5e7b8f58df4d097" target="_blank" rel="noopener" class="cm-sha">9342dcb</a>
+        <span class="cm-stats">3 文件 <span class="st-plus">+209</span> <span class="st-minus">−7</span></span>
+      </div>
+      <div class="cm-subject">大规模扩展：新增11座城市13条政策，总计23城51条</div>
+      <div class="cm-body">新增城市和政策：<br>- 青岛：算力券100万/模型券100万/语料券150万 + 崂山区繁星人才200万<br>- 济南：12个社区节点/50亿AI基金/3000P算力/100TB数据/讯飞能力免费<br>- 扬州：单项最高1000万全链条/18个OPC社区/&#x27;中国最优OPC创业之城&#x27;<br>- 宁波：海曙算力补贴50%最高30万/5个社区运营中<br>- 无锡：OPC十条/魔法空间/暖村数字游民<br>- 宿迁：OPC创业之城十项措施/零租工位/百余种免费AI工具<br>- 常州：OPC国际化/Plug and Play/硅谷孵化GOAL计划<br>- 温州：浙江首个市级系统OPC政策/17条/公章免费/一日办结<br>- 东莞：赋能OPC十条/打样100%补贴/1亿创投基金/松山湖模立方<br>- 佛山：佛深OPC联盟/三年三免<br>- 中山：三年三免/创业担保贷款500万/300万天使基金<br>统计：23座城市 · 51条政策 · 60+ OPC社区</div>
+    </div>
+    <div class="cm-item cat-other">
+      <div class="cm-head">
+        <span class="cm-icon">📌</span>
+        <span class="cm-label">其他</span>
+        <span class="cm-date">2026-04-10 08:34</span>
+        <a href="https://github.com/siuserxiaowei/opc-policy/commit/3ba4cafd56376c82cf3f7a416138d83a07a885f5" target="_blank" rel="noopener" class="cm-sha">3ba4caf</a>
+        <span class="cm-stats">3 文件 <span class="st-plus">+124</span> <span class="st-minus">−2</span></span>
+      </div>
+      <div class="cm-subject">补充苏州（全国OPC政策最强城市）— 7条政策</div>
+      <div class="cm-body">苏州是全国首个系统性提出&quot;OPC创业首选城市&quot;的城市，之前遗漏是重大疏忽。<br>新增7条苏州政策：<br>- 市级：AI+城市若干措施（算力券20万/语料券10万/场景最高1000万）<br>- 工业园区：OPC十条（10亿青创基金/百万㎡社区/拎包入驻）<br>- 吴江区：力度最大（3年免租/算力补贴200万/年/20亿直投/100亿信贷/全国首创OPC数据保险）<br>- 昆山：0.5天拿照/OPC专窗/魔滴空间<br>- 首批十大OPC青年社区（覆盖全市10个板块）<br>- 国际OPC创业大赛（最高奖金30万）<br>更新统计：12座城市/38条政策/30+OPC社区<br>苏州排列在城市列表首位（政策最全面）</div>
+    </div>
+    <div class="cm-item cat-other">
+      <div class="cm-head">
+        <span class="cm-icon">📌</span>
+        <span class="cm-label">其他</span>
+        <span class="cm-date">2026-04-10 01:17</span>
+        <a href="https://github.com/siuserxiaowei/opc-policy/commit/ed3e3c5c4414c519cbd1e6b54583821e2d433be9" target="_blank" rel="noopener" class="cm-sha">ed3e3c5</a>
+        <span class="cm-stats">2 文件 <span class="st-plus">+274</span> <span class="st-minus">−0</span></span>
+      </div>
+      <div class="cm-subject">添加独立爬虫模块 + 后端文档</div>
+      <div class="cm-body">- 新增 crawler.py：独立运行的政策爬虫<br>  - 覆盖20个政府网站源（广州/深圳/北京/上海/杭州/武汉/成都/南京/合肥）<br>  - 支持按城市过滤、单URL提取<br>  - 自动去重、关键词匹配、金额提取<br>  - 结构化输出到 crawl_results.json<br>- 新增后端 README 使用文档<br>- 同步所有文件到本地</div>
+    </div>
+    <div class="cm-item cat-other">
+      <div class="cm-head">
+        <span class="cm-icon">📌</span>
+        <span class="cm-label">其他</span>
+        <span class="cm-date">2026-04-10 01:15</span>
+        <a href="https://github.com/siuserxiaowei/opc-policy/commit/ac1636a4daabd970bf813a4f371c67b54bc0ce4c" target="_blank" rel="noopener" class="cm-sha">ac1636a</a>
+        <span class="cm-stats">2 文件 <span class="st-plus">+29</span> <span class="st-minus">−10</span></span>
+      </div>
+      <div class="cm-subject">UI一致性优化：统一导航栏 + meta标签 + favicon</div>
+      <div class="cm-body">- 三个页面（index/guangzhou/dashboard）统一顶部导航栏样式<br>- 添加 OG meta tags 用于社交分享<br>- 添加 favicon<br>- 修复广州页面 sticky nav 在顶部导航下的偏移</div>
+    </div>
+    <div class="cm-item cat-other">
+      <div class="cm-head">
+        <span class="cm-icon">📌</span>
+        <span class="cm-label">其他</span>
+        <span class="cm-date">2026-04-10 01:13</span>
+        <a href="https://github.com/siuserxiaowei/opc-policy/commit/b0e71f2c02bc69d79710914d4bea3e2a1b58b620" target="_blank" rel="noopener" class="cm-sha">b0e71f2</a>
+        <span class="cm-stats">1 文件 <span class="st-plus">+713</span> <span class="st-minus">−462</span></span>
+      </div>
+      <div class="cm-subject">全面优化：修复匹配引擎 + 新增浏览模式和AI顾问 + UI改进</div>
+      <div class="cm-body">匹配引擎修复：<br>- 修复 JS 运算符优先级 bug（||和&amp;&amp;混用）<br>- 修复直辖市（北京/上海/重庆）省市同名匹配异常<br>- 改进区域匹配逻辑：同城不同区会降分并提示而非完全不匹配<br>- 修复 blockers 判定：区分硬阻碍（注册地/法人身份）和软条件<br>新增功能：<br>- 三模式切换：智能匹配 / 浏览全部政策 / AI政策顾问<br>- 浏览模式：按城市/类型筛选，按金额/名称排序，关键词搜索<br>- AI顾问：本地智能问答（支持城市对比、材料准备、免费空间查询等）<br>- CSV导出（除TXT外新增）<br>- 表单验证（必填省份+城市）<br>- 所有补贴项完整展示（不再截断前4个）<br>UI改进：<br>- 统一顶部导航栏<br>- 加载动画从 emoji 换成 CSS spinner<br>- 新增 OG meta 标签和 favicon<br>- 返回顶部按钮<br>- 数据加载失败提示<br>- 城市卡片展示政策亮点摘要</div>
+    </div>
+    <div class="cm-item cat-other">
+      <div class="cm-head">
+        <span class="cm-icon">📌</span>
+        <span class="cm-label">其他</span>
+        <span class="cm-date">2026-04-10 00:59</span>
+        <a href="https://github.com/siuserxiaowei/opc-policy/commit/93ba7f4639c6b0c2e3aee17d170a53aad794bdd5" target="_blank" rel="noopener" class="cm-sha">93ba7f4</a>
+        <span class="cm-stats">7 文件 <span class="st-plus">+1366</span> <span class="st-minus">−855</span></span>
+      </div>
+      <div class="cm-subject">完整版：31条真实政策数据 + 后端服务 + 数据看板</div>
+      <div class="cm-body">政策数据库（v2.0）：<br>- 11城市31条政策，全部基于搜索引擎验证的真实数据<br>- 深圳：训力券1000万/模力营10万㎡/华强北12基地/龙虾十条<br>- 北京：算力3000万/亦庄模数/海淀免费注册/通州OPC<br>- 上海：算力/模型/语料券各100万/临港零租金/静安视听<br>- 杭州：上城10亿基金/鸿鹄汇/浙江首个区级OPC专项<br>- 武汉：OPC十条/创业100万/算力贷1000万<br>- 成都：算力60%补贴/累计最高2500万<br>- 南京/合肥/长沙/重庆各有特色政策<br>后端服务（Flask）：<br>- 自动爬虫抓取（定时扫描政府网站）<br>- AI政策顾问（Anthropic Claude API）<br>- 政策变动追踪（过期/截止提醒）<br>- 邮件订阅通知系统<br>- RESTful API（/api/policies, /api/match, /api/advisor, /api/dashboard等）<br>数据看板（dashboard.html）：<br>- 城市政策数量柱状图<br>- 政策类型分布环形图<br>- 最高补贴金额排行<br>- 即将到期政策时间线<br>- OPC社区数量统计<br>- 数据验证状态</div>
+    </div>
+    <div class="cm-item cat-other">
+      <div class="cm-head">
+        <span class="cm-icon">📌</span>
+        <span class="cm-label">其他</span>
+        <span class="cm-date">2026-04-10 00:51</span>
+        <a href="https://github.com/siuserxiaowei/opc-policy/commit/d5dcc2c956940387def7a4c22572b9afe5e66cf1" target="_blank" rel="noopener" class="cm-sha">d5dcc2c</a>
+        <span class="cm-stats">6 文件 <span class="st-plus">+3148</span> <span class="st-minus">−1307</span></span>
+      </div>
+      <div class="cm-subject">升级为全国OPC政策导航平台</div>
+      <div class="cm-body">- 新增用户匹配系统（填写公司情况自动匹配政策）<br>- 新增结构化政策数据库（27+条政策，JSON Schema）<br>- 覆盖11座城市：广州/深圳/北京/上海/杭州/成都/武汉/合肥/南京/长沙/重庆<br>- 原广州详情页保留为 guangzhou.html<br>- 新增全国版入口 index.html（三步匹配流程）<br>- 新增城市卡片导航、匹配结果导出</div>
+    </div>
+    <div class="cm-item cat-other">
+      <div class="cm-head">
+        <span class="cm-icon">📌</span>
+        <span class="cm-label">其他</span>
+        <span class="cm-date">2026-04-09 20:03</span>
+        <a href="https://github.com/siuserxiaowei/opc-policy/commit/1c38f0fa10cd078ec9f2ba3eb016f506836d2afe" target="_blank" rel="noopener" class="cm-sha">1c38f0f</a>
+        <span class="cm-stats">1 文件 <span class="st-plus">+27</span> <span class="st-minus">−0</span></span>
+      </div>
+      <div class="cm-subject">添加 GitHub Pages 部署 workflow</div>
+      
+    </div>
+    <div class="cm-item cat-city">
+      <div class="cm-head">
+        <span class="cm-icon">🏙️</span>
+        <span class="cm-label">城市数据</span>
+        <span class="cm-date">2026-04-09 20:02</span>
+        <a href="https://github.com/siuserxiaowei/opc-policy/commit/98c04c35157206648bd9d22bc1e2da68b145914c" target="_blank" rel="noopener" class="cm-sha">98c04c3</a>
+        <span class="cm-stats">13 文件 <span class="st-plus">+2601</span> <span class="st-minus">−0</span></span>
+      </div>
+      <div class="cm-subject">广州OPC政策导航 - 完整政策汇总与交互式网页</div>
+      <div class="cm-body">包含广州各区OPC（一人公司）政策汇总、官方可核验筛选版、<br>以及交互式政策导航网页（倒计时、搜索、筛选、材料清单等）。</div>
+    </div>
+
+</div>
+
+<footer>
+  <p>opcgate.com · 维护日志自动生成于 2026-04-15 20:56</p>
+  <p style="margin-top:4px"><a href="https://github.com/siuserxiaowei/opc-policy">在 GitHub 上查看完整提交历史 ↗</a></p>
+</footer>
+
+<!-- 百度自动推送 -->
+<script>
+(function(){
+  var bp = document.createElement('script');
+  var curProtocol = window.location.protocol.split(':')[0];
+  if (curProtocol === 'https') {
+    bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+  } else {
+    bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+  }
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(bp, s);
+})();
+</script>
+</body>
+</html>
