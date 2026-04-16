@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OPC 城市/社区对比 | opcgate.com</title>
+<meta name="description" content="并排对比全国OPC城市和社区：补贴力度、免租期限、算力配额、适合什么人、不适合什么人。帮你快速做出OPC落地选址决策。">
+<meta name="keywords" content="OPC城市对比,一人公司选址,OPC社区对比,广州vs深圳,苏州OPC,算力补贴对比">
+<meta property="og:title" content="OPC 城市/社区对比 | opcgate.com">
+<meta property="og:description" content="并排对比 OPC 城市补贴、社区、算力、适合人群。帮你做出落地决策。">
+<link rel="canonical" href="https://opcgate.com/compare.html">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚖️</text></svg>">
+<style>
+:root{--bg:#0a0a0f;--card:#12121a;--card2:#1a1a28;--border:#2a2a3a;--text:#e0e0e8;--dim:#8888a0;
+  --accent:#6c5ce7;--al:#a29bfe;--green:#00e676;--gd:#1b5e20;--yellow:#ffd600;--yd:#5d4e00;
+  --red:#ff5252;--rd:#4a1515;--cyan:#00e5ff;--blue:#448aff;--orange:#ff9100}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,'PingFang SC','Microsoft YaHei',sans-serif;background:var(--bg);color:var(--text);line-height:1.7}
+a{color:var(--al);text-decoration:none}a:hover{color:#fff}
+select,button{font-family:inherit}
+
+.topnav{display:flex;align-items:center;gap:8px;padding:10px 20px;background:rgba(10,10,15,.9);
+  border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;backdrop-filter:blur(12px);overflow-x:auto}
+.topnav .logo{font-weight:800;font-size:1em;color:var(--al)}
+.topnav a{padding:6px 14px;border-radius:6px;font-size:.82em;color:var(--dim);transition:all .2s;white-space:nowrap}
+.topnav a:hover,.topnav a.active{color:var(--al);background:rgba(108,92,231,.1)}
+
+.hero{padding:40px 20px 20px;text-align:center;background:linear-gradient(135deg,#0a0a1a,#0a1a3a,#0a0a1a)}
+.hero h1{font-size:2em;font-weight:800;background:linear-gradient(135deg,#fff,var(--cyan),var(--al));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero .sub{color:var(--dim);font-size:.92em;margin:6px 0}
+
+.container{max-width:1200px;margin:0 auto;padding:20px}
+
+/* 选择器 */
+.select-bar{display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end;padding:18px;background:var(--card);border:1px solid var(--border);border-radius:12px;margin-bottom:20px}
+.select-bar label{font-size:.82em;color:var(--dim);display:block;margin-bottom:4px}
+.select-bar select{padding:10px 14px;background:var(--bg);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:.9em;min-width:160px;outline:none;cursor:pointer}
+.select-bar select:focus{border-color:var(--accent)}
+.select-bar .add-btn{padding:10px 18px;background:rgba(0,229,255,.1);border:1px solid rgba(0,229,255,.25);border-radius:8px;color:var(--cyan);font-size:.88em;font-weight:600;cursor:pointer;transition:all .2s}
+.select-bar .add-btn:hover{background:rgba(0,229,255,.2)}
+.select-bar .clear-btn{padding:10px 18px;background:rgba(255,82,82,.08);border:1px solid rgba(255,82,82,.2);border-radius:8px;color:var(--red);font-size:.88em;cursor:pointer}
+
+/* 对比表 */
+.compare-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.compare-table{width:100%;border-collapse:collapse;font-size:.88em;min-width:500px}
+.compare-table thead{position:sticky;top:52px;z-index:10}
+.compare-table th{padding:14px 16px;background:rgba(108,92,231,.12);border-bottom:2px solid var(--accent);text-align:center;font-weight:700;font-size:.95em;color:var(--al);min-width:180px}
+.compare-table th:first-child{text-align:left;min-width:140px;font-size:.82em;color:var(--dim);background:rgba(10,10,15,.8);position:sticky;left:0;z-index:11}
+.compare-table td{padding:12px 16px;border-bottom:1px solid rgba(255,255,255,.03);vertical-align:top}
+.compare-table td:first-child{font-weight:600;color:var(--al);font-size:.82em;background:rgba(10,10,15,.6);position:sticky;left:0;z-index:1;white-space:nowrap}
+.compare-table tr:hover td{background:rgba(108,92,231,.03)}
+.compare-table .highlight{color:var(--cyan);font-weight:700}
+.compare-table .good{color:var(--green)}
+.compare-table .warn{color:var(--yellow)}
+.compare-table .bad{color:var(--red)}
+.compare-table .dim{color:var(--dim);font-size:.85em}
+.compare-table .tag{display:inline-block;padding:1px 6px;border-radius:3px;font-size:.72em;font-weight:600;margin:1px}
+.compare-table .tag-go{background:var(--gd);color:var(--green)}
+.compare-table .tag-no{background:var(--rd);color:var(--red)}
+.compare-table .tag-info{background:rgba(68,138,255,.12);color:var(--blue)}
+
+.empty{text-align:center;padding:60px 20px;color:var(--dim)}
+.empty h2{font-size:1.3em;margin-bottom:8px;color:var(--text)}
+
+/* 推荐小结 */
+.verdict{background:linear-gradient(135deg,rgba(0,229,255,.06),rgba(108,92,231,.06));border:1px solid rgba(0,229,255,.2);border-radius:12px;padding:20px;margin-top:20px}
+.verdict h3{font-size:1.05em;color:var(--cyan);margin-bottom:8px}
+.verdict p{font-size:.88em;color:var(--dim);line-height:1.8}
+.verdict .rec{color:var(--green);font-weight:700}
+.verdict .norec{color:var(--red);font-weight:700}
+
+footer{text-align:center;padding:30px 20px;color:var(--dim);font-size:.78em;border-top:1px solid var(--border);margin-top:30px}
+@media(max-width:768px){.hero h1{font-size:1.4em}.select-bar{flex-direction:column}.select-bar select{min-width:auto;width:100%}}
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <span class="logo">OPC</span>
+  <a href="index.html">首页</a>
+  <a href="guangzhou.html">广州专版</a>
+  <a href="chengdu.html">成都专版</a>
+  <a href="suzhou.html">苏州专版</a>
+  <a href="compare.html" class="active">城市对比</a>
+  <a href="tax.html">税务指南</a>
+  <a href="changelog.html">维护日志</a>
+</nav>
+
+<div class="hero">
+  <h1>⚖️ OPC 城市 / 社区对比</h1>
+  <p class="sub">选 2-3 个城市并排看，帮你快速排除不合适的、找到最适合的</p>
+</div>
+
+<div class="container">
+
+  <div class="select-bar">
+    <div>
+      <label>选择城市（最多 4 个）</label>
+      <select id="citySelect"><option value="">+ 添加城市</option></select>
+    </div>
+    <button class="add-btn" onclick="addCity()">➕ 添加到对比</button>
+    <button class="clear-btn" onclick="clearAll()">✕ 清空</button>
+    <div style="flex:1"></div>
+    <div style="font-size:.78em;color:var(--dim)" id="selectedLabel">已选 0 个城市</div>
+  </div>
+
+  <!-- 已选城市 chips -->
+  <div id="selectedChips" style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px"></div>
+
+  <!-- 对比表 -->
+  <div id="compareArea">
+    <div class="empty">
+      <h2>选择 2 个以上城市开始对比</h2>
+      <p>从上方下拉菜单选择城市，或点击下方热门对比：</p>
+      <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:16px">
+        <button onclick="quickCompare(['广州','深圳','苏州'])" style="padding:8px 16px;background:var(--card);border:1px solid var(--border);border-radius:8px;color:var(--al);font-size:.85em;cursor:pointer">广州 vs 深圳 vs 苏州</button>
+        <button onclick="quickCompare(['广州','成都'])" style="padding:8px 16px;background:var(--card);border:1px solid var(--border);border-radius:8px;color:var(--al);font-size:.85em;cursor:pointer">广州 vs 成都</button>
+        <button onclick="quickCompare(['苏州','杭州','南京'])" style="padding:8px 16px;background:var(--card);border:1px solid var(--border);border-radius:8px;color:var(--al);font-size:.85em;cursor:pointer">苏州 vs 杭州 vs 南京</button>
+        <button onclick="quickCompare(['北京','上海','深圳'])" style="padding:8px 16px;background:var(--card);border:1px solid var(--border);border-radius:8px;color:var(--al);font-size:.85em;cursor:pointer">北京 vs 上海 vs 深圳</button>
+        <button onclick="quickCompare(['青岛','郑州','武汉'])" style="padding:8px 16px;background:var(--card);border:1px solid var(--border);border-radius:8px;color:var(--al);font-size:.85em;cursor:pointer">青岛 vs 郑州 vs 武汉</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <p>OPC 选址决策工具 · 每条带官方来源 · 拒绝 AI 编造</p>
+  <p style="margin-top:4px"><a href="index.html">首页</a> · <a href="guangzhou.html">广州</a> · <a href="suzhou.html">苏州</a> · <a href="chengdu.html">成都</a> · <a href="changelog.html">维护日志</a> · <a href="rss.xml">RSS</a></p>
+</footer>
+
+<script>
+let POLICIES = [];
+let selected = [];
+
+async function loadData(){
+  try {
+    const resp = await fetch('data/policies.json');
+    const data = await resp.json();
+    POLICIES = data.policies || [];
+    populateCitySelect();
+  } catch(e) {
+    console.error('Failed to load policies:', e);
+  }
+}
+
+function getCities(){
+  const map = {};
+  POLICIES.forEach(p => {
+    const c = p.city;
+    if(!c) return;
+    if(!map[c]) map[c] = {city: c, province: p.province||'', policies:[], communities:[], benefits:[], tags: new Set()};
+    map[c].policies.push(p);
+    (p.communities||[]).forEach(cm => map[c].communities.push(cm));
+    (p.benefits||[]).forEach(b => map[c].benefits.push(b));
+    (p.tags||[]).forEach(t => map[c].tags.add(t));
+  });
+  return map;
+}
+
+function populateCitySelect(){
+  const sel = document.getElementById('citySelect');
+  const cities = Object.keys(getCities()).sort((a,b) => {
+    const ca = getCities()[a], cb = getCities()[b];
+    return cb.policies.length - ca.policies.length;
+  });
+  sel.innerHTML = '<option value="">+ 添加城市</option>';
+  cities.forEach(c => {
+    const d = getCities()[c];
+    sel.innerHTML += `<option value="${c}">${c} (${d.policies.length}条·${d.communities.length}社区)</option>`;
+  });
+}
+
+function addCity(){
+  const sel = document.getElementById('citySelect');
+  const city = sel.value;
+  if(!city || selected.includes(city)) return;
+  if(selected.length >= 4){ alert('最多对比 4 个城市'); return; }
+  selected.push(city);
+  sel.value = '';
+  render();
+}
+
+function removeCity(city){
+  selected = selected.filter(c => c !== city);
+  render();
+}
+
+function clearAll(){
+  selected = [];
+  render();
+}
+
+function quickCompare(cities){
+  selected = cities.filter(c => getCities()[c]);
+  render();
+}
+
+function render(){
+  renderChips();
+  if(selected.length < 2){
+    document.getElementById('compareArea').innerHTML = `<div class="empty"><h2>选择 2 个以上城市开始对比</h2><p>当前已选 ${selected.length} 个</p></div>`;
+    return;
+  }
+  renderTable();
+}
+
+function renderChips(){
+  const el = document.getElementById('selectedChips');
+  el.innerHTML = selected.map(c => `<span style="display:inline-flex;align-items:center;gap:4px;padding:6px 12px;background:rgba(108,92,231,.15);border:1px solid rgba(108,92,231,.3);border-radius:6px;font-size:.85em;color:var(--al)">
+    ${c} <span style="cursor:pointer;color:var(--red);margin-left:4px" onclick="removeCity('${c}')">✕</span>
+  </span>`).join('');
+  document.getElementById('selectedLabel').textContent = `已选 ${selected.length} 个城市`;
+}
+
+function renderTable(){
+  const allCities = getCities();
+  const data = selected.map(c => allCities[c]).filter(Boolean);
+  if(data.length < 2) return;
+
+  // 计算每个城市的聚合数据
+  const rows = data.map(d => {
+    const maxBenefit = Math.max(0, ...d.benefits.map(b => b.amount_max||0));
+    const rentFree = d.benefits.filter(b => b.type === 'rent_free');
+    const cash = d.benefits.filter(b => b.type === 'cash');
+    const voucher = d.benefits.filter(b => b.type === 'voucher');
+    const loan = d.benefits.filter(b => b.type === 'loan');
+
+    const rentDesc = rentFree.length ? rentFree.map(r => r.amount||r.item).join('；') : '未明确';
+    const cashTop = cash.length ? cash.sort((a,b)=>(b.amount_max||0)-(a.amount_max||0)).slice(0,3).map(c => `${c.item}: ${c.amount}`).join('<br>') : '—';
+    const voucherDesc = voucher.length ? voucher.map(v => `${v.item}: ${v.amount}`).join('<br>') : '—';
+    const loanDesc = loan.length ? loan.map(l => `${l.item}: ${l.amount}`).join('<br>') : '—';
+
+    // 适合/不适合
+    const cats = [...d.tags];
+    const hasAI = cats.some(t => /AI|智能|算力|大模型|Agent/.test(t));
+    const hasBio = cats.some(t => /生物|医药/.test(t));
+    const hasEcom = cats.some(t => /电商|跨境/.test(t));
+    const hasManufacture = cats.some(t => /制造|硬件/.test(t));
+
+    let suitFor = [];
+    if(hasAI) suitFor.push('AI/大模型创业');
+    if(hasBio) suitFor.push('生物医药');
+    if(hasEcom) suitFor.push('跨境电商');
+    if(hasManufacture) suitFor.push('智能制造/硬件');
+    if(d.communities.length > 5) suitFor.push('想拎包入驻');
+    if(!suitFor.length) suitFor.push('通用OPC创业');
+
+    let notFor = [];
+    if(d.policies.length < 3) notFor.push('政策少、选择面窄');
+    if(!rentFree.length) notFor.push('暂无明确免租政策');
+    if(maxBenefit < 500000) notFor.push('大额补贴少');
+
+    // 社区列表
+    const commNames = d.communities.slice(0,5).map(c => c.name).join('、');
+    const commMore = d.communities.length > 5 ? `… 等 ${d.communities.length} 个` : '';
+
+    // 最近更新
+    const dates = d.policies.map(p => p.updated_at || p.publish_date || '').filter(Boolean).sort().reverse();
+    const lastUpdate = dates[0] || '—';
+
+    // 有无专版
+    const specialPages = {
+      '广州': '<a href="guangzhou.html">广州专版 →</a>',
+      '成都': '<a href="chengdu.html">成都专版 →</a>',
+      '苏州': '<a href="suzhou.html">苏州专版 →</a>',
+    };
+    const link = specialPages[d.city] || `<a href="city.html?city=${encodeURIComponent(d.city)}">查看详情 →</a>`;
+
+    return {
+      city: d.city,
+      province: d.province,
+      policyCount: d.policies.length,
+      commCount: d.communities.length,
+      maxBenefit,
+      rentDesc,
+      cashTop,
+      voucherDesc,
+      loanDesc,
+      suitFor,
+      notFor,
+      commNames: commNames + commMore,
+      lastUpdate,
+      link,
+    };
+  });
+
+  // 找最优项
+  const maxPolicy = Math.max(...rows.map(r => r.policyCount));
+  const maxComm = Math.max(...rows.map(r => r.commCount));
+  const maxAmount = Math.max(...rows.map(r => r.maxBenefit));
+
+  function bestClass(val, max){ return val === max && max > 0 ? 'highlight' : ''; }
+  function amountStr(n){ return n >= 10000 ? (n/10000).toFixed(0) + ' 万' : n + ' 元'; }
+
+  const dimensions = [
+    { label: '📍 省份', key: r => r.province },
+    { label: '📋 政策数量', key: r => `<span class="${bestClass(r.policyCount, maxPolicy)}">${r.policyCount} 条</span>` },
+    { label: '🏢 OPC 社区数', key: r => `<span class="${bestClass(r.commCount, maxComm)}">${r.commCount} 个</span>` },
+    { label: '💰 最高单项补贴', key: r => `<span class="${bestClass(r.maxBenefit, maxAmount)}">${amountStr(r.maxBenefit)}</span>` },
+    { label: '🏠 免租/工位', key: r => r.rentDesc || '—' },
+    { label: '💵 现金补贴 TOP3', key: r => r.cashTop },
+    { label: '🎫 算力/数据券', key: r => r.voucherDesc },
+    { label: '🏦 贷款/基金', key: r => r.loanDesc },
+    { label: '✅ 适合', key: r => r.suitFor.map(s => `<span class="tag tag-go">${s}</span>`).join(' ') },
+    { label: '⚠️ 不适合 / 注意', key: r => r.notFor.length ? r.notFor.map(s => `<span class="tag tag-no">${s}</span>`).join(' ') : '<span class="good">暂无明显短板</span>' },
+    { label: '🏘️ 社区列表', key: r => `<span class="dim">${r.commNames || '暂无收录'}</span>` },
+    { label: '📅 最后更新', key: r => r.lastUpdate },
+    { label: '🔗 详细', key: r => r.link },
+  ];
+
+  let tableHtml = '<div class="compare-wrap"><table class="compare-table"><thead><tr><th>对比维度</th>';
+  rows.forEach(r => { tableHtml += `<th>${r.city}</th>`; });
+  tableHtml += '</tr></thead><tbody>';
+
+  dimensions.forEach(dim => {
+    tableHtml += '<tr>';
+    tableHtml += `<td>${dim.label}</td>`;
+    rows.forEach(r => {
+      const val = dim.key(r);
+      tableHtml += `<td>${val}</td>`;
+    });
+    tableHtml += '</tr>';
+  });
+
+  tableHtml += '</tbody></table></div>';
+
+  // 推荐小结
+  const best = rows.reduce((a,b) => (a.policyCount + a.commCount) > (b.policyCount + b.commCount) ? a : b);
+  const worst = rows.reduce((a,b) => a.notFor.length > b.notFor.length ? a : b);
+
+  tableHtml += `
+  <div class="verdict">
+    <h3>⚡ 快速判断</h3>
+    <p>
+      在你选的 ${rows.map(r=>r.city).join('、')} 中：<br>
+      <span class="rec">✓ 综合最优：${best.city}</span>（${best.policyCount} 条政策 + ${best.commCount} 个社区，最高 ${amountStr(best.maxBenefit)} 单项补贴）<br>
+      ${worst.notFor.length ? `<span class="norec">⚠ 注意事项最多：${worst.city}</span>（${worst.notFor.join('、')}）` : '所有城市暂无明显短板'}
+    </p>
+    <p style="margin-top:8px;font-size:.82em;color:var(--dim)">
+      以上结论基于 policies.json 现有数据自动生成，建议结合城市专版详情页做最终判断。
+      <a href="index.html" style="color:var(--al)">回首页做精准匹配 →</a>
+    </p>
+  </div>
+  `;
+
+  document.getElementById('compareArea').innerHTML = tableHtml;
+}
+
+loadData();
+</script>
+
+<script>
+(function(){
+  var bp = document.createElement('script');
+  if (window.location.protocol === 'https:') bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+  else bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(bp, s);
+})();
+</script>
+</body>
+</html>

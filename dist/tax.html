@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OPC税务指南 | 一人公司税收优惠·税负对比·最优架构 - opcgate.com</title>
+<meta name="description" content="OPC一人公司税务完全指南：个人独资vs一人有限vs个体户税负对比，小微企业5%企税，前海/海南/南沙15%优惠，研发加计扣除，最优税务架构建议。">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💰</text></svg>">
+<style>
+:root{--bg:#0a0a0f;--card:#12121a;--card2:#1a1a28;--border:#2a2a3a;--text:#e0e0e8;--dim:#8888a0;
+  --accent:#6c5ce7;--al:#a29bfe;--green:#00e676;--gd:#1b5e20;--yellow:#ffd600;--yd:#5d4e00;
+  --red:#ff5252;--cyan:#00e5ff;--blue:#448aff;--orange:#ff9100}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,'PingFang SC','Microsoft YaHei',sans-serif;background:var(--bg);color:var(--text);line-height:1.7}
+a{color:var(--al);text-decoration:none}a:hover{color:#fff}
+.topnav{display:flex;align-items:center;gap:8px;padding:10px 20px;background:rgba(10,10,15,.9);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;backdrop-filter:blur(12px)}
+.topnav .logo{font-weight:800;font-size:1em;color:var(--al)}
+.topnav a{padding:6px 14px;border-radius:6px;font-size:.82em;color:var(--dim);transition:all .2s}
+.topnav a:hover,.topnav a.active{color:var(--al);background:rgba(108,92,231,.1)}
+.topnav .spacer{flex:1}
+.container{max-width:1000px;margin:0 auto;padding:30px 20px}
+.hero{padding:50px 20px 30px;text-align:center;background:linear-gradient(135deg,#0a0a1a 0%,#1a0a2e 50%,#0a1a2e 100%)}
+.hero h1{font-size:2em;font-weight:800;background:linear-gradient(135deg,#fff,var(--al),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero .sub{color:var(--dim);font-size:.95em;margin:6px 0}
+.panel{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:24px;margin-bottom:20px}
+.panel h2{font-size:1.3em;margin-bottom:12px}
+.panel h3{font-size:1.05em;margin:16px 0 8px;color:var(--al)}
+.panel p,.panel li{font-size:.9em;color:var(--text);margin-bottom:6px}
+.panel ul{list-style:none;padding:0}
+.panel ul li::before{content:'>';color:var(--accent);margin-right:8px;font-weight:700}
+table{width:100%;border-collapse:collapse;font-size:.88em;margin:12px 0}
+thead{background:rgba(108,92,231,.08)}
+th{padding:10px 14px;text-align:left;font-weight:600;color:var(--al);border-bottom:1px solid var(--border)}
+td{padding:10px 14px;border-bottom:1px solid rgba(255,255,255,.03)}
+tr:hover td{background:rgba(108,92,231,.03)}
+.highlight{color:var(--cyan);font-weight:700}
+.tag{display:inline-block;padding:2px 8px;border-radius:4px;font-size:.72em;font-weight:600}
+.tag-best{background:var(--gd);color:var(--green)}
+.tag-good{background:var(--yd);color:var(--yellow)}
+.tag-warn{background:var(--rd);color:var(--red)}
+.calc-card{background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:20px;margin:12px 0}
+.calc-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:12px}
+.calc-row label{font-size:.82em;color:var(--al);display:block;margin-bottom:4px}
+.calc-row input,.calc-row select{width:100%;padding:8px;background:var(--card);border:1px solid var(--border);border-radius:6px;color:var(--text);font-size:.88em}
+.calc-result{padding:16px;background:rgba(0,229,255,.05);border:1px solid rgba(0,229,255,.15);border-radius:10px;margin-top:12px}
+.btn{padding:10px 24px;border-radius:8px;font-size:.9em;font-weight:600;cursor:pointer;border:none;background:var(--accent);color:#fff;transition:all .2s}
+.btn:hover{background:#7c6ef0}
+.region-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin:12px 0}
+.region-card{padding:16px;border:1px solid var(--border);border-radius:10px;background:var(--bg);text-align:center;transition:all .3s}
+.region-card:hover{border-color:var(--accent);transform:translateY(-2px)}
+.region-card .rate{font-size:2em;font-weight:800;color:var(--cyan)}
+.region-card .name{font-weight:600;margin-bottom:4px}
+.region-card .detail{font-size:.78em;color:var(--dim)}
+.timeline{font-size:.88em}
+.timeline .item{padding:10px 0;border-bottom:1px solid rgba(255,255,255,.03);display:flex;gap:12px}
+.timeline .date{width:120px;flex-shrink:0;color:var(--al);font-weight:600}
+footer{text-align:center;padding:30px 20px;color:var(--dim);font-size:.78em;border-top:1px solid var(--border)}
+@media(max-width:768px){.calc-row{grid-template-columns:1fr}.region-grid{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <span class="logo">OPC</span>
+  <a href="index.html">首页</a>
+  <a href="guangzhou.html">广州专版</a>
+  <a href="chengdu.html">成都专版</a>
+  <a href="suzhou.html">苏州专版</a>
+  <a href="yuexiu.html">越秀区</a>
+  <a href="tax.html" class="active">税务指南</a>
+  <a href="dashboard.html">数据看板</a>
+  <a href="changelog.html">维护日志</a>
+  <span class="spacer"></span>
+</nav>
+
+<div class="hero">
+  <h1>OPC 税务指南</h1>
+  <p class="sub">一人公司税收优惠 · 税负对比 · 最优架构</p>
+</div>
+
+<div class="container">
+
+  <!-- 1. 三种主体税负对比 -->
+  <div class="panel">
+    <h2>三种OPC主体形态税负对比</h2>
+    <table>
+      <thead>
+        <tr><th>对比项</th><th>一人有限公司</th><th>个人独资企业</th><th>个体工商户</th></tr>
+      </thead>
+      <tbody>
+        <tr><td colspan="4" style="background:rgba(108,92,231,.06);color:var(--al);font-weight:600;font-size:.82em">所得税</td></tr>
+        <tr><td>企业所得税</td><td>25%（小微 <span class="highlight">5%</span>）</td><td>不缴</td><td>不缴</td></tr>
+        <tr><td>个人所得税</td><td>分红 20%</td><td>经营所得 5%-35%</td><td>经营所得 5%-35%</td></tr>
+        <tr><td>所得税综合税负</td><td>小微约 24%</td><td>核定后约 <span class="highlight">4.8%-6.6%</span></td><td>核定后 <span class="highlight">更低</span></td></tr>
+        <tr><td colspan="4" style="background:rgba(0,229,255,.06);color:var(--cyan);font-weight:600;font-size:.82em">增值税</td></tr>
+        <tr><td>纳税人类型</td><td>小规模/一般纳税人</td><td>小规模纳税人</td><td>小规模纳税人</td></tr>
+        <tr><td>小规模税率</td><td>1%（2027年底前）</td><td>1%（2027年底前）</td><td>1%（2027年底前）</td></tr>
+        <tr><td>免征条件</td><td colspan="3">月销 ≤ 10万 / 季度 ≤ 30万 → <span class="highlight">免征增值税</span>（三种主体均适用）</td></tr>
+        <tr><td>一般纳税人税率</td><td>6%（服务）/ 13%（货物）</td><td>通常不选择</td><td>通常不选择</td></tr>
+        <tr><td>进项抵扣</td><td><span class="tag tag-best">一般纳税人可抵扣</span></td><td>小规模不可抵扣</td><td>小规模不可抵扣</td></tr>
+        <tr><td colspan="4" style="background:rgba(0,230,118,.06);color:var(--green);font-weight:600;font-size:.82em">附加税费</td></tr>
+        <tr><td>城建税+教育附加</td><td colspan="3">增值税的 12%（城建7%+教育3%+地方教育2%），小微 <span class="highlight">减半</span></td></tr>
+        <tr><td colspan="4" style="background:rgba(255,214,0,.06);color:var(--yellow);font-weight:600;font-size:.82em">综合对比</td></tr>
+        <tr><td>全税种综合税负<br><span style="font-size:.72em;color:var(--dim)">（含增值税+所得税+附加）</span></td><td>小微约 <span class="highlight">25%-28%</span><br><span style="font-size:.72em;color:var(--dim)">可递延、可抵扣</span></td><td>核定后约 <span class="highlight">5.5%-8%</span><br><span style="font-size:.72em;color:var(--dim)">无限连带责任</span></td><td>核定后约 <span class="highlight">3%-6%</span><br><span style="font-size:.72em;color:var(--dim)">无限连带责任</span></td></tr>
+        <tr><td>有限责任</td><td><span class="tag tag-best">有</span></td><td><span class="tag tag-warn">无（无限连带）</span></td><td><span class="tag tag-warn">无（无限连带）</span></td></tr>
+        <tr><td>融资能力</td><td><span class="tag tag-best">强</span></td><td><span class="tag tag-good">中</span></td><td><span class="tag tag-warn">弱</span></td></tr>
+        <tr><td>递延纳税</td><td><span class="tag tag-best">可以（不分红不缴个税）</span></td><td>不可以</td><td>不可以</td></tr>
+      </tbody>
+    </table>
+    <p style="color:var(--dim);font-size:.82em;margin-top:12px">
+      <strong>结论：</strong>纯税负角度，个体户/个人独资远低于一人有限公司；但一人有限公司有有限责任保护、递延纳税和进项抵扣优势。<br>
+      <strong>注意：</strong>月销 ≤ 10万免增值税是三种主体都能享受的，OPC初期年营收在120万以内的，增值税基本为零。超过120万后按1%（小规模）或6%/13%（一般纳税人）缴纳。
+    </p>
+  </div>
+
+  <!-- 2. 小微企业普惠政策 -->
+  <div class="panel">
+    <h2>小微企业普惠税收政策（至2027年底）</h2>
+
+    <h3>企业所得税</h3>
+    <p>年应纳税所得额 ≤ 300万元，实际税负仅 <span class="highlight">5%</span></p>
+    <p style="font-size:.82em;color:var(--dim)">减按25%计入应纳税所得额，按20%税率缴纳。认定条件：从业人数 ≤ 300人、资产总额 ≤ 5000万元。</p>
+
+    <h3>增值税</h3>
+    <ul>
+      <li>小规模纳税人月销售额 ≤ 10万元（季度 ≤ 30万元）<span class="highlight">免征增值税</span></li>
+      <li>2026年1月起：按次纳税起征点提高至每次1000元</li>
+    </ul>
+
+    <h3>个体工商户个税</h3>
+    <p>年应纳税所得额 ≤ 200万元部分，<span class="highlight">减半征收</span>个人所得税（查账和核定均适用）</p>
+
+    <h3>六税两费</h3>
+    <p>资源税、城建税、房产税、印花税等 <span class="highlight">减半征收</span></p>
+  </div>
+
+  <!-- 3. 特殊区域税优 -->
+  <div class="panel">
+    <h2>特殊区域税收优惠</h2>
+    <p class="desc" style="color:var(--dim);margin-bottom:16px">注册在这些区域的OPC，企业所得税可从25%直降至15%</p>
+
+    <div class="region-grid">
+      <div class="region-card">
+        <div class="name">海南自贸港</div>
+        <div class="rate">15%</div>
+        <div class="detail">鼓励类产业<br>高端人才个税超15%免征<br>需实质性运营+居住183天</div>
+      </div>
+      <div class="region-card">
+        <div class="name">深圳前海</div>
+        <div class="rate">15%</div>
+        <div class="detail">现代服务业/信息技术<br>已扩至全域<br>主营收入占比≥60%</div>
+      </div>
+      <div class="region-card">
+        <div class="name">珠海横琴</div>
+        <div class="rate">15%</div>
+        <div class="detail">鼓励类产业<br>澳门居民个税差额补贴<br>需实质性运营</div>
+      </div>
+      <div class="region-card">
+        <div class="name">广州南沙</div>
+        <div class="rate">15%</div>
+        <div class="detail">鼓励类产业<br>港澳居民差额补贴<br>需实质性运营</div>
+      </div>
+    </div>
+
+    <p style="font-size:.82em;color:var(--dim);margin-top:8px">AI/信息技术/软件开发属于鼓励类产业，注册一人有限公司在上述区域即可享受15%企税。</p>
+  </div>
+
+  <!-- 4. 研发费用加计扣除 -->
+  <div class="panel">
+    <h2>研发费用加计扣除</h2>
+    <table>
+      <thead><tr><th>企业类型</th><th>加计扣除比例</th><th>适用OPC形态</th></tr></thead>
+      <tbody>
+        <tr><td>一般企业</td><td><span class="highlight">100%</span> 加计扣除</td><td>一人有限公司 ✓</td></tr>
+        <tr><td>制造业 / 科技型中小企业</td><td><span class="highlight">120%</span> 加计扣除</td><td>一人有限公司 ✓</td></tr>
+        <tr><td>形成无形资产的</td><td>按 <span class="highlight">200%</span> 摊销</td><td>一人有限公司 ✓</td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:.82em;color:var(--dim)">个人独资企业和个体工商户不缴企业所得税，加计扣除不适用。做AI研发选一人有限公司更划算。</p>
+  </div>
+
+  <!-- 5. 税负计算器 -->
+  <div class="panel">
+    <h2>OPC税负速算器</h2>
+    <p style="color:var(--dim);font-size:.88em;margin-bottom:12px">输入年营收，帮你算三种主体形态的大概税负</p>
+
+    <div class="calc-card">
+      <div class="calc-row">
+        <div>
+          <label>年营收（万元）</label>
+          <input type="number" id="taxRevenue" placeholder="如: 100" min="0">
+        </div>
+        <div>
+          <label>成本费用占比</label>
+          <select id="taxCostRate">
+            <option value="0.3">70%利润（轻资产/咨询）</option>
+            <option value="0.5">50%利润（软件/AI）</option>
+            <option value="0.7" selected>30%利润（一般行业）</option>
+            <option value="0.85">15%利润（制造/贸易）</option>
+          </select>
+        </div>
+        <div>
+          <label>注册区域</label>
+          <select id="taxRegion">
+            <option value="normal">普通地区（25%企税）</option>
+            <option value="special">前海/海南/南沙（15%企税）</option>
+          </select>
+        </div>
+      </div>
+      <button class="btn" onclick="calcTax()">计算税负</button>
+
+      <div class="calc-result" id="taxResult" style="display:none"></div>
+    </div>
+  </div>
+
+  <!-- 6. 最优架构建议 -->
+  <div class="panel">
+    <h2>OPC最优税务架构建议</h2>
+    <table>
+      <thead><tr><th>年营收</th><th>推荐主体</th><th>预估税负</th><th>理由</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>&lt; 120万</td>
+          <td><span class="tag tag-best">个体工商户</span></td>
+          <td>≈ 0%</td>
+          <td>增值税免征 + 个税减半，综合税负趋近于零</td>
+        </tr>
+        <tr>
+          <td>120万-500万</td>
+          <td><span class="tag tag-good">个人独资企业</span></td>
+          <td>≈ 5%-6.6%</td>
+          <td>核定征收，无企业所得税</td>
+        </tr>
+        <tr>
+          <td>&gt; 500万<br>或需融资</td>
+          <td><span class="tag tag-best">一人有限公司</span></td>
+          <td>≈ 5%-15%</td>
+          <td>小微5%企税 + 利润留存递延；海南/前海可降至15%企税</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 7. 关键时间节点 -->
+  <div class="panel">
+    <h2>2026-2027 税收政策关键时间</h2>
+    <div class="timeline">
+      <div class="item"><div class="date">2026-01-01</div><div>《增值税法》正式施行，起征点新标准生效</div></div>
+      <div class="item"><div class="date">2027-12-31</div><div>小微企业所得税5%优惠到期</div></div>
+      <div class="item"><div class="date">2027-12-31</div><div>个体户个税减半征收到期</div></div>
+      <div class="item"><div class="date">2027-12-31</div><div>六税两费减半征收到期</div></div>
+      <div class="item"><div class="date">2027-12-31</div><div>增值税小规模纳税人免征/减征到期</div></div>
+    </div>
+    <p style="font-size:.82em;color:var(--yellow);margin-top:10px">以上政策2027年底到期，届时关注是否续期。建议在有效期内尽早享受。</p>
+  </div>
+
+  <!-- Advisor Card -->
+  <div class="panel" style="background:linear-gradient(135deg,rgba(108,92,231,.08) 0%,rgba(0,229,255,.05) 100%);border:1px solid rgba(108,92,231,.25)">
+    <div style="display:flex;align-items:center;gap:24px;flex-wrap:wrap">
+      <div style="flex-shrink:0;text-align:center">
+        <img src="assets/zhang-qr.png" style="width:160px;border-radius:12px;border:1px solid var(--border);cursor:pointer" onclick="showZhangQR()" title="扫码添加张总微信">
+        <p style="font-size:.7em;color:var(--dim);margin-top:6px">扫码添加微信</p>
+      </div>
+      <div style="flex:1;min-width:200px">
+        <p style="font-size:.72em;color:var(--accent);text-transform:uppercase;letter-spacing:2px;margin-bottom:4px">税务顾问</p>
+        <h3 style="font-size:1.3em;margin:0 0 4px;color:var(--text)">张永航</h3>
+        <p style="font-size:.88em;color:var(--cyan);margin-bottom:8px">盈丰税务规划 · 广州</p>
+        <div style="display:flex;flex-wrap:wrap;gap:5px;margin-bottom:10px">
+          <span style="padding:2px 8px;border-radius:4px;font-size:.72em;background:rgba(0,229,255,.08);color:var(--cyan);border:1px solid rgba(0,229,255,.12)">OPC财税合规</span>
+          <span style="padding:2px 8px;border-radius:4px;font-size:.72em;background:rgba(108,92,231,.12);color:var(--al);border:1px solid rgba(108,92,231,.18)">企业税务架构</span>
+          <span style="padding:2px 8px;border-radius:4px;font-size:.72em;background:rgba(0,230,118,.08);color:var(--green);border:1px solid rgba(0,230,118,.12)">核定征收</span>
+          <span style="padding:2px 8px;border-radius:4px;font-size:.72em;background:rgba(255,214,0,.08);color:var(--yellow);border:1px solid rgba(255,214,0,.12)">税收优惠申报</span>
+        </div>
+        <p style="font-size:.82em;color:var(--dim);margin-bottom:12px">多年财税从业经验，专注 OPC 一人公司财税合规。从主体选择、注册落地到税务优化，提供全链路专业咨询。</p>
+        <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+          <div style="display:flex;align-items:center;gap:8px">
+            <span style="color:var(--dim);font-size:.85em">微信号：</span>
+            <span id="advisorWx" style="padding:4px 14px;background:rgba(0,229,255,.08);border:1px solid rgba(0,229,255,.15);border-radius:6px;font-size:.9em;color:var(--cyan);cursor:pointer;font-weight:600" onclick="copyAdvisorWx()">pp667899</span>
+            <span id="advisorCopyTip" style="font-size:.75em;color:var(--green);opacity:0;transition:opacity .3s">已复制</span>
+          </div>
+          <span style="font-size:.78em;color:var(--dim)">（加好友请备注「OPC税务」）</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  </div>
+
+  <!-- 私密面板入口（不显眼，只有知道的人会点） -->
+  <div style="margin-top:40px;padding:20px;border:1px dashed var(--border);border-radius:12px;text-align:center">
+    <p style="color:var(--dim);font-size:.82em;margin-bottom:10px">管理员专区</p>
+    <div id="privateEntry" style="display:none">
+      <a href="private.html" style="padding:10px 24px;background:rgba(255,82,82,.1);border:1px solid rgba(255,82,82,.2);border-radius:8px;font-size:.88em;color:#ff8a80;display:inline-block">进入私密面板 →</a>
+    </div>
+    <div id="privateLock">
+      <input type="password" id="entryPwd" placeholder="输入密码" style="padding:8px 16px;background:var(--bg);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:.85em;text-align:center;width:200px" onkeydown="if(event.key==='Enter')checkEntry()">
+      <button onclick="checkEntry()" style="padding:8px 16px;background:var(--card);border:1px solid var(--border);border-radius:8px;color:var(--dim);font-size:.85em;cursor:pointer;margin-left:6px">确认</button>
+    </div>
+  </div>
+
+</div>
+
+<div id="qrModal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.8);z-index:600;align-items:center;justify-content:center;cursor:pointer" onclick="this.style.display='none'">
+  <div style="background:#fff;border-radius:16px;padding:20px;max-width:320px;text-align:center" onclick="event.stopPropagation()">
+    <img src="assets/wechat-qr.jpg" style="width:100%;border-radius:8px">
+    <p style="color:#333;font-size:.85em;margin-top:10px">微信扫码添加小伟，备注「OPC」</p>
+  </div>
+</div>
+<div id="zhangQrModal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.8);z-index:600;align-items:center;justify-content:center;cursor:pointer" onclick="this.style.display='none'">
+  <div style="background:#fff;border-radius:16px;padding:20px;max-width:320px;text-align:center" onclick="event.stopPropagation()">
+    <img src="assets/zhang-qr.png" style="width:100%;border-radius:8px">
+    <p style="color:#333;font-size:.85em;margin-top:10px">微信扫码添加张永航老师，备注「OPC税务」</p>
+  </div>
+</div>
+
+<footer>
+  <p>OPC税务指南 · 数据来源: 国家税务总局、各地税务局公告</p>
+  <p style="margin-top:4px"><a href="index.html">全国政策</a> · <a href="guangzhou.html">广州专版</a> · <a href="dashboard.html">数据看板</a></p>
+  <p style="margin-top:6px;font-size:.8em">Made by <strong>siuser小伟</strong> · 税务顾问: <strong>张永航</strong>（盈丰税务规划）</p>
+  <p style="margin-top:4px;font-size:.72em;color:var(--red)">注意：本页内容仅供参考，具体税务问题请咨询专业税务师</p>
+</footer>
+
+<script>
+function showQR(){document.getElementById('qrModal').style.display='flex'}
+function showZhangQR(){
+  document.getElementById('zhangQrModal').style.display='flex';
+}
+function copyAdvisorWx(){
+  navigator.clipboard.writeText('pp667899').then(()=>{
+    const tip=document.getElementById('advisorCopyTip');tip.style.opacity='1';
+    setTimeout(()=>{tip.style.opacity='0'},1500);
+  });
+}
+
+// Private entry
+function checkEntry(){
+  const input = document.getElementById('entryPwd').value;
+  const inputHex = Array.from(input+'!').map(c=>c.charCodeAt(0).toString(16)).join('');
+  if(inputHex === '6f70633230323621'){
+    localStorage.setItem('private_auth','yes');
+    showPrivateEntry();
+  } else {
+    document.getElementById('entryPwd').value='';
+    document.getElementById('entryPwd').placeholder='密码错误';
+  }
+}
+function showPrivateEntry(){
+  document.getElementById('privateEntry').style.display='block';
+  document.getElementById('privateLock').style.display='none';
+}
+if(localStorage.getItem('private_auth')==='yes') showPrivateEntry();
+
+function calcTax(){
+  const revenue = parseFloat(document.getElementById('taxRevenue').value) || 0;
+  if(!revenue){alert('请输入年营收');return;}
+  const costRate = parseFloat(document.getElementById('taxCostRate').value);
+  const region = document.getElementById('taxRegion').value;
+  const profit = revenue * (1 - costRate); // 万元
+  const revenueYuan = revenue * 10000;
+  const profitYuan = profit * 10000;
+
+  // 1. 一人有限公司
+  const corpTaxRate = region === 'special' ? 0.15 : (profitYuan <= 3000000 ? 0.05 : 0.25);
+  const corpTax = profitYuan * corpTaxRate;
+  const afterCorpTax = profitYuan - corpTax;
+  const dividendTax = afterCorpTax * 0.2;
+  const corpTotal = corpTax + dividendTax;
+  const corpRate = ((corpTotal / revenueYuan) * 100).toFixed(1);
+
+  // 2. 个人独资（核定征收，应税所得率10%）
+  const soloTaxable = revenueYuan * 0.1;
+  let soloTax = 0;
+  if(soloTaxable <= 30000) soloTax = soloTaxable * 0.05;
+  else if(soloTaxable <= 90000) soloTax = soloTaxable * 0.1 - 1500;
+  else if(soloTaxable <= 300000) soloTax = soloTaxable * 0.2 - 10500;
+  else if(soloTaxable <= 500000) soloTax = soloTaxable * 0.3 - 40500;
+  else soloTax = soloTaxable * 0.35 - 65500;
+  const soloRate = ((soloTax / revenueYuan) * 100).toFixed(1);
+
+  // 3. 个体工商户
+  let getiTax = 0;
+  const getiVAT = revenueYuan <= 1200000 ? 0 : revenueYuan * 0.01; // 简化
+  if(profitYuan <= 2000000){
+    // 减半征收
+    let baseTax = 0;
+    if(profitYuan <= 30000) baseTax = profitYuan * 0.05;
+    else if(profitYuan <= 90000) baseTax = profitYuan * 0.1 - 1500;
+    else if(profitYuan <= 300000) baseTax = profitYuan * 0.2 - 10500;
+    else if(profitYuan <= 500000) baseTax = profitYuan * 0.3 - 40500;
+    else baseTax = profitYuan * 0.35 - 65500;
+    getiTax = baseTax * 0.5; // 减半
+  }
+  const getiTotal = getiTax + getiVAT;
+  const getiRate = ((getiTotal / revenueYuan) * 100).toFixed(1);
+
+  // Find best
+  const min = Math.min(corpTotal, soloTax, getiTotal);
+  const best = min === getiTotal ? '个体工商户' : min === soloTax ? '个人独资企业' : '一人有限公司';
+
+  document.getElementById('taxResult').style.display = 'block';
+  document.getElementById('taxResult').innerHTML = `
+    <div style="font-size:.85em;margin-bottom:12px">年营收 <strong>${revenue}万</strong>，利润约 <strong>${profit.toFixed(1)}万</strong>${region==='special'?' (特殊区域15%企税)':''}</div>
+    <table>
+      <thead><tr><th>主体形态</th><th>预估税额</th><th>综合税负率</th><th></th></tr></thead>
+      <tbody>
+        <tr><td>一人有限公司${region==='special'?' (15%区)':''}</td><td>${(corpTotal/10000).toFixed(2)}万</td><td>${corpRate}%</td><td>${corpTotal===min?'<span class="tag tag-best">最优</span>':''}</td></tr>
+        <tr><td>个人独资（核定10%）</td><td>${(soloTax/10000).toFixed(2)}万</td><td>${soloRate}%</td><td>${soloTax===min?'<span class="tag tag-best">最优</span>':''}</td></tr>
+        <tr><td>个体工商户</td><td>${(getiTotal/10000).toFixed(2)}万</td><td>${getiRate}%</td><td>${getiTotal===min?'<span class="tag tag-best">最优</span>':''}</td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:.85em;color:var(--green);margin-top:8px">推荐：<strong>${best}</strong>，综合税负最低</p>
+    <p style="font-size:.75em;color:var(--dim);margin-top:4px">* 以上为简化估算，实际税负受核定方式、专项扣除、地方优惠等因素影响，仅供参考</p>
+  `;
+}
+</script>
+
+<!-- 百度自动推送 -->
+<script>
+(function(){
+  var bp = document.createElement('script');
+  var curProtocol = window.location.protocol.split(':')[0];
+  if (curProtocol === 'https') {
+    bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+  } else {
+    bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+  }
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(bp, s);
+})();
+</script>
+</body>
+</html>

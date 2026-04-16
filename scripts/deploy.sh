@@ -37,7 +37,7 @@ echo "→ 复制白名单内容"
 # HTML 页面
 for f in index.html guangzhou.html chengdu.html suzhou.html yuexiu.html \
          tax.html tax-cases.html dashboard.html city.html \
-         changelog.html chengdu-guide.html private.html; do
+         changelog.html chengdu-guide.html private.html admin.html compare.html; do
   if [[ -f "$f" ]]; then
     cp "$f" "$DIST/"
   fi
