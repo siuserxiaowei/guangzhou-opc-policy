@@ -12,6 +12,13 @@ private/
 *.zip
 *.tar.gz
 
+# 爬虫相关全部不入库（数据源、抓取逻辑、部署配置都是商业资产）
+backend/
+crawler-worker/
+crawler/
+spider/
+scrapy.cfg
+
 # Python
 __pycache__/
 *.pyc
