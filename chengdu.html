@@ -19,6 +19,14 @@ a{color:var(--al);text-decoration:none}a:hover{color:var(--accent)}
 .topnav .logo{font-weight:800;font-size:1em;color:var(--al)}
 .topnav a{padding:6px 14px;border-radius:6px;font-size:.82em;color:var(--dim);transition:all .2s;white-space:nowrap}
 .topnav a:hover,.topnav a.active{color:var(--al);background:rgba(37,99,235,.08)}
+.nav-dropdown{position:relative;display:inline-flex}
+.nav-dropdown-trigger{padding:6px 14px;border-radius:6px;font-size:.82em;color:var(--dim,var(--text-dim,#64748B));cursor:pointer;transition:all .2s;background:none;border:none;font-family:inherit;text-decoration:none}
+.nav-dropdown-trigger:hover,.nav-dropdown.open .nav-dropdown-trigger{color:var(--al,var(--accent-light,var(--accent,#2563EB)));background:rgba(37,99,235,.08)}
+.nav-dropdown-menu{display:none;position:absolute;top:100%;left:0;background:#fff;border:1px solid var(--border,#E2E8F0);border-radius:8px;box-shadow:0 4px 12px rgba(0,0,0,.1);min-width:120px;z-index:200;padding:4px 0}
+.nav-dropdown.open .nav-dropdown-menu{display:block}
+.nav-dropdown-menu a{display:block;padding:8px 16px;font-size:.82em;color:var(--text,#0F172A);text-decoration:none;transition:background .2s;white-space:nowrap}
+.nav-dropdown-menu a:hover{background:rgba(37,99,235,.06);color:var(--al,var(--accent,#2563EB))}
+.nav-dropdown-menu a.active{color:var(--al,var(--accent,#2563EB));font-weight:600}
 
 .container{max-width:1000px;margin:0 auto;padding:30px 20px}
 .hero{padding:50px 20px 30px;text-align:center;background:linear-gradient(135deg,#EFF6FF 0%,#F0FDF4 50%,#F0FDFA 100%);position:relative;overflow:hidden}
@@ -77,13 +85,18 @@ footer{text-align:center;padding:30px 20px;color:var(--dim);font-size:.78em;bord
 <nav class="topnav">
   <span class="logo">OPC</span>
   <a href="index.html">首页</a>
-  <a href="guangzhou.html">广州专版</a>
-  <a href="chengdu.html" class="active">成都专版</a>
-  <a href="suzhou.html">苏州专版</a>
-  <a href="compare.html">城市对比</a>
-  <a href="tax.html">税务指南</a>
-  <a href="dashboard.html">数据看板</a>
-  <a href="changelog.html">维护日志</a>
+  <div class="nav-dropdown" onclick="this.classList.toggle('open')">
+    <a class="nav-dropdown-trigger active">城市 ▾</a>
+    <div class="nav-dropdown-menu">
+      <a href="guangzhou.html">广州</a>
+      <a href="chengdu.html" class="active">成都</a>
+      <a href="suzhou.html">苏州</a>
+      <a href="yuexiu.html">越秀区</a>
+    </div>
+  </div>
+  <a href="compare.html">对比</a>
+  <a href="tax.html">税务</a>
+  <a href="changelog.html">更新记录</a>
 </nav>
 
 <div class="hero">
@@ -407,5 +420,6 @@ footer{text-align:center;padding:30px 20px;color:var(--dim);font-size:.78em;bord
   s.parentNode.insertBefore(bp, s);
 })();
 </script>
+<script>document.addEventListener('click',e=>{document.querySelectorAll('.nav-dropdown.open').forEach(d=>{if(!d.contains(e.target))d.classList.remove('open')})})</script>
 </body>
 </html>

@@ -7,7 +7,7 @@
 <meta name="robots" content="noindex,nofollow">
 <style>
 :root{--bg:#F7F8FA;--card:#FFFFFF;--card2:#F1F5F9;--border:#E2E8F0;--text:#0F172A;--dim:#64748B;
-  --accent:#2563EB;--al:#3B82F6;--green:#15803D;--gd:#1b5e20;--yellow:#B45309;--cyan:#0F766E;--red:#B91C1C;--orange:#B45309}
+  --accent:#2563EB;--al:#2563EB;--green:#15803D;--gd:#1b5e20;--yellow:#B45309;--cyan:#0F766E;--red:#B91C1C;--orange:#B45309}
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:-apple-system,'PingFang SC',sans-serif;background:var(--bg);color:var(--text);line-height:1.7}
 a{color:var(--al);text-decoration:none}
@@ -29,6 +29,14 @@ a{color:var(--al);text-decoration:none}
 .topnav a:hover,.topnav a.active{color:var(--al);background:rgba(37,99,235,.08)}
 .topnav .spacer{flex:1}
 .topnav .private-tag{padding:3px 10px;border-radius:4px;background:rgba(185,28,28,.12);color:var(--red);font-size:.72em;font-weight:600}
+.nav-dropdown{position:relative;display:inline-flex}
+.nav-dropdown-trigger{padding:6px 14px;border-radius:6px;font-size:.82em;color:var(--dim,var(--text-dim,#64748B));cursor:pointer;transition:all .2s;background:none;border:none;font-family:inherit;text-decoration:none}
+.nav-dropdown-trigger:hover,.nav-dropdown.open .nav-dropdown-trigger{color:var(--al,var(--accent-light,var(--accent,#2563EB)));background:rgba(37,99,235,.08)}
+.nav-dropdown-menu{display:none;position:absolute;top:100%;left:0;background:#fff;border:1px solid var(--border,#E2E8F0);border-radius:8px;box-shadow:0 4px 12px rgba(0,0,0,.1);min-width:120px;z-index:200;padding:4px 0}
+.nav-dropdown.open .nav-dropdown-menu{display:block}
+.nav-dropdown-menu a{display:block;padding:8px 16px;font-size:.82em;color:var(--text,#0F172A);text-decoration:none;transition:background .2s;white-space:nowrap}
+.nav-dropdown-menu a:hover{background:rgba(37,99,235,.06);color:var(--al,var(--accent,#2563EB))}
+.nav-dropdown-menu a.active{color:var(--al,var(--accent,#2563EB));font-weight:600}
 
 .container{max-width:1000px;margin:0 auto;padding:30px 20px}
 .hero{padding:40px 20px 20px;text-align:center;background:linear-gradient(135deg,#EFF6FF 0%,#FFF7ED 50%,#EFF6FF 100%)}
@@ -57,7 +65,7 @@ a{color:var(--al);text-decoration:none}
 .good{color:var(--green)}
 
 table{width:100%;border-collapse:collapse;font-size:.85em;margin:10px 0}
-th{padding:8px 12px;text-align:left;color:var(--al);border-bottom:1px solid var(--border);background:rgba(108,92,231,.05)}
+th{padding:8px 12px;text-align:left;color:var(--al);border-bottom:1px solid var(--border);background:rgba(37,99,235,.05)}
 td{padding:8px 12px;border-bottom:1px solid rgba(255,255,255,.02)}
 </style>
 </head>
@@ -79,8 +87,18 @@ td{padding:8px 12px;border-bottom:1px solid rgba(255,255,255,.02)}
 <nav class="topnav">
   <span class="logo">OPC</span>
   <a href="index.html">首页</a>
-  <a href="guangzhou.html">广州专版</a>
-  <a href="private.html" class="active">私密面板</a>
+  <div class="nav-dropdown" onclick="this.classList.toggle('open')">
+    <a class="nav-dropdown-trigger">城市 ▾</a>
+    <div class="nav-dropdown-menu">
+      <a href="guangzhou.html">广州</a>
+      <a href="chengdu.html">成都</a>
+      <a href="suzhou.html">苏州</a>
+      <a href="yuexiu.html">越秀区</a>
+    </div>
+  </div>
+  <a href="compare.html">对比</a>
+  <a href="tax.html">税务</a>
+  <a href="changelog.html">更新记录</a>
   <span class="spacer"></span>
   <span class="private-tag">仅自己可见</span>
 </nav>
@@ -360,5 +378,6 @@ if(localStorage.getItem(KEY) === 'yes') unlock();
   s.parentNode.insertBefore(bp, s);
 })();
 </script>
+<script>document.addEventListener('click',e=>{document.querySelectorAll('.nav-dropdown.open').forEach(d=>{if(!d.contains(e.target))d.classList.remove('open')})})</script>
 </body>
 </html>

@@ -14,7 +14,7 @@
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📋</text></svg>">
 <style>
 :root{--bg:#F7F8FA;--card:#FFFFFF;--card2:#F1F5F9;--border:#E2E8F0;--text:#0F172A;--dim:#64748B;
-  --accent:#2563EB;--al:#2563EB;--green:#15803D;--gd:#DCFCE7;--yellow:#B45309;--yd:#FEF3C7;
+  --accent:#2563EB;--al:#3B82F6;--green:#15803D;--gd:#DCFCE7;--yellow:#B45309;--yd:#FEF3C7;
   --red:#B91C1C;--rd:#FEE2E2;--cyan:#0F766E;--blue:#2563EB;--orange:#B45309}
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:-apple-system,'PingFang SC','Microsoft YaHei',sans-serif;background:var(--bg);color:var(--text);line-height:1.7}
@@ -25,6 +25,14 @@ a{color:var(--al);text-decoration:none}a:hover{color:var(--accent)}
 .topnav .logo{font-weight:800;font-size:1em;color:var(--al)}
 .topnav a{padding:6px 14px;border-radius:6px;font-size:.82em;color:var(--dim);transition:all .2s;white-space:nowrap}
 .topnav a:hover,.topnav a.active{color:var(--al);background:rgba(37,99,235,.1)}
+.nav-dropdown{position:relative;display:inline-flex}
+.nav-dropdown-trigger{padding:6px 14px;border-radius:6px;font-size:.82em;color:var(--dim,var(--text-dim,#64748B));cursor:pointer;transition:all .2s;background:none;border:none;font-family:inherit;text-decoration:none}
+.nav-dropdown-trigger:hover,.nav-dropdown.open .nav-dropdown-trigger{color:var(--al,var(--accent-light,var(--accent,#2563EB)));background:rgba(37,99,235,.08)}
+.nav-dropdown-menu{display:none;position:absolute;top:100%;left:0;background:#fff;border:1px solid var(--border,#E2E8F0);border-radius:8px;box-shadow:0 4px 12px rgba(0,0,0,.1);min-width:120px;z-index:200;padding:4px 0}
+.nav-dropdown.open .nav-dropdown-menu{display:block}
+.nav-dropdown-menu a{display:block;padding:8px 16px;font-size:.82em;color:var(--text,#0F172A);text-decoration:none;transition:background .2s;white-space:nowrap}
+.nav-dropdown-menu a:hover{background:rgba(37,99,235,.06);color:var(--al,var(--accent,#2563EB))}
+.nav-dropdown-menu a.active{color:var(--al,var(--accent,#2563EB));font-weight:600}
 
 .trust-slogan{display:flex;align-items:center;justify-content:center;gap:10px;
   padding:8px 16px;background:linear-gradient(90deg,rgba(15,118,110,.06),rgba(37,99,235,.06),rgba(15,118,110,.06));
@@ -32,7 +40,7 @@ a{color:var(--al);text-decoration:none}a:hover{color:var(--accent)}
 .trust-slogan .dot{color:var(--dim);margin:0 4px}
 
 .hero{padding:50px 20px 20px;text-align:center;background:linear-gradient(135deg,#EFF6FF,#F0FDF4,#EFF6FF)}
-.hero h1{font-size:2em;font-weight:800;color:var(--text);margin-bottom:8px}
+.hero h1{font-size:2em;font-weight:800;background:linear-gradient(135deg,var(--text),var(--cyan),var(--al));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:8px}
 .hero p{color:var(--dim);font-size:.92em;max-width:720px;margin:0 auto 16px}
 
 .stats{display:flex;justify-content:center;gap:12px;margin-top:16px;flex-wrap:wrap}
@@ -81,15 +89,18 @@ footer{text-align:center;padding:30px 20px;color:var(--dim);font-size:.78em;bord
 <nav class="topnav">
   <span class="logo">OPC</span>
   <a href="index.html">首页</a>
-  <a href="guangzhou.html">广州专版</a>
-  <a href="chengdu.html">成都专版</a>
-  <a href="suzhou.html">苏州专版</a>
-  <a href="yuexiu.html">越秀区</a>
-  <a href="tax.html">税务指南</a>
-  <a href="dashboard.html">数据看板</a>
-  <a href="changelog.html" class="active">维护日志</a>
-  <span style="flex:1"></span>
-  <a href="https://github.com/siuserxiaowei/opc-policy" target="_blank" style="font-size:.78em">GitHub</a>
+  <div class="nav-dropdown" onclick="this.classList.toggle('open')">
+    <a class="nav-dropdown-trigger">城市 ▾</a>
+    <div class="nav-dropdown-menu">
+      <a href="guangzhou.html">广州</a>
+      <a href="chengdu.html">成都</a>
+      <a href="suzhou.html">苏州</a>
+      <a href="yuexiu.html">越秀区</a>
+    </div>
+  </div>
+  <a href="compare.html">对比</a>
+  <a href="tax.html">税务</a>
+  <a href="changelog.html" class="active">更新记录</a>
 </nav>
 
 <div class="trust-slogan">
@@ -107,7 +118,7 @@ footer{text-align:center;padding:30px 20px;color:var(--dim);font-size:.78em;bord
   <h1>维护日志 · 核实记录</h1>
   <p>本页记录 opcgate.com 的所有数据核验、更新、修复动作。每条都可追溯到具体的 git commit，拒绝 AI 编造，每次改动都公开透明。</p>
   <div class="stats">
-    <div class="s"><div class="n">75</div><div class="l">总维护次数</div></div>
+    <div class="s"><div class="n">77</div><div class="l">总维护次数</div></div>
     <div class="s"><div class="n">5</div><div class="l">数据核验动作</div></div>
     <div class="s"><div class="n">1</div><div class="l">活跃月份</div></div>
     <div class="s"><div class="n" style="color:var(--green)">LIVE</div><div class="l">持续维护中</div></div>
@@ -118,10 +129,32 @@ footer{text-align:center;padding:30px 20px;color:var(--dim);font-size:.78em;bord
 
   <div class="months">
     <span class="ml">按月分布：</span>
-    <span class="m-chip">2026-04 · 75 次</span>
+    <span class="m-chip">2026-04 · 77 次</span>
   </div>
 
   
+    <div class="cm-item cat-other">
+      <div class="cm-head">
+        <span class="cm-icon">📌</span>
+        <span class="cm-label">其他</span>
+        <span class="cm-date">2026-04-16 19:11</span>
+        <a href="https://github.com/siuserxiaowei/opc-policy/commit/eb2ee2bdc9551b7a1c34c97c5f978176aefa857c" target="_blank" rel="noopener" class="cm-sha">eb2ee2b</a>
+        <span class="cm-stats">2 文件 <span class="st-plus">+1765</span> <span class="st-minus">−16</span></span>
+      </div>
+      <div class="cm-subject">社区数据标准化 + 社区对比功能</div>
+      <div class="cm-body">修改意见第4条: 社区数据模型整理<br>- 新建 data/communities.json: 从 policies.json 抽取去重<br>- 93条记录 → 87个独立社区（6条重复合并）<br>- 每个社区标准化字段: id/name/city/district/address/operator/track/features/source/verified/policy_ids<br>修改意见第2条: 城市对比升级为社区/孵化器对比<br>- compare.html 新增&#x27;社区/孵化器对比&#x27;模式tab<br>- 双模式切换: 城市对比 / 社区对比<br>- 社区对比维度: 城市区/运营主体/核心赛道/地址/特色服务/官方核验/来源<br>- 快速判断区块: 高亮已核验社区 + 赛道对比</div>
+    </div>
+    <div class="cm-item cat-other">
+      <div class="cm-head">
+        <span class="cm-icon">📌</span>
+        <span class="cm-label">其他</span>
+        <span class="cm-date">2026-04-16 19:02</span>
+        <a href="https://github.com/siuserxiaowei/opc-policy/commit/99e5d48bc6d0e3bf872031683dc391ddb6790e89" target="_blank" rel="noopener" class="cm-sha">99e5d48</a>
+        <span class="cm-stats">40 文件 <span class="st-plus">+608</span> <span class="st-minus">−427</span></span>
+      </div>
+      <div class="cm-subject">UI规范统一: 消灭紫色 + 深色hero → 蓝灰主体系</div>
+      <div class="cm-body">按修改意见v2执行:<br>1. 所有残留 rgba(108,92,231) 紫色 → rgba(37,99,235) 蓝色<br>2. hero h1 从彩色渐变 → color:var(--text) 纯深色<br>3. 首屏主CTA蓝底白字，次CTA白底灰边<br>4. 广州页粒子效果移除，pulse动画减弱<br>5. 按钮hover统一为 #1D4ED8 深蓝<br>6. --al 统一为 #2563EB<br>7. 11个文件修复<br>规范: primary蓝=主操作 / green=可申报 / yellow=需核实 / red=不匹配 / cyan=辅助信息</div>
+    </div>
     <div class="cm-item cat-other">
       <div class="cm-head">
         <span class="cm-icon">📌</span>
@@ -142,7 +175,7 @@ footer{text-align:center;padding:30px 20px;color:var(--dim);font-size:.78em;bord
         <span class="cm-stats">37 文件 <span class="st-plus">+470</span> <span class="st-minus">−448</span></span>
       </div>
       <div class="cm-subject">fix: 修复首页hero/广州专版/维护日志等页面残留深色主题</div>
-      <div class="cm-body">- index.html hero 渐变从 #0a0a1a → #EFF6FF 浅蓝<br>- guangzhou.html 129处硬编码色值修复<br>- yuexiu/tax/dashboard/private/city/admin 残留色值修复<br>- changelog.html 重新生成（generate_changelog.py 模板换浅色）<br>- 全部 #0a0a0f/#12121a/#2563EB/#2563EB/#00e5ff/#00e676/#ff5252 → 新色值</div>
+      <div class="cm-body">- index.html hero 渐变从 #0a0a1a → #EFF6FF 浅蓝<br>- guangzhou.html 129处硬编码色值修复<br>- yuexiu/tax/dashboard/private/city/admin 残留色值修复<br>- changelog.html 重新生成（generate_changelog.py 模板换浅色）<br>- 全部 #0a0a0f/#12121a/#6c5ce7/#a29bfe/#00e5ff/#00e676/#ff5252 → 新色值</div>
     </div>
     <div class="cm-item cat-other">
       <div class="cm-head">
@@ -951,7 +984,7 @@ footer{text-align:center;padding:30px 20px;color:var(--dim);font-size:.78em;bord
 </div>
 
 <footer>
-  <p>opcgate.com · 维护日志自动生成于 2026-04-16 18:43</p>
+  <p>opcgate.com · 维护日志自动生成于 2026-04-16 19:11</p>
   <p style="margin-top:4px"><a href="https://github.com/siuserxiaowei/opc-policy">在 GitHub 上查看完整提交历史 ↗</a></p>
 </footer>
 
@@ -969,5 +1002,6 @@ footer{text-align:center;padding:30px 20px;color:var(--dim);font-size:.78em;bord
   s.parentNode.insertBefore(bp, s);
 })();
 </script>
+<script>document.addEventListener('click',e=>{document.querySelectorAll('.nav-dropdown.open').forEach(d=>{if(!d.contains(e.target))d.classList.remove('open')})})</script>
 </body>
 </html>

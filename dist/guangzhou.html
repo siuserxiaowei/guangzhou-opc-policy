@@ -406,12 +406,12 @@
   }
 
   /* Top nav */
-  .top-nav{display:flex;align-items:center;gap:8px;padding:10px 20px;background:rgba(255,255,255,.95);
+  .topnav{display:flex;align-items:center;gap:8px;padding:10px 20px;background:rgba(255,255,255,.95);
     border-bottom:1px solid var(--border);position:sticky;top:0;z-index:200;backdrop-filter:blur(12px)}
-  .top-nav .logo{font-weight:800;font-size:1em;color:var(--accent-light)}
-  .top-nav a{padding:6px 14px;border-radius:6px;font-size:.82em;color:var(--text-dim);text-decoration:none;transition:all .2s;white-space:nowrap}
-  .top-nav a:hover{color:var(--accent-light);background:rgba(37,99,235,.08)}
-  .top-nav a.active{color:var(--accent-light);background:rgba(37,99,235,.08)}
+  .topnav .logo{font-weight:800;font-size:1em;color:var(--accent-light)}
+  .topnav a{padding:6px 14px;border-radius:6px;font-size:.82em;color:var(--text-dim);text-decoration:none;transition:all .2s;white-space:nowrap}
+  .topnav a:hover{color:var(--accent-light);background:rgba(37,99,235,.08)}
+  .topnav a.active{color:var(--accent-light);background:rgba(37,99,235,.08)}
 
   /* Nav bar scroll hint */
   .nav-bar{position:relative}
@@ -433,9 +433,9 @@
     .card { padding: 20px; }
     .profile-card { padding: 16px 20px; }
     .countdown-bar { flex-direction: column; text-align: center; }
-    .top-nav{overflow-x:auto;gap:4px;-ms-overflow-style:none;scrollbar-width:none}
-    .top-nav::-webkit-scrollbar{display:none}
-    .top-nav a{padding:6px 10px;font-size:.78em}
+    .topnav{overflow-x:auto;gap:4px;-ms-overflow-style:none;scrollbar-width:none}
+    .topnav::-webkit-scrollbar{display:none}
+    .topnav a{padding:6px 10px;font-size:.78em}
     .nav-bar::after{opacity:1}
     .table-wrap.scrollable::after{opacity:1}
   }
@@ -467,17 +467,21 @@
 <body>
 
 <!-- Top Nav -->
-<nav class="top-nav">
+<nav class="topnav">
   <span class="logo">OPC</span>
   <a href="index.html">首页</a>
-  <a href="guangzhou.html" class="active">广州专版</a>
-  <a href="chengdu.html">成都专版</a>
-  <a href="suzhou.html">苏州专版</a>
-  <a href="compare.html">城市对比</a>
-  <a href="yuexiu.html">越秀区</a>
-  <a href="tax.html">税务指南</a>
-  <a href="dashboard.html">数据看板</a>
-  <a href="changelog.html">维护日志</a>
+  <div class="nav-dropdown" onclick="this.classList.toggle('open')">
+    <a class="nav-dropdown-trigger active">城市 ▾</a>
+    <div class="nav-dropdown-menu">
+      <a href="guangzhou.html" class="active">广州</a>
+      <a href="chengdu.html">成都</a>
+      <a href="suzhou.html">苏州</a>
+      <a href="yuexiu.html">越秀区</a>
+    </div>
+  </div>
+  <a href="compare.html">对比</a>
+  <a href="tax.html">税务</a>
+  <a href="changelog.html">更新记录</a>
 </nav>
 
 <!-- Reading Progress -->
@@ -602,6 +606,14 @@
 .pchip:hover{border-color:var(--accent);color:var(--accent-light)}
 .pchip.sel{background:rgba(37,99,235,.15);border-color:var(--accent);color:var(--accent-light)}
 .pchip.sel::before{content:'✓ '}
+.nav-dropdown{position:relative;display:inline-flex}
+.nav-dropdown-trigger{padding:6px 14px;border-radius:6px;font-size:.82em;color:var(--dim,var(--text-dim,#64748B));cursor:pointer;transition:all .2s;background:none;border:none;font-family:inherit;text-decoration:none}
+.nav-dropdown-trigger:hover,.nav-dropdown.open .nav-dropdown-trigger{color:var(--al,var(--accent-light,var(--accent,#2563EB)));background:rgba(37,99,235,.08)}
+.nav-dropdown-menu{display:none;position:absolute;top:100%;left:0;background:#fff;border:1px solid var(--border,#E2E8F0);border-radius:8px;box-shadow:0 4px 12px rgba(0,0,0,.1);min-width:120px;z-index:200;padding:4px 0}
+.nav-dropdown.open .nav-dropdown-menu{display:block}
+.nav-dropdown-menu a{display:block;padding:8px 16px;font-size:.82em;color:var(--text,#0F172A);text-decoration:none;transition:background .2s;white-space:nowrap}
+.nav-dropdown-menu a:hover{background:rgba(37,99,235,.06);color:var(--al,var(--accent,#2563EB))}
+.nav-dropdown-menu a.active{color:var(--al,var(--accent,#2563EB));font-weight:600}
 </style>
 
 <!-- Search -->
@@ -1832,5 +1844,6 @@ document.addEventListener('keydown', e => {
   s.parentNode.insertBefore(bp, s);
 })();
 </script>
+<script>document.addEventListener('click',e=>{document.querySelectorAll('.nav-dropdown.open').forEach(d=>{if(!d.contains(e.target))d.classList.remove('open')})})</script>
 </body>
 </html>
