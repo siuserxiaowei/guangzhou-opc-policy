@@ -333,27 +333,25 @@ footer{text-align:center;padding:30px 20px;color:var(--dim);font-size:.78em;bord
   <a href="rss.xml" title="订阅 RSS · 新政策自动推送">📡 RSS 订阅</a>
 </div>
 
-<!-- Hero -->
+<!-- Hero：单一主叙事 -->
 <div class="hero">
-  <h1>全国 OPC 政策导航</h1>
-  <p class="sub">填写公司情况，一键匹配可申请的补贴和政策</p>
-  <span class="version">已收录 38 座城市 · 85 条政策 · 130+ OPC社区</span>
+  <h1>OPC 选址决策工具</h1>
+  <p class="sub">帮你快速排除不合适的城市和社区，做出 OPC 落地决策</p>
+  <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin:20px 0 14px">
+    <button onclick="switchMode('match');document.getElementById('fProvince').focus()" style="padding:14px 32px;background:var(--accent);border:none;border-radius:10px;color:#fff;font-size:1em;font-weight:700;cursor:pointer;transition:all .2s;letter-spacing:.5px" onmouseover="this.style.filter='brightness(1.15)'" onmouseout="this.style.filter=''">开始匹配</button>
+    <button onclick="switchMode('browse')" style="padding:14px 32px;background:rgba(0,229,255,.1);border:1px solid rgba(0,229,255,.3);border-radius:10px;color:var(--cyan);font-size:1em;font-weight:700;cursor:pointer;transition:all .2s" onmouseover="this.style.background='rgba(0,229,255,.2)'" onmouseout="this.style.background='rgba(0,229,255,.1)'">对比城市 · 社区</button>
+  </div>
+  <span class="version">38 城 · 85 条政策 · 130+ OPC 社区 · 每条带官方来源</span>
 </div>
 
+<!-- 时效公告 -->
 <div style="max-width:900px;margin:12px auto;padding:12px 20px;background:rgba(108,92,231,.08);border:1px solid rgba(108,92,231,.15);border-radius:10px;text-align:center;position:relative;z-index:1">
   <span style="font-size:.88em">🏆 <strong style="color:var(--al)">众创杯OPC专项赛</strong> 报名截止 <strong style="color:#ff5252">5月10日</strong> · 特等奖 <strong style="color:#00e676">50万</strong> · <a href="https://finance.sina.com.cn/roll/2026-03-27/doc-inhskwec8395999.shtml" target="_blank" style="color:var(--al)">了解详情 →</a></span>
 </div>
 
-<!-- WeChat CTA Banner (最显眼位置) -->
-<div onclick="showQR()" style="max-width:900px;margin:16px auto 0;padding:12px 20px;background:linear-gradient(135deg,#ff4081,#6c5ce7);border-radius:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;transition:transform .2s" onmouseover="this.style.transform='scale(1.01)'" onmouseout="this.style.transform='scale(1)'">
-  <img src="assets/avatar.jpg" style="width:44px;height:44px;border-radius:50%;border:2px solid rgba(255,255,255,.5);object-fit:cover">
-  <div style="color:#fff;font-size:.92em"><strong>加微信咨询 OPC 政策匹配</strong> · AI语音机器人方案 · 创业资源对接</div>
-  <div style="padding:6px 18px;background:rgba(255,255,255,.2);border-radius:8px;color:#fff;font-size:.85em;font-weight:600;backdrop-filter:blur(4px)">扫码添加</div>
-</div>
-
 <!-- Mode Switch -->
 <div class="mode-tabs">
-  <button class="mode-tab active" onclick="switchMode('match')">智能匹配</button>
+  <button class="mode-tab active" onclick="switchMode('match')">开始匹配</button>
   <button class="mode-tab" onclick="switchMode('browse')">浏览全部政策</button>
   <button class="mode-tab" onclick="switchMode('advisor')">AI 政策顾问</button>
 </div>
@@ -592,95 +590,26 @@ footer{text-align:center;padding:30px 20px;color:var(--dim);font-size:.78em;bord
 
 <button class="back-top" id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
 
-<!-- Contact Card (个人网站风格) -->
-<div style="max-width:900px;margin:0 auto;padding:0 20px 30px">
-  <div class="contact-card-inner" style="background:linear-gradient(135deg,#1a1040 0%,#0a2040 50%,#1a1040 100%);border:1px solid rgba(108,92,231,.3);border-radius:20px;padding:32px;display:flex;align-items:center;gap:28px;flex-wrap:wrap">
-    <img src="assets/avatar.jpg" style="width:110px;height:110px;border-radius:50%;border:3px solid rgba(0,229,255,.4);object-fit:cover;flex-shrink:0">
-    <div class="card-text" style="flex:1;min-width:0">
-      <h3 style="font-size:1.4em;margin-bottom:2px">小伟</h3>
-      <p style="color:var(--cyan);font-size:.9em;margin-bottom:8px">独立开发者 / 连续创业者 / AIGC从业者 / OPC超级个体</p>
-      <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px">
-        <span style="padding:2px 10px;border-radius:4px;font-size:.72em;background:rgba(0,229,255,.1);color:var(--cyan);border:1px solid rgba(0,229,255,.15)">独立开发者</span>
-        <span style="padding:2px 10px;border-radius:4px;font-size:.72em;background:rgba(108,92,231,.15);color:var(--al);border:1px solid rgba(108,92,231,.2)">连续创业者</span>
-        <span style="padding:2px 10px;border-radius:4px;font-size:.72em;background:rgba(0,230,118,.1);color:var(--green);border:1px solid rgba(0,230,118,.15)">AI语音对话机器人方案商</span>
-        <span style="padding:2px 10px;border-radius:4px;font-size:.72em;background:rgba(255,145,0,.1);color:var(--orange);border:1px solid rgba(255,145,0,.15)">AIGC从业者</span>
-        <span style="padding:2px 10px;border-radius:4px;font-size:.72em;background:rgba(255,64,129,.1);color:#ff4081;border:1px solid rgba(255,64,129,.15)">OPC超级个体</span>
-      </div>
-      <p style="color:var(--dim);font-size:.85em;margin-bottom:14px">前端出身，AIGC转型，现专注AI语音对话机器人方案。从方案设计到量产代工一站式服务，服务客服/导览/康养/教育等场景。</p>
-      <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;flex-wrap:wrap">
-        <span style="color:var(--dim);font-size:.88em">微信号：</span>
-        <span id="wxId" style="padding:4px 14px;background:rgba(255,82,82,.12);border:1px solid rgba(255,82,82,.2);border-radius:6px;font-size:.88em;color:#ff8a80;cursor:pointer" onclick="copyWx()">siuserxiaowei</span>
-        <span style="font-size:.78em;color:var(--dim)">（加好友请备注 OPC）</span>
-      </div>
-      <div style="display:flex;gap:10px;flex-wrap:wrap">
-        <a href="https://github.com/siuserxiaowei" target="_blank" style="padding:8px 18px;background:var(--card);border:1px solid var(--border);border-radius:8px;font-size:.85em;display:flex;align-items:center;gap:6px">GitHub</a>
-        <button onclick="copyWx()" style="padding:8px 18px;background:rgba(255,82,82,.1);border:1px solid rgba(255,82,82,.2);border-radius:8px;font-size:.85em;color:#ff8a80;cursor:pointer;display:flex;align-items:center;gap:6px">复制微信号</button>
-        <button onclick="showQR()" style="padding:8px 18px;background:rgba(0,229,255,.1);border:1px solid rgba(0,229,255,.2);border-radius:8px;font-size:.85em;color:var(--cyan);cursor:pointer">扫码加微信</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- 张总顾问卡 -->
-<div style="max-width:900px;margin:0 auto;padding:0 20px 30px">
-  <div style="background:linear-gradient(135deg,rgba(108,92,231,.06) 0%,rgba(0,229,255,.04) 100%);border:1px solid rgba(108,92,231,.2);border-radius:20px;padding:28px;display:flex;align-items:center;gap:24px;flex-wrap:wrap">
-    <img src="assets/zhang-qr.png" style="width:120px;border-radius:12px;border:1px solid var(--border);flex-shrink:0;cursor:pointer" onclick="showZhangQR()">
-    <div style="flex:1;min-width:200px">
-      <p style="font-size:.7em;color:var(--accent);text-transform:uppercase;letter-spacing:2px;margin-bottom:3px">税务顾问</p>
-      <h3 style="font-size:1.2em;margin-bottom:3px">张永航</h3>
-      <p style="color:var(--cyan);font-size:.85em;margin-bottom:8px">盈丰税务规划 · 广州</p>
-      <div style="display:flex;flex-wrap:wrap;gap:5px;margin-bottom:8px">
-        <span style="padding:2px 8px;border-radius:4px;font-size:.7em;background:rgba(0,229,255,.08);color:var(--cyan);border:1px solid rgba(0,229,255,.12)">OPC财税合规</span>
-        <span style="padding:2px 8px;border-radius:4px;font-size:.7em;background:rgba(108,92,231,.12);color:var(--al);border:1px solid rgba(108,92,231,.18)">税务架构</span>
-        <span style="padding:2px 8px;border-radius:4px;font-size:.7em;background:rgba(0,230,118,.08);color:var(--green);border:1px solid rgba(0,230,118,.12)">核定征收</span>
-      </div>
-      <p style="color:var(--dim);font-size:.82em;margin-bottom:10px">多年财税从业经验，专注OPC一人公司财税合规与税务优化。</p>
-      <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
-        <span style="color:var(--dim);font-size:.85em">微信号：</span>
-        <span style="padding:4px 14px;background:rgba(0,229,255,.08);border:1px solid rgba(0,229,255,.15);border-radius:6px;font-size:.88em;color:var(--cyan);cursor:pointer;font-weight:600" onclick="navigator.clipboard.writeText('pp667899')">pp667899</span>
-        <span style="font-size:.75em;color:var(--dim)">（备注「OPC税务」）</span>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- QR Code Modal -->
+<!-- QR Code Modal（保留但不在首屏展示）-->
 <div id="qrModal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.8);z-index:600;align-items:center;justify-content:center;cursor:pointer" onclick="this.style.display='none'">
   <div style="background:#fff;border-radius:16px;padding:20px;max-width:320px;text-align:center" onclick="event.stopPropagation()">
     <img src="assets/wechat-qr.jpg" style="width:100%;border-radius:8px">
     <p style="color:#333;font-size:.85em;margin-top:10px">微信扫码添加好友，备注「OPC」</p>
   </div>
 </div>
-<div id="zhangQrModal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.8);z-index:600;align-items:center;justify-content:center;cursor:pointer" onclick="this.style.display='none'">
-  <div style="background:#fff;border-radius:16px;padding:20px;max-width:320px;text-align:center" onclick="event.stopPropagation()">
-    <img src="assets/zhang-qr.png" style="width:100%;border-radius:8px">
-    <p style="color:#333;font-size:.85em;margin-top:10px">微信扫码添加张永航老师，备注「OPC税务」</p>
-  </div>
-</div>
 
-<!-- Ad / Services -->
-<div style="max-width:900px;margin:0 auto;padding:0 20px 30px">
-  <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:24px;display:grid;grid-template-columns:1fr 1fr;gap:16px">
-    <div style="padding:18px;border:1px solid var(--border);border-radius:10px;text-align:center;transition:all .3s;cursor:pointer" onclick="showQR()">
-      <div style="font-size:1.5em;margin-bottom:6px">🤖</div>
-      <div style="font-weight:600;margin-bottom:4px">AI语音对话机器人</div>
-      <div style="font-size:.8em;color:var(--dim)">从方案到量产一站式服务<br>适用于客服/导览/康养/教育</div>
-      <div style="margin-top:8px;padding:4px 12px;background:rgba(0,230,118,.1);border-radius:6px;display:inline-block;font-size:.75em;color:var(--green)">扫码咨询方案</div>
-    </div>
-    <div style="padding:18px;border:1px solid var(--border);border-radius:10px;text-align:center;transition:all .3s;cursor:pointer" onclick="showQR()">
-      <div style="font-size:1.5em;margin-bottom:6px">📢</div>
-      <div style="font-weight:600;margin-bottom:4px">广告合作</div>
-      <div style="font-size:.8em;color:var(--dim)">OPC社区 / 孵化器 / 服务商<br>精准触达OPC创业者群体</div>
-      <div style="margin-top:8px;padding:4px 12px;background:rgba(108,92,231,.15);border-radius:6px;display:inline-block;font-size:.75em;color:var(--al)">扫码联系</div>
-    </div>
-  </div>
-</div>
-
+<!-- Footer：简洁，不卖东西 -->
 <footer>
-  <p>全国OPC政策导航 · 数据来源: 政府官网、公开政策文件、权威媒体报道</p>
-  <p style="margin-top:4px"><a href="guangzhou.html">广州专版</a> · <a href="yuexiu.html">越秀区</a> · <a href="tax.html">税务指南</a>
-  <a href="dashboard.html">数据看板</a> · <a href="https://github.com/siuserxiaowei/opc-policy" target="_blank">GitHub</a></p>
-  <p style="margin-top:6px;font-size:.8em">Made by <strong>siuser小伟</strong> · 微信: siuserxiaowei · AI语音对话机器人方案商</p>
+  <p style="font-size:.88em;margin-bottom:8px"><strong>OPC 选址决策工具</strong> · 不是帮你"看政策"，是帮你做出 OPC 落地决策</p>
+  <p style="margin-bottom:8px">
+    <a href="guangzhou.html">广州专版</a> · <a href="chengdu.html">成都专版</a> · <a href="suzhou.html">苏州专版</a> ·
+    <a href="tax.html">税务指南</a> · <a href="dashboard.html">数据看板</a> · <a href="changelog.html">维护日志</a> ·
+    <a href="rss.xml">RSS 订阅</a> · <a href="https://github.com/siuserxiaowei/opc-policy" target="_blank">GitHub</a>
+  </p>
+  <p style="font-size:.78em;color:var(--dim)">
+    数据来源：政府官网 · 每条带官方链接 · 拒绝 AI 编造<br>
+    有业务需求或数据纠错：微信 siuserxiaowei（备注 OPC）
+  </p>
 </footer>
 
 <script>
