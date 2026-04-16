@@ -80,6 +80,10 @@ a{color:var(--al);text-decoration:none}a:hover{color:var(--accent)}
 .cm-subject{font-size:.95em;font-weight:600;color:var(--text);margin-bottom:6px}
 .cm-body{font-size:.82em;color:var(--dim);line-height:1.7;padding:10px 12px;background:rgba(0,0,0,.2);border-radius:6px;margin-top:8px;border-left:2px solid rgba(37,99,235,.2);white-space:pre-wrap}
 
+.cm-item:nth-child(n+12){display:none}
+.cm-item.show-all{display:block!important}
+.show-more-btn{display:block;margin:20px auto;padding:10px 28px;background:var(--card);border:1px solid var(--border);border-radius:8px;color:var(--dim);font-size:.88em;cursor:pointer;transition:all .2s}
+.show-more-btn:hover{border-color:var(--al);color:var(--al)}
 footer{text-align:center;padding:30px 20px;color:var(--dim);font-size:.78em;border-top:1px solid var(--border)}
 @media(max-width:640px){.hero h1{font-size:1.5em}.stats .s{min-width:calc(50% - 6px)}.cm-head{font-size:.88em}.cm-stats{margin-left:0}}
 </style>
@@ -115,8 +119,8 @@ footer{text-align:center;padding:30px 20px;color:var(--dim);font-size:.78em;bord
 </div>
 
 <div class="hero">
-  <h1>维护日志 · 核实记录</h1>
-  <p>本页记录 opcgate.com 的所有数据核验、更新、修复动作。每条都可追溯到具体的 git commit，拒绝 AI 编造，每次改动都公开透明。</p>
+  <h1>更新记录</h1>
+  <p>opcgate.com 的所有核验、更新、修复动作。每条可追溯到 git commit，公开透明。</p>
   <div class="stats">
     <div class="s"><div class="n">77</div><div class="l">总维护次数</div></div>
     <div class="s"><div class="n">5</div><div class="l">数据核验动作</div></div>
@@ -981,6 +985,7 @@ footer{text-align:center;padding:30px 20px;color:var(--dim);font-size:.78em;bord
       <div class="cm-body">包含广州各区OPC（一人公司）政策汇总、官方可核验筛选版、<br>以及交互式政策导航网页（倒计时、搜索、筛选、材料清单等）。</div>
     </div>
 
+  <button class="show-more-btn" id="showMoreBtn" onclick="document.querySelectorAll('.cm-item').forEach(e=>e.classList.add('show-all'));this.style.display='none'">展开全部记录 ▾</button>
 </div>
 
 <footer>
