@@ -1403,22 +1403,7 @@ function updateCountdown() {
 updateCountdown();
 setInterval(updateCountdown, 1000);
 
-// ===== Particles =====
-(function() {
-  const c = null // 粒子已移除: document.getElementById('heroParticles');
-  for (let i = 0; i < 20; i++) {
-    const p = document.createElement('div');
-    p.className = 'p';
-    p.style.left = Math.random() * 100 + '%';
-    p.style.top = Math.random() * 100 + '%';
-    p.style.width = (2 + Math.random() * 4) + 'px';
-    p.style.height = p.style.width;
-    p.style.animationDuration = (8 + Math.random() * 12) + 's';
-    p.style.animationDelay = Math.random() * 10 + 's';
-    p.style.opacity = 0.15 + Math.random() * 0.3;
-    c.appendChild(p);
-  }
-})();
+// ===== Particles (已移除) =====
 
 // ===== Scroll animations =====
 const observer = new IntersectionObserver((entries) => {
