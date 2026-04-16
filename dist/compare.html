@@ -205,6 +205,15 @@ function getCities(){
     (p.benefits||[]).forEach(b => map[c].benefits.push(b));
     (p.tags||[]).forEach(t => map[c].tags.add(t));
   });
+  // 社区按名称去重
+  Object.values(map).forEach(d => {
+    const seen = new Set();
+    d.communities = d.communities.filter(cm => {
+      if (seen.has(cm.name)) return false;
+      seen.add(cm.name);
+      return true;
+    });
+  });
   return map;
 }
 
@@ -343,7 +352,7 @@ function renderTable(){
       '成都': '<a href="chengdu.html">成都专版 →</a>',
       '苏州': '<a href="suzhou.html">苏州专版 →</a>',
     };
-    const link = specialPages[d.city] || `<a href="city.html?city=${encodeURIComponent(d.city)}">查看详情 →</a>`;
+    const link = specialPages[d.city] || `<a href="city.html?name=${encodeURIComponent(d.city)}">查看详情 →</a>`;
 
     return {
       city: d.city,

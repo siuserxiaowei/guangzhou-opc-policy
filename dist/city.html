@@ -136,13 +136,16 @@ async function loadCity() {
       // Group by city
       const cityMap = {};
       for (const p of allPolicies) {
-        if (!cityMap[p.city]) cityMap[p.city] = { policies: [], communities: 0, maxAmount: 0 };
+        if (!cityMap[p.city]) cityMap[p.city] = { policies: [], _commNames: new Set(), communities: 0, maxAmount: 0 };
         cityMap[p.city].policies.push(p);
-        cityMap[p.city].communities += (p.communities || []).length;
+        for (const cm of (p.communities || [])) {
+          cityMap[p.city]._commNames.add(cm.name);
+        }
         for (const b of (p.benefits || [])) {
           if ((b.amount_max || 0) > cityMap[p.city].maxAmount) cityMap[p.city].maxAmount = b.amount_max;
         }
       }
+      for (const v of Object.values(cityMap)) v.communities = v._commNames.size;
       const cities = Object.entries(cityMap).sort((a, b) => b[1].policies.length - a[1].policies.length);
       const totalCities = cities.length;
       const totalPolicies = allPolicies.length;
@@ -208,7 +211,8 @@ async function loadCity() {
   // Stats
   const totalBenefits = policies.reduce((s, p) => s + (p.benefits || []).length, 0);
   const maxAmount = Math.max(0, ...policies.flatMap(p => (p.benefits || []).map(b => b.amount_max || 0)));
-  const communities = policies.reduce((s, p) => s + (p.communities || []).length, 0);
+  const commSet = new Set(); policies.forEach(p => (p.communities||[]).forEach(c => commSet.add(c.name)));
+  const communities = commSet.size;
   const province = policies[0]?.province || '';
 
   document.getElementById('citySub').textContent = `${province} · ${policies.length}条政策 · ${communities}个OPC社区`;
