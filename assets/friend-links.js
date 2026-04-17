@@ -41,17 +41,23 @@
     wrap.style.borderTop = "1px solid rgba(148,163,184,.18)";
 
     const title = document.createElement("p");
-    title.textContent = "友情链接（Logo 位预留，明天可直接替换）";
+    title.textContent = "友情链接";
     title.style.fontSize = ".75em";
     title.style.color = "var(--dim, #64748B)";
     title.style.marginBottom = "10px";
     wrap.appendChild(title);
 
     const grid = document.createElement("div");
-    grid.style.display = "flex";
-    grid.style.justifyContent = "center";
+    grid.style.display = "grid";
+    grid.style.gridTemplateColumns = "repeat(5, minmax(0, 1fr))";
     grid.style.gap = "8px";
-    grid.style.flexWrap = "wrap";
+    grid.style.maxWidth = "880px";
+    grid.style.margin = "0 auto";
+
+    const mq = window.matchMedia("(max-width: 640px)");
+    const applyCols = () => { grid.style.gridTemplateColumns = mq.matches ? "repeat(2, minmax(0, 1fr))" : "repeat(5, minmax(0, 1fr))"; };
+    applyCols();
+    mq.addEventListener && mq.addEventListener("change", applyCols);
 
     links.forEach(([name, href, desc]) => {
       const a = document.createElement("a");
@@ -61,31 +67,18 @@
       a.title = desc;
       a.style.display = "inline-flex";
       a.style.alignItems = "center";
-      a.style.gap = "8px";
+      a.style.justifyContent = "center";
       a.style.padding = "8px 12px";
       a.style.background = "rgba(148,163,184,.08)";
       a.style.border = "1px solid rgba(148,163,184,.16)";
       a.style.borderRadius = "999px";
       a.style.color = "inherit";
       a.style.fontSize = ".78em";
-
-      const logo = document.createElement("span");
-      logo.textContent = "Logo";
-      logo.style.width = "18px";
-      logo.style.height = "18px";
-      logo.style.border = "1px dashed rgba(148,163,184,.45)";
-      logo.style.borderRadius = "5px";
-      logo.style.display = "inline-flex";
-      logo.style.alignItems = "center";
-      logo.style.justifyContent = "center";
-      logo.style.fontSize = ".52em";
-      logo.style.color = "var(--dim, #64748B)";
-
-      const text = document.createElement("span");
-      text.textContent = name;
-
-      a.appendChild(logo);
-      a.appendChild(text);
+      a.style.textAlign = "center";
+      a.style.whiteSpace = "nowrap";
+      a.style.overflow = "hidden";
+      a.style.textOverflow = "ellipsis";
+      a.textContent = name;
       grid.appendChild(a);
     });
 
