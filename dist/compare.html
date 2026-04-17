@@ -147,11 +147,22 @@ footer{text-align:center;padding:30px 20px;color:var(--dim);font-size:.78em;bord
     </div>
   </div>
 
+  <div class="verdict">
+    <h3>搜索流量入口</h3>
+    <p>如果你是从搜索进来的，也可以先看整理好的热门对比页或城市静态页，再回到这里继续自定义对比。</p>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px">
+      <a href="seo/guangzhou-vs-shenzhen-vs-suzhou.html" style="padding:8px 12px;background:#fff;border:1px solid var(--border);border-radius:999px;font-size:.82em">广州 vs 深圳 vs 苏州</a>
+      <a href="seo/beijing-vs-shanghai-vs-shenzhen.html" style="padding:8px 12px;background:#fff;border:1px solid var(--border);border-radius:999px;font-size:.82em">北京 vs 上海 vs 深圳</a>
+      <a href="seo/index.html" style="padding:8px 12px;background:#fff;border:1px solid var(--border);border-radius:999px;font-size:.82em">全部热门对比页</a>
+      <a href="seo/cities/index.html" style="padding:8px 12px;background:#fff;border:1px solid var(--border);border-radius:999px;font-size:.82em">全部城市入口</a>
+    </div>
+  </div>
+
 </div>
 
 <footer>
   <p>OPC 选址决策工具 · 每条带官方来源 · 拒绝 AI 编造</p>
-  <p style="margin-top:4px"><a href="index.html">首页</a> · <a href="guangzhou.html">广州</a> · <a href="suzhou.html">苏州</a> · <a href="chengdu.html">成都</a> · <a href="changelog.html">维护日志</a> · <a href="rss.xml">RSS</a></p>
+  <p style="margin-top:4px"><a href="index.html">首页</a> · <a href="guangzhou.html">广州</a> · <a href="suzhou.html">苏州</a> · <a href="chengdu.html">成都</a> · <a href="seo/index.html">热门对比页</a> · <a href="seo/cities/index.html">城市入口</a> · <a href="changelog.html">维护日志</a> · <a href="rss.xml">RSS</a></p>
 </footer>
 
 <script>
@@ -159,6 +170,50 @@ let POLICIES = [];
 let COMMUNITIES = [];
 let selected = [];
 let mode = 'city'; // 'city' or 'comm'
+const SPECIAL_CITY_PAGES = {
+  '广州': 'guangzhou.html',
+  '成都': 'chengdu.html',
+  '苏州': 'suzhou.html',
+};
+
+function normalizeCommunityName(name){
+  return String(name || '')
+    .toLowerCase()
+    .replace(/[·•\s()（）\[\]【】,.，。:：;；/\\\-_'"]/g, '');
+}
+
+function getCityDetailHref(city){
+  return SPECIAL_CITY_PAGES[city] || `seo/cities/${encodeURIComponent(city)}.html`;
+}
+
+function parsePrefilledCities(){
+  const params = new URLSearchParams(window.location.search);
+  const raw = params.get('cities') || window.location.hash.replace(/^#/, '');
+  if(!raw) return [];
+  return String(raw)
+    .split(',')
+    .map(item => decodeURIComponent(item).trim())
+    .filter(Boolean);
+}
+
+function syncCitySelectionUrl(){
+  const url = new URL(window.location.href);
+  if(mode === 'city' && selected.length){
+    url.searchParams.set('cities', selected.join(','));
+  } else {
+    url.searchParams.delete('cities');
+  }
+  if(url.hash) url.hash = '';
+  window.history.replaceState({}, '', url);
+}
+
+function applyInitialSelectionFromUrl(){
+  const allCities = getCities();
+  const prefilled = parsePrefilledCities().filter(city => allCities[city]).slice(0, 4);
+  if(!prefilled.length) return;
+  selected = prefilled;
+  render();
+}
 
 async function loadData(){
   try {
@@ -169,6 +224,7 @@ async function loadData(){
     POLICIES = (await pResp.json()).policies || [];
     COMMUNITIES = (await cResp.json()).communities || [];
     populateSelect();
+    applyInitialSelectionFromUrl();
   } catch(e) {
     console.error('Failed to load data:', e);
   }
@@ -205,27 +261,37 @@ function getCities(){
     (p.benefits||[]).forEach(b => map[c].benefits.push(b));
     (p.tags||[]).forEach(t => map[c].tags.add(t));
   });
-  // 社区按名称去重
+  // 社区按标准化名称去重，并尽量合并详情，避免同一社区在多个政策下重复计算
   Object.values(map).forEach(d => {
-    const seen = new Set();
-    d.communities = d.communities.filter(cm => {
-      if (seen.has(cm.name)) return false;
-      seen.add(cm.name);
-      return true;
+    const merged = new Map();
+    d.communities.forEach(cm => {
+      const key = normalizeCommunityName(cm.name);
+      if(!key) return;
+      if(!merged.has(key)){
+        merged.set(key, {...cm});
+        return;
+      }
+      const existing = merged.get(key);
+      if((cm.name || '').length > (existing.name || '').length) existing.name = cm.name;
+      if(!existing.address && cm.address) existing.address = cm.address;
+      const features = [...(existing.features || []), ...(cm.features || [])];
+      existing.features = [...new Set(features)];
     });
+    d.communities = Array.from(merged.values());
   });
   return map;
 }
 
 function populateCitySelect(){
   const sel = document.getElementById('citySelect');
-  const cities = Object.keys(getCities()).sort((a,b) => {
-    const ca = getCities()[a], cb = getCities()[b];
+  const cityMap = getCities();
+  const cities = Object.keys(cityMap).sort((a,b) => {
+    const ca = cityMap[a], cb = cityMap[b];
     return cb.policies.length - ca.policies.length;
   });
   sel.innerHTML = '<option value="">+ 添加城市</option>';
   cities.forEach(c => {
-    const d = getCities()[c];
+    const d = cityMap[c];
     sel.innerHTML += `<option value="${c}">${c} (${d.policies.length}条·${d.communities.length}社区)</option>`;
   });
 }
@@ -275,6 +341,7 @@ function quickCompare(cities){
 }
 
 function render(){
+  syncCitySelectionUrl();
   renderChips();
   if(selected.length < 2){
     const label = mode === 'city' ? '城市' : '社区';
@@ -347,12 +414,12 @@ function renderTable(){
     const lastUpdate = dates[0] || '—';
 
     // 有无专版
-    const specialPages = {
-      '广州': '<a href="guangzhou.html">广州专版 →</a>',
-      '成都': '<a href="chengdu.html">成都专版 →</a>',
-      '苏州': '<a href="suzhou.html">苏州专版 →</a>',
+    const specialLabels = {
+      '广州': '广州专版 →',
+      '成都': '成都专版 →',
+      '苏州': '苏州专版 →',
     };
-    const link = specialPages[d.city] || `<a href="city.html?name=${encodeURIComponent(d.city)}">查看详情 →</a>`;
+    const link = `<a href="${getCityDetailHref(d.city)}">${specialLabels[d.city] || '查看详情 →'}</a>`;
 
     return {
       city: d.city,

@@ -25,14 +25,6 @@ a{color:var(--al);text-decoration:none}a:hover{color:var(--accent)}
 .topnav .logo{font-weight:800;font-size:1em;color:var(--al)}
 .topnav a{padding:6px 14px;border-radius:6px;font-size:.82em;color:var(--dim);transition:all .2s;white-space:nowrap}
 .topnav a:hover,.topnav a.active{color:var(--al);background:rgba(37,99,235,.1)}
-.nav-dropdown{position:relative;display:inline-flex}
-.nav-dropdown-trigger{padding:6px 14px;border-radius:6px;font-size:.82em;color:var(--dim,var(--text-dim,#64748B));cursor:pointer;transition:all .2s;background:none;border:none;font-family:inherit;text-decoration:none}
-.nav-dropdown-trigger:hover,.nav-dropdown.open .nav-dropdown-trigger{color:var(--al,var(--accent-light,var(--accent,#2563EB)));background:rgba(37,99,235,.08)}
-.nav-dropdown-menu{display:none;position:absolute;top:100%;left:0;background:#fff;border:1px solid var(--border,#E2E8F0);border-radius:8px;box-shadow:0 4px 12px rgba(0,0,0,.1);min-width:120px;z-index:200;padding:4px 0}
-.nav-dropdown.open .nav-dropdown-menu{display:block}
-.nav-dropdown-menu a{display:block;padding:8px 16px;font-size:.82em;color:var(--text,#0F172A);text-decoration:none;transition:background .2s;white-space:nowrap}
-.nav-dropdown-menu a:hover{background:rgba(37,99,235,.06);color:var(--al,var(--accent,#2563EB))}
-.nav-dropdown-menu a.active{color:var(--al,var(--accent,#2563EB));font-weight:600}
 
 .trust-slogan{display:flex;align-items:center;justify-content:center;gap:10px;
   padding:8px 16px;background:linear-gradient(90deg,rgba(15,118,110,.06),rgba(37,99,235,.06),rgba(15,118,110,.06));
@@ -80,10 +72,6 @@ a{color:var(--al);text-decoration:none}a:hover{color:var(--accent)}
 .cm-subject{font-size:.95em;font-weight:600;color:var(--text);margin-bottom:6px}
 .cm-body{font-size:.82em;color:var(--dim);line-height:1.7;padding:10px 12px;background:rgba(0,0,0,.2);border-radius:6px;margin-top:8px;border-left:2px solid rgba(37,99,235,.2);white-space:pre-wrap}
 
-.cm-item:nth-child(n+12){display:none}
-.cm-item.show-all{display:block!important}
-.show-more-btn{display:block;margin:20px auto;padding:10px 28px;background:var(--card);border:1px solid var(--border);border-radius:8px;color:var(--dim);font-size:.88em;cursor:pointer;transition:all .2s}
-.show-more-btn:hover{border-color:var(--al);color:var(--al)}
 footer{text-align:center;padding:30px 20px;color:var(--dim);font-size:.78em;border-top:1px solid var(--border)}
 @media(max-width:640px){.hero h1{font-size:1.5em}.stats .s{min-width:calc(50% - 6px)}.cm-head{font-size:.88em}.cm-stats{margin-left:0}}
 </style>
@@ -93,18 +81,15 @@ footer{text-align:center;padding:30px 20px;color:var(--dim);font-size:.78em;bord
 <nav class="topnav">
   <span class="logo">OPC</span>
   <a href="index.html">首页</a>
-  <div class="nav-dropdown" onclick="this.classList.toggle('open')">
-    <a class="nav-dropdown-trigger">城市 ▾</a>
-    <div class="nav-dropdown-menu">
-      <a href="guangzhou.html">广州</a>
-      <a href="chengdu.html">成都</a>
-      <a href="suzhou.html">苏州</a>
-      <a href="yuexiu.html">越秀区</a>
-    </div>
-  </div>
-  <a href="compare.html">对比</a>
-  <a href="tax.html">税务</a>
-  <a href="changelog.html" class="active">更新记录</a>
+  <a href="guangzhou.html">广州专版</a>
+  <a href="chengdu.html">成都专版</a>
+  <a href="suzhou.html">苏州专版</a>
+  <a href="yuexiu.html">越秀区</a>
+  <a href="tax.html">税务指南</a>
+  <a href="dashboard.html">数据看板</a>
+  <a href="changelog.html" class="active">维护日志</a>
+  <span style="flex:1"></span>
+  <a href="https://github.com/siuserxiaowei/opc-policy" target="_blank" style="font-size:.78em">GitHub</a>
 </nav>
 
 <div class="trust-slogan">
@@ -119,10 +104,10 @@ footer{text-align:center;padding:30px 20px;color:var(--dim);font-size:.78em;bord
 </div>
 
 <div class="hero">
-  <h1>更新记录</h1>
-  <p>opcgate.com 的所有核验、更新、修复动作。每条可追溯到 git commit，公开透明。</p>
+  <h1>维护日志 · 核实记录</h1>
+  <p>本页记录 opcgate.com 的所有数据核验、更新、修复动作。每条都可追溯到具体的 git commit，拒绝 AI 编造，每次改动都公开透明。</p>
   <div class="stats">
-    <div class="s"><div class="n">77</div><div class="l">总维护次数</div></div>
+    <div class="s"><div class="n">84</div><div class="l">总维护次数</div></div>
     <div class="s"><div class="n">5</div><div class="l">数据核验动作</div></div>
     <div class="s"><div class="n">1</div><div class="l">活跃月份</div></div>
     <div class="s"><div class="n" style="color:var(--green)">LIVE</div><div class="l">持续维护中</div></div>
@@ -133,10 +118,87 @@ footer{text-align:center;padding:30px 20px;color:var(--dim);font-size:.78em;bord
 
   <div class="months">
     <span class="ml">按月分布：</span>
-    <span class="m-chip">2026-04 · 77 次</span>
+    <span class="m-chip">2026-04 · 84 次</span>
   </div>
 
   
+    <div class="cm-item cat-fix">
+      <div class="cm-head">
+        <span class="cm-icon">🔧</span>
+        <span class="cm-label">修复</span>
+        <span class="cm-date">2026-04-16 19:59</span>
+        <a href="https://github.com/siuserxiaowei/opc-policy/commit/a51aebefbeb486db9793cf0d42c51c9847b66dc8" target="_blank" rel="noopener" class="cm-sha">a51aebe</a>
+        <span class="cm-stats">4 文件 <span class="st-plus">+34</span> <span class="st-minus">−8</span></span>
+      </div>
+      <div class="cm-subject">fix: compare→city参数bug + 社区去重计数</div>
+      <div class="cm-body">1. compare.html: city.html?city= → city.html?name= (参数名对齐)<br>2. compare.html: 按城市聚合后社区按名称去重，避免同社区在多条政策中重复计入<br>3. city.html: 总览页和详情页社区数都改为去重后的独立社区数</div>
+    </div>
+    <div class="cm-item cat-feat">
+      <div class="cm-head">
+        <span class="cm-icon">✨</span>
+        <span class="cm-label">新功能</span>
+        <span class="cm-date">2026-04-16 19:50</span>
+        <a href="https://github.com/siuserxiaowei/opc-policy/commit/1a094980574b5cfa8d8a55dab019cee9087a6827" target="_blank" rel="noopener" class="cm-sha">1a09498</a>
+        <span class="cm-stats">2 文件 <span class="st-plus">+22</span> <span class="st-minus">−0</span></span>
+      </div>
+      <div class="cm-subject">feat: 首页匹配结果区加税务引导卡片</div>
+      <div class="cm-body">在订阅监控入口下方加&quot;了解 OPC 税务优化方案&quot;引导，<br>引导用户发现税务指南页（全站最专业的工具页）。</div>
+    </div>
+    <div class="cm-item cat-feat">
+      <div class="cm-head">
+        <span class="cm-icon">✨</span>
+        <span class="cm-label">新功能</span>
+        <span class="cm-date">2026-04-16 19:49</span>
+        <a href="https://github.com/siuserxiaowei/opc-policy/commit/8d65abcee69e3570eab53d5b5dfc4300918ae14b" target="_blank" rel="noopener" class="cm-sha">8d65abc</a>
+        <span class="cm-stats">2 文件 <span class="st-plus">+14</span> <span class="st-minus">−4</span></span>
+      </div>
+      <div class="cm-subject">feat: changelog 默认折叠只显示最近10条 + 标题简化</div>
+      <div class="cm-body">- 77条记录默认只展示前10条，底部&quot;展开全部记录&quot;按钮<br>- 标题从&quot;维护日志·核实记录&quot;改为&quot;更新记录&quot;<br>- 减少信息噪音，核心目的是建立信任</div>
+    </div>
+    <div class="cm-item cat-feat">
+      <div class="cm-head">
+        <span class="cm-icon">✨</span>
+        <span class="cm-label">新功能</span>
+        <span class="cm-date">2026-04-16 19:47</span>
+        <a href="https://github.com/siuserxiaowei/opc-policy/commit/1345b3a5fde14267fbcd1141e2aa7027dcf92cdc" target="_blank" rel="noopener" class="cm-sha">1345b3a</a>
+        <span class="cm-stats">4 文件 <span class="st-plus">+46</span> <span class="st-minus">−14</span></span>
+      </div>
+      <div class="cm-subject">feat: 公告栏改为可关闭 + 过期自动隐藏</div>
+      <div class="cm-body">- 众创杯横幅从强对比色改为低调通知条<br>- 加 × 关闭按钮，关闭后 localStorage 记住<br>- 5月10日截止后自动不再显示<br>- 首页和广州页同步修改</div>
+    </div>
+    <div class="cm-item cat-feat">
+      <div class="cm-head">
+        <span class="cm-icon">✨</span>
+        <span class="cm-label">新功能</span>
+        <span class="cm-date">2026-04-16 19:45</span>
+        <a href="https://github.com/siuserxiaowei/opc-policy/commit/d9a28ed204e542dbc50623f31a7c8a40df525636" target="_blank" rel="noopener" class="cm-sha">d9a28ed</a>
+        <span class="cm-stats">2 文件 <span class="st-plus">+94</span> <span class="st-minus">−6</span></span>
+      </div>
+      <div class="cm-subject">feat: city.html 从死页面改为全国城市总览页</div>
+      <div class="cm-body">无参数时展示 38 城政策网格（按政策数排序），<br>有专版的城市标注绿色&quot;专版&quot;标签并链接到专页，<br>其他城市链接到 city.html?name= 动态加载。</div>
+    </div>
+    <div class="cm-item cat-feat">
+      <div class="cm-head">
+        <span class="cm-icon">✨</span>
+        <span class="cm-label">新功能</span>
+        <span class="cm-date">2026-04-16 19:43</span>
+        <a href="https://github.com/siuserxiaowei/opc-policy/commit/7ff70fe41d81551c2f4868a5da20dfc81c50854f" target="_blank" rel="noopener" class="cm-sha">7ff70fe</a>
+        <span class="cm-stats">43 文件 <span class="st-plus">+2581</span> <span class="st-minus">−508</span></span>
+      </div>
+      <div class="cm-subject">feat: 导航栏精简 — 9个入口收为5个，城市页收进下拉菜单</div>
+      <div class="cm-body">- 导航: OPC | 首页 | 城市 ▾ | 对比 | 税务 | 更新记录<br>- 城市下拉菜单: 广州/成都/苏州/越秀区，点击展开，点外部关闭<br>- 数据看板从导航移到 footer（用户仍可访问）<br>- 全站 26 个 HTML 文件统一更新</div>
+    </div>
+    <div class="cm-item cat-fix">
+      <div class="cm-head">
+        <span class="cm-icon">🔧</span>
+        <span class="cm-label">修复</span>
+        <span class="cm-date">2026-04-16 19:32</span>
+        <a href="https://github.com/siuserxiaowei/opc-policy/commit/92ca1fb9e1cde6fd7bb3da32d657400093cf0015" target="_blank" rel="noopener" class="cm-sha">92ca1fb</a>
+        <span class="cm-stats">2 文件 <span class="st-plus">+24</span> <span class="st-minus">−54</span></span>
+      </div>
+      <div class="cm-subject">fix: 修复广州页空白 — 粒子代码 null.appendChild 导致 IntersectionObserver 未执行</div>
+      <div class="cm-body">粒子效果被&quot;移除&quot;时只把变量设成 null，但循环体未删除，<br>导致 TypeError: Cannot read properties of null，<br>后续的滚动动画全部不触发，整页 section 卡在 opacity:0。</div>
+    </div>
     <div class="cm-item cat-other">
       <div class="cm-head">
         <span class="cm-icon">📌</span>
@@ -985,11 +1047,10 @@ footer{text-align:center;padding:30px 20px;color:var(--dim);font-size:.78em;bord
       <div class="cm-body">包含广州各区OPC（一人公司）政策汇总、官方可核验筛选版、<br>以及交互式政策导航网页（倒计时、搜索、筛选、材料清单等）。</div>
     </div>
 
-  <button class="show-more-btn" id="showMoreBtn" onclick="document.querySelectorAll('.cm-item').forEach(e=>e.classList.add('show-all'));this.style.display='none'">展开全部记录 ▾</button>
 </div>
 
 <footer>
-  <p>opcgate.com · 维护日志自动生成于 2026-04-16 19:11</p>
+  <p>opcgate.com · 维护日志自动生成于 2026-04-16 22:17</p>
   <p style="margin-top:4px"><a href="https://github.com/siuserxiaowei/opc-policy">在 GitHub 上查看完整提交历史 ↗</a></p>
 </footer>
 
@@ -1007,6 +1068,5 @@ footer{text-align:center;padding:30px 20px;color:var(--dim);font-size:.78em;bord
   s.parentNode.insertBefore(bp, s);
 })();
 </script>
-<script>document.addEventListener('click',e=>{document.querySelectorAll('.nav-dropdown.open').forEach(d=>{if(!d.contains(e.target))d.classList.remove('open')})})</script>
 </body>
 </html>

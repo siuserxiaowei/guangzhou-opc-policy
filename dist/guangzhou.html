@@ -35,6 +35,42 @@
     min-height: 100vh;
     overflow-x: hidden;
   }
+  body.theme-alt {
+    --bg: #0b1220;
+    --card: #111827;
+    --card-hover: #172033;
+    --border: #243244;
+    --text: #e5edf6;
+    --text-dim: #94a3b8;
+    --accent: #60a5fa;
+    --accent-light: #93c5fd;
+    --green: #4ade80;
+    --green-dim: #14532d;
+    --yellow: #fbbf24;
+    --yellow-dim: #78350f;
+    --red: #f87171;
+    --red-dim: #7f1d1d;
+    --blue: #60a5fa;
+    --orange: #f59e0b;
+    --cyan: #2dd4bf;
+    background: var(--bg);
+    color: var(--text);
+  }
+  body.theme-alt .topnav {
+    background: rgba(11,18,32,0.95);
+    border-bottom-color: var(--border);
+  }
+  body.theme-alt .nav-bar { background: rgba(11,18,32,0.92); }
+  body.theme-alt .nav-dropdown-menu {
+    background: var(--card);
+    border-color: var(--border);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.35);
+  }
+  body.theme-alt .nav-dropdown-menu a { color: var(--text-dim); }
+  body.theme-alt .nav-dropdown-menu a:hover { background: rgba(96,165,250,0.12); color: var(--accent-light); }
+  body.theme-alt .hero {
+    background: linear-gradient(135deg, #0f172a 0%, #13243d 50%, #0f2c2b 100%);
+  }
 
   /* Animations */
   @keyframes float { 0%,100%{transform:translate(0,0)} 50%{transform:translate(-20px,-20px)} }
@@ -1478,14 +1514,16 @@ function openProfileEditor() {
   modal.style.display = 'flex';
   // Load saved profile
   const saved = JSON.parse(localStorage.getItem('opc_profile') || '{}');
+  const savedFounder = Array.isArray(saved.founder) ? (saved.founder[0] || '') : (saved.founder || '');
+  const savedQuals = Array.isArray(saved.quals) ? saved.quals : (Array.isArray(saved.qualifications) ? saved.qualifications : []);
   if (saved.district) document.getElementById('pDistrict').value = saved.district;
   if (saved.employees) document.getElementById('pEmployees').value = saved.employees;
-  if (saved.age) document.getElementById('pAge').value = saved.age;
+  if (saved.age || saved.companyAge) document.getElementById('pAge').value = saved.age || saved.companyAge;
   if (saved.industry) document.getElementById('pIndustry').value = saved.industry;
-  if (saved.founder) document.getElementById('pFounder').value = saved.founder;
-  if (saved.quals) {
+  if (savedFounder) document.getElementById('pFounder').value = savedFounder;
+  if (savedQuals.length) {
     document.querySelectorAll('.pchip').forEach(c => {
-      c.classList.toggle('sel', saved.quals.includes(c.dataset.v));
+      c.classList.toggle('sel', savedQuals.includes(c.dataset.v));
     });
   }
 }
@@ -1523,6 +1561,7 @@ function saveProfile() {
   closeProfileEditor();
   renderProfile(profile);
   renderPriorities(profile);
+  updateStatsForProfile(profile);
 }
 
 function renderProfile(p) {
@@ -1662,6 +1701,8 @@ function updateStatsForProfile(p) {
   // Update stat numbers
   if (statCards[0]) statCards[0].querySelector('.stat-num').textContent = goCount;
   if (statCards[1]) statCards[1].querySelector('.stat-num').textContent = checkCount;
+  if (statCards[2]) statCards[2].querySelector('.stat-num').textContent = newCount;
+  if (statCards[3]) statCards[3].querySelector('.stat-num').textContent = noCount;
 }
 
 // ===== Scroll to element =====
@@ -1671,46 +1712,55 @@ function scrollToEl(sel) {
 }
 
 // ===== District filter =====
-function filterDistrict(district, btn) {
-  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  document.querySelectorAll('.district-card').forEach(c => {
-    if (district === 'all' || c.dataset.district === district) {
-      c.style.display = '';
-      c.style.animation = 'fadeInUp 0.4s ease forwards';
-    } else {
-      c.style.display = 'none';
+let activeDistrictFilter = 'all';
+let activeSearchQuery = '';
+
+function cardMatchesQuery(card, query) {
+  return !query || card.textContent.toLowerCase().includes(query);
+}
+
+function applyContentFilters() {
+  const q = activeSearchQuery.trim().toLowerCase();
+  const noRes = document.getElementById('noResults');
+  let found = 0;
+
+  removeHighlights();
+
+  document.querySelectorAll('.card').forEach(card => {
+    const isDistrictCard = card.classList.contains('district-card');
+    const matchesDistrict = !isDistrictCard || activeDistrictFilter === 'all' || card.dataset.district === activeDistrictFilter;
+    const matchesSearch = cardMatchesQuery(card, q);
+    const visible = matchesDistrict && matchesSearch;
+
+    card.style.display = visible ? '' : 'none';
+    if (!visible) return;
+
+    card.style.opacity = '1';
+    if (q) {
+      card.style.animation = 'fadeIn 0.3s';
+      highlightText(card, activeSearchQuery);
+      found++;
+    } else if (isDistrictCard && activeDistrictFilter !== 'all') {
+      card.style.animation = 'fadeInUp 0.4s ease forwards';
     }
   });
+
+  noRes.style.display = q && found === 0 ? 'block' : 'none';
+}
+
+function filterDistrict(district, btn) {
+  activeDistrictFilter = district;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  applyContentFilters();
 }
 
 // ===== Search =====
 function handleSearch(query) {
   const clear = document.getElementById('searchClear');
-  const noRes = document.getElementById('noResults');
+  activeSearchQuery = query;
   clear.style.display = query ? 'block' : 'none';
-  if (!query) {
-    document.querySelectorAll('.card, .section, .priority-item, .timeline-item, .contact-item, .stat-card').forEach(el => { el.style.display = ''; el.style.opacity = '1'; });
-    noRes.style.display = 'none';
-    removeHighlights();
-    return;
-  }
-  const q = query.toLowerCase();
-  let found = 0;
-  removeHighlights();
-  document.querySelectorAll('.card').forEach(card => {
-    const text = card.textContent.toLowerCase();
-    if (text.includes(q)) {
-      card.style.display = '';
-      card.style.opacity = '1';
-      card.style.animation = 'fadeIn 0.3s';
-      found++;
-      highlightText(card, query);
-    } else {
-      card.style.display = 'none';
-    }
-  });
-  noRes.style.display = found === 0 ? 'block' : 'none';
+  applyContentFilters();
 }
 
 function clearSearch() {
@@ -1724,7 +1774,8 @@ function highlightText(container, query) {
   while (walker.nextNode()) nodes.push(walker.currentNode);
   const regex = new RegExp(`(${query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
   nodes.forEach(node => {
-    if (node.parentElement.tagName === 'SCRIPT' || node.parentElement.tagName === 'STYLE') return;
+    if (!node.parentElement || node.parentElement.tagName === 'SCRIPT' || node.parentElement.tagName === 'STYLE') return;
+    regex.lastIndex = 0;
     if (regex.test(node.textContent)) {
       const span = document.createElement('span');
       span.innerHTML = node.textContent.replace(regex, '<mark class="search-highlight">$1</mark>');
@@ -1749,6 +1800,28 @@ function removeHighlights() {
 
 // ===== Table sort =====
 let sortDir = {};
+function parseAmountSortValue(text) {
+  const cleaned = text.replace(/[,\s，]/g, '');
+  const matches = [...cleaned.matchAll(/(\d+(?:\.\d+)?)(万)?/g)];
+  if (matches.length) {
+    return Math.max(...matches.map(m => {
+      const base = parseFloat(m[1]);
+      return m[2] ? base * 10000 : base;
+    }));
+  }
+  if (/免费|非现金|token|曝光/i.test(cleaned)) return 0;
+  return -1;
+}
+
+function parseMatchSortValue(text) {
+  if (/高度匹配|可直接去/.test(text)) return 5;
+  if (/符合条件/.test(text)) return 4;
+  if (/需核实|看法人身份|可参赛/.test(text)) return 3;
+  if (/政策未落地|需迁址/.test(text)) return 2;
+  if (/暂不匹配/.test(text)) return 1;
+  return 0;
+}
+
 function sortTable(col) {
   const table = document.getElementById('compareTable');
   const tbody = table.querySelector('tbody');
@@ -1757,7 +1830,14 @@ function sortTable(col) {
   rows.sort((a, b) => {
     const at = a.cells[col].textContent.trim();
     const bt = b.cells[col].textContent.trim();
-    return sortDir[col] ? at.localeCompare(bt, 'zh') : bt.localeCompare(at, 'zh');
+    const av = col === 1 ? parseAmountSortValue(at) : (col === 3 ? parseMatchSortValue(at) : at);
+    const bv = col === 1 ? parseAmountSortValue(bt) : (col === 3 ? parseMatchSortValue(bt) : bt);
+    if (typeof av === 'number' && typeof bv === 'number') {
+      return sortDir[col] ? av - bv : bv - av;
+    }
+    return sortDir[col]
+      ? String(av).localeCompare(String(bv), 'zh')
+      : String(bv).localeCompare(String(av), 'zh');
   });
   rows.forEach(r => { r.style.animation = 'fadeIn 0.3s'; tbody.appendChild(r); });
 }
@@ -1793,24 +1873,18 @@ function loadChecklistState() {
 loadChecklistState();
 
 // ===== Theme =====
-function toggleTheme() {
-  const body = document.body;
-  const isLight = body.style.getPropertyValue('--bg') === '#f5f5f7';
-  if (isLight) {
-    body.style.cssText = '';
-    document.getElementById('themeToggle').innerHTML = '&#9789;';
-  } else {
-    body.style.setProperty('--bg', '#f5f5f7');
-    body.style.setProperty('--card', '#ffffff');
-    body.style.setProperty('--card-hover', '#f0f0f5');
-    body.style.setProperty('--border', '#ddd');
-    body.style.setProperty('--text', '#1a1a2e');
-    body.style.setProperty('--text-dim', '#666');
-    body.style.background = '#f5f5f7';
-    body.style.color = '#1a1a2e';
-    document.getElementById('themeToggle').innerHTML = '&#9728;';
-  }
+function applyTheme(theme) {
+  const isAlt = theme === 'alt';
+  document.body.classList.toggle('theme-alt', isAlt);
+  localStorage.setItem('opc_gz_theme', isAlt ? 'alt' : 'default');
+  document.getElementById('themeToggle').innerHTML = isAlt ? '&#9728;' : '&#9789;';
 }
+
+function toggleTheme() {
+  applyTheme(document.body.classList.contains('theme-alt') ? 'default' : 'alt');
+}
+
+applyTheme(localStorage.getItem('opc_gz_theme') === 'alt' ? 'alt' : 'default');
 
 // ===== Modal =====
 function openModal(title, body) {

@@ -191,6 +191,16 @@ h1{font-size:1.8em;margin-bottom:4px}
 </div>
 
 <script>
+const SPECIAL_CITY_PAGES = {
+  '广州': 'guangzhou.html',
+  '成都': 'chengdu.html',
+  '苏州': 'suzhou.html',
+};
+
+function getCityDetailHref(city) {
+  return SPECIAL_CITY_PAGES[city] || `seo/cities/${encodeURIComponent(city)}.html`;
+}
+
 // Load data from JSON directly (static mode) or API
 async function loadDashboard() {
   // 1. 加载本地 policies.json
@@ -292,7 +302,7 @@ function renderDashboard(d) {
   const maxCount = Math.max(...cities.map(c => c[1].count));
   const colors = ['#15803D','#2563EB','#B91C1C','#B45309','#0F766E','#B45309','#e040fb','#76ff03','#64b5f6','#ffab40','#ff6e40'];
   document.getElementById('cityBars').innerHTML = cities.map(([city, s], i) => `
-    <a href="city.html?name=${encodeURIComponent(city)}" class="bar-row" style="text-decoration:none;color:inherit">
+    <a href="${getCityDetailHref(city)}" class="bar-row" style="text-decoration:none;color:inherit">
       <div class="bar-label">${city}</div>
       <div class="bar-track">
         <div class="bar-fill" style="width:${(s.count/maxCount*100)}%;background:${colors[i%colors.length]}">
@@ -327,7 +337,7 @@ function renderDashboard(d) {
   // Amount ranking
   const amtRank = cities.filter(c => c[1].max_amount > 0).sort((a,b) => b[1].max_amount - a[1].max_amount);
   document.getElementById('amountRanking').innerHTML = amtRank.map(([city, s], i) => `
-    <a href="city.html?name=${encodeURIComponent(city)}" class="rank-item" style="text-decoration:none;color:inherit">
+    <a href="${getCityDetailHref(city)}" class="rank-item" style="text-decoration:none;color:inherit">
       <div class="rank-num ${i<3?'rank-'+(i+1):'rank-other'}">${i+1}</div>
       <div class="rank-name">${city}</div>
       <div class="rank-val">${(s.max_amount/10000).toLocaleString()}万</div>
@@ -432,8 +442,8 @@ function renderDashboard(d) {
     }
     document.getElementById('compareTable').style.display = 'table';
     document.getElementById('comparePlaceholder').style.display = 'none';
-    document.getElementById('thA').innerHTML = `<a href="city.html?name=${encodeURIComponent(a)}" style="color:var(--al)">${a} →</a>`;
-    document.getElementById('thB').innerHTML = `<a href="city.html?name=${encodeURIComponent(b)}" style="color:var(--al)">${b} →</a>`;
+    document.getElementById('thA').innerHTML = `<a href="${getCityDetailHref(a)}" style="color:var(--al)">${a} →</a>`;
+    document.getElementById('thB').innerHTML = `<a href="${getCityDetailHref(b)}" style="color:var(--al)">${b} →</a>`;
     const sa = d.city_stats[a], sb = d.city_stats[b];
     const topCat = s => {
       const entries = Object.entries(s.main_category||{});

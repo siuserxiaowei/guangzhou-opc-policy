@@ -123,6 +123,19 @@ footer{text-align:center;padding:30px 20px;color:var(--dim);font-size:.78em;bord
 <script>
 const params = new URLSearchParams(window.location.search);
 const cityName = params.get('name') || '';
+const SPECIAL_CITY_PAGES = {
+  '广州': 'guangzhou.html',
+  '成都': 'chengdu.html',
+  '苏州': 'suzhou.html',
+};
+
+function getCityDetailHref(city) {
+  return SPECIAL_CITY_PAGES[city] || `seo/cities/${encodeURIComponent(city)}.html`;
+}
+
+if (cityName) {
+  window.location.replace(getCityDetailHref(cityName));
+}
 
 async function loadCity() {
   if (!cityName) {
@@ -157,7 +170,7 @@ async function loadCity() {
       const dedicatedPages = { '广州': 'guangzhou.html', '成都': 'chengdu.html', '苏州': 'suzhou.html' };
       let html = '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px">';
       for (const [name, info] of cities) {
-        const href = dedicatedPages[name] || `city.html?name=${encodeURIComponent(name)}`;
+        const href = dedicatedPages[name] || getCityDetailHref(name);
         const maxAmt = info.maxAmount >= 10000 ? Math.round(info.maxAmount / 10000) + '万' : (info.maxAmount || '-');
         const hasDedicated = dedicatedPages[name] ? '<span style="font-size:.7em;padding:1px 6px;background:var(--gd);color:var(--green);border-radius:3px;margin-left:6px">专版</span>' : '';
         html += `<a href="${href}" class="policy-card" style="text-decoration:none;display:block">`;
