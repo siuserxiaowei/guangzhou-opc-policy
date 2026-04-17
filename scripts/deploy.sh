@@ -24,6 +24,8 @@ if command -v python3 >/dev/null 2>&1; then
   python3 scripts/generate_changelog.py >/dev/null
   echo "→ 重新生成 rss.xml"
   python3 scripts/generate_rss.py >/dev/null
+  echo "→ 重新生成 SEO 对比页"
+  python3 scripts/generate_seo_pages.py >/dev/null
   echo "→ 重新生成城市 SEO 深页"
   python3 scripts/generate_city_seo.py >/dev/null
   echo "→ 重新生成 sitemap.xml"

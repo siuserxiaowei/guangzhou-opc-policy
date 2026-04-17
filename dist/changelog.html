@@ -71,6 +71,11 @@ a{color:var(--al);text-decoration:none}a:hover{color:var(--accent)}
 
 .cm-subject{font-size:.95em;font-weight:600;color:var(--text);margin-bottom:6px}
 .cm-body{font-size:.82em;color:var(--dim);line-height:1.7;padding:10px 12px;background:rgba(0,0,0,.2);border-radius:6px;margin-top:8px;border-left:2px solid rgba(37,99,235,.2);white-space:pre-wrap}
+.friend-links{margin-top:14px;padding-top:14px;border-top:1px solid rgba(148,163,184,.18)}
+.friend-title{font-size:.75em;color:var(--dim);margin-bottom:10px}
+.friend-grid{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
+.friend-link{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;background:rgba(148,163,184,.08);border:1px solid rgba(148,163,184,.16);border-radius:999px;color:inherit;font-size:.78em}
+.logo-slot{width:18px;height:18px;border:1px dashed rgba(148,163,184,.45);border-radius:5px;display:inline-flex;align-items:center;justify-content:center;font-size:.52em;color:var(--dim)}
 
 footer{text-align:center;padding:30px 20px;color:var(--dim);font-size:.78em;border-top:1px solid var(--border)}
 @media(max-width:640px){.hero h1{font-size:1.5em}.stats .s{min-width:calc(50% - 6px)}.cm-head{font-size:.88em}.cm-stats{margin-left:0}}
@@ -107,7 +112,7 @@ footer{text-align:center;padding:30px 20px;color:var(--dim);font-size:.78em;bord
   <h1>维护日志 · 核实记录</h1>
   <p>本页记录 opcgate.com 的所有数据核验、更新、修复动作。每条都可追溯到具体的 git commit，拒绝 AI 编造，每次改动都公开透明。</p>
   <div class="stats">
-    <div class="s"><div class="n">86</div><div class="l">总维护次数</div></div>
+    <div class="s"><div class="n">87</div><div class="l">总维护次数</div></div>
     <div class="s"><div class="n">6</div><div class="l">数据核验动作</div></div>
     <div class="s"><div class="n">1</div><div class="l">活跃月份</div></div>
     <div class="s"><div class="n" style="color:var(--green)">LIVE</div><div class="l">持续维护中</div></div>
@@ -118,10 +123,21 @@ footer{text-align:center;padding:30px 20px;color:var(--dim);font-size:.78em;bord
 
   <div class="months">
     <span class="ml">按月分布：</span>
-    <span class="m-chip">2026-04 · 86 次</span>
+    <span class="m-chip">2026-04 · 87 次</span>
   </div>
 
   
+    <div class="cm-item cat-other">
+      <div class="cm-head">
+        <span class="cm-icon">📌</span>
+        <span class="cm-label">其他</span>
+        <span class="cm-date">2026-04-17 08:44</span>
+        <a href="https://github.com/siuserxiaowei/opc-policy/commit/0edc96629008a409240a25a15fcc70f5fc343825" target="_blank" rel="noopener" class="cm-sha">0edc966</a>
+        <span class="cm-stats">17 文件 <span class="st-plus">+561</span> <span class="st-minus">−162</span></span>
+      </div>
+      <div class="cm-subject">结构化 application.schedule — 日历与倒计时能稳定渲染</div>
+      <div class="cm-body">数据<br>- 新增 application.schedule 对象, 支持 deadline/window/recurring/text 四种类型<br>- 6 个已有条目迁移 (3 窗口 / 2 截止 / 1 循环申报)<br>- 广州创业带动就业补贴的&quot;每年1/3/5/7/9/11月1-20日&quot;现在机器可读<br>运行时<br>- assets/js/schedule.js 新增 Schedule.countdown / nextDeadline / displayLabel 共享助手<br>- index/dashboard/city 三页接入 Schedule, 原 calcCountdown 升级并向后兼容<br>- 循环申报窗口自动计算下一期开始/截止日</div>
+    </div>
     <div class="cm-item cat-city">
       <div class="cm-head">
         <span class="cm-icon">🏙️</span>
@@ -1072,8 +1088,9 @@ footer{text-align:center;padding:30px 20px;color:var(--dim);font-size:.78em;bord
 </div>
 
 <footer>
-  <p>opcgate.com · 维护日志自动生成于 2026-04-17 08:43</p>
+  <p>opcgate.com · 维护日志自动生成于 2026-04-17 08:47</p>
   <p style="margin-top:4px"><a href="https://github.com/siuserxiaowei/opc-policy">在 GitHub 上查看完整提交历史 ↗</a></p>
+  <div class="friend-links"><div class="friend-title">友情链接（Logo 位预留，明天可直接替换）</div><div class="friend-grid"><a class="friend-link" href="https://www.xiaobot.net.cn" target="_blank" rel="noopener" title="收录优质小报童专栏，助你快速找到所需专栏内容。"><span class="logo-slot">Logo</span><span>小报童导航</span></a><a class="friend-link" href="https://vibcoding.cn" target="_blank" rel="noopener" title="VibeCoding（氛围编程）资源导航站，收录 VibeCoding 相关资源工具。"><span class="logo-slot">Logo</span><span>VibeCoding导航</span></a><a class="friend-link" href="https://buy.lkami.cn" target="_blank" rel="noopener" title="收录全网优惠会员卡券，折扣低价，每日更新。"><span class="logo-slot">Logo</span><span>省省家会员卡券</span></a><a class="friend-link" href="https://www.soruan.cn" target="_blank" rel="noopener" title="收录正版软件优惠渠道。"><span class="logo-slot">Logo</span><span>搜软正版软件</span></a><a class="friend-link" href="https://www.vpswa.com" target="_blank" rel="noopener" title="收集国内外最新最全的 VPS、云服务器、网络工具网址导航。"><span class="logo-slot">Logo</span><span>VPS导航</span></a><a class="friend-link" href="https://www.sofuye.com" target="_blank" rel="noopener" title="副业项目资源搜索引擎，永久免费。"><span class="logo-slot">Logo</span><span>搜副业</span></a><a class="friend-link" href="https://www.ainav.link" target="_blank" rel="noopener" title="收录国内外数百个 AI 工具。"><span class="logo-slot">Logo</span><span>AI导航</span></a><a class="friend-link" href="https://www.clawnav.cn" target="_blank" rel="noopener" title="OpenClaw 人工智能生态平台，提供排行榜、教程和技能插件内容。"><span class="logo-slot">Logo</span><span>Claw龙虾导航</span></a><a class="friend-link" href="https://www.cpsnav.com" target="_blank" rel="noopener" title="收录全网支持 CPS 分销返佣资源平台。"><span class="logo-slot">Logo</span><span>CPS导航</span></a><a class="friend-link" href="http://www.shenzhendeyang.com" target="_blank" rel="noopener" title="魔武网络科技工作室。"><span class="logo-slot">Logo</span><span>魔武网络科技工作室</span></a></div></div>
 </footer>
 
 <!-- 百度自动推送 -->
