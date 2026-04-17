@@ -72,9 +72,10 @@ a{color:var(--al);text-decoration:none}a:hover{color:var(--accent)}
 .cm-subject{font-size:.95em;font-weight:600;color:var(--text);margin-bottom:6px}
 .cm-body{font-size:.82em;color:var(--dim);line-height:1.7;padding:10px 12px;background:rgba(0,0,0,.2);border-radius:6px;margin-top:8px;border-left:2px solid rgba(37,99,235,.2);white-space:pre-wrap}
 .friend-links{margin-top:14px;padding-top:14px;border-top:1px solid rgba(148,163,184,.18)}
-.friend-title{font-size:.75em;color:var(--dim);margin-bottom:10px}
-.friend-grid{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
-.friend-link{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;background:rgba(148,163,184,.08);border:1px solid rgba(148,163,184,.16);border-radius:999px;color:inherit;font-size:.78em}
+.friend-title{font-size:.75em;color:var(--dim);margin-bottom:10px;text-align:center}
+.friend-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;max-width:880px;margin:0 auto}
+.friend-link{display:inline-flex;align-items:center;justify-content:center;padding:8px 12px;background:rgba(148,163,184,.08);border:1px solid rgba(148,163,184,.16);border-radius:999px;color:inherit;font-size:.78em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+@media(max-width:640px){.friend-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 .logo-slot{width:18px;height:18px;border:1px dashed rgba(148,163,184,.45);border-radius:5px;display:inline-flex;align-items:center;justify-content:center;font-size:.52em;color:var(--dim)}
 
 footer{text-align:center;padding:30px 20px;color:var(--dim);font-size:.78em;border-top:1px solid var(--border)}
@@ -112,7 +113,7 @@ footer{text-align:center;padding:30px 20px;color:var(--dim);font-size:.78em;bord
   <h1>维护日志 · 核实记录</h1>
   <p>本页记录 opcgate.com 的所有数据核验、更新、修复动作。每条都可追溯到具体的 git commit，拒绝 AI 编造，每次改动都公开透明。</p>
   <div class="stats">
-    <div class="s"><div class="n">90</div><div class="l">总维护次数</div></div>
+    <div class="s"><div class="n">91</div><div class="l">总维护次数</div></div>
     <div class="s"><div class="n">6</div><div class="l">数据核验动作</div></div>
     <div class="s"><div class="n">1</div><div class="l">活跃月份</div></div>
     <div class="s"><div class="n" style="color:var(--green)">LIVE</div><div class="l">持续维护中</div></div>
@@ -123,10 +124,21 @@ footer{text-align:center;padding:30px 20px;color:var(--dim);font-size:.78em;bord
 
   <div class="months">
     <span class="ml">按月分布：</span>
-    <span class="m-chip">2026-04 · 90 次</span>
+    <span class="m-chip">2026-04 · 91 次</span>
   </div>
 
   
+    <div class="cm-item cat-other">
+      <div class="cm-head">
+        <span class="cm-icon">📌</span>
+        <span class="cm-label">其他</span>
+        <span class="cm-date">2026-04-17 08:57</span>
+        <a href="https://github.com/siuserxiaowei/opc-policy/commit/57beef823f8f11d82030967a4b93ae55140f051b" target="_blank" rel="noopener" class="cm-sha">57beef8</a>
+        <span class="cm-stats">80 文件 <span class="st-plus">+516</span> <span class="st-minus">−536</span></span>
+      </div>
+      <div class="cm-subject">友情链接: 去 Logo 占位, 排成 5x2 网格, 标题去掉临时说明</div>
+      <div class="cm-body">- assets/friend-links.js: 删 Logo 方框, grid 5 列 2 行, 移动端 2x5<br>- generate_city_seo.py: 同步样式, .friend-grid 改 grid 布局<br>- city.html: 删除原 hardcoded 内联版本, 改用 friend-links.js</div>
+    </div>
     <div class="cm-item cat-other">
       <div class="cm-head">
         <span class="cm-icon">📌</span>
@@ -1121,9 +1133,9 @@ footer{text-align:center;padding:30px 20px;color:var(--dim);font-size:.78em;bord
 </div>
 
 <footer>
-  <p>opcgate.com · 维护日志自动生成于 2026-04-17 08:57</p>
+  <p>opcgate.com · 维护日志自动生成于 2026-04-17 09:20</p>
   <p style="margin-top:4px"><a href="https://github.com/siuserxiaowei/opc-policy">在 GitHub 上查看完整提交历史 ↗</a></p>
-  <div class="friend-links"><div class="friend-title">友情链接（Logo 位预留，明天可直接替换）</div><div class="friend-grid"><a class="friend-link" href="https://www.xiaobot.net.cn" target="_blank" rel="noopener" title="收录优质小报童专栏，助你快速找到所需专栏内容。"><span class="logo-slot">Logo</span><span>小报童导航</span></a><a class="friend-link" href="https://vibcoding.cn" target="_blank" rel="noopener" title="VibeCoding（氛围编程）资源导航站，收录 VibeCoding 相关资源工具。"><span class="logo-slot">Logo</span><span>VibeCoding导航</span></a><a class="friend-link" href="https://buy.lkami.cn" target="_blank" rel="noopener" title="收录全网优惠会员卡券，折扣低价，每日更新。"><span class="logo-slot">Logo</span><span>省省家会员卡券</span></a><a class="friend-link" href="https://www.soruan.cn" target="_blank" rel="noopener" title="收录正版软件优惠渠道。"><span class="logo-slot">Logo</span><span>搜软正版软件</span></a><a class="friend-link" href="https://www.vpswa.com" target="_blank" rel="noopener" title="收集国内外最新最全的 VPS、云服务器、网络工具网址导航。"><span class="logo-slot">Logo</span><span>VPS导航</span></a><a class="friend-link" href="https://www.sofuye.com" target="_blank" rel="noopener" title="副业项目资源搜索引擎，永久免费。"><span class="logo-slot">Logo</span><span>搜副业</span></a><a class="friend-link" href="https://www.ainav.link" target="_blank" rel="noopener" title="收录国内外数百个 AI 工具。"><span class="logo-slot">Logo</span><span>AI导航</span></a><a class="friend-link" href="https://www.clawnav.cn" target="_blank" rel="noopener" title="OpenClaw 人工智能生态平台，提供排行榜、教程和技能插件内容。"><span class="logo-slot">Logo</span><span>Claw龙虾导航</span></a><a class="friend-link" href="https://www.cpsnav.com" target="_blank" rel="noopener" title="收录全网支持 CPS 分销返佣资源平台。"><span class="logo-slot">Logo</span><span>CPS导航</span></a><a class="friend-link" href="http://www.shenzhendeyang.com" target="_blank" rel="noopener" title="魔武网络科技工作室。"><span class="logo-slot">Logo</span><span>魔武网络科技工作室</span></a></div></div>
+  <div class="friend-links"><div class="friend-title">友情链接</div><div class="friend-grid"><a class="friend-link" href="https://www.xiaobot.net.cn" target="_blank" rel="noopener" title="收录优质小报童专栏，助你快速找到所需专栏内容。">小报童导航</a><a class="friend-link" href="https://vibcoding.cn" target="_blank" rel="noopener" title="VibeCoding（氛围编程）资源导航站，收录 VibeCoding 相关资源工具。">VibeCoding导航</a><a class="friend-link" href="https://buy.lkami.cn" target="_blank" rel="noopener" title="收录全网优惠会员卡券，折扣低价，每日更新。">省省家会员卡券</a><a class="friend-link" href="https://www.soruan.cn" target="_blank" rel="noopener" title="收录正版软件优惠渠道。">搜软正版软件</a><a class="friend-link" href="https://www.vpswa.com" target="_blank" rel="noopener" title="收集国内外最新最全的 VPS、云服务器、网络工具网址导航。">VPS导航</a><a class="friend-link" href="https://www.sofuye.com" target="_blank" rel="noopener" title="副业项目资源搜索引擎，永久免费。">搜副业</a><a class="friend-link" href="https://www.ainav.link" target="_blank" rel="noopener" title="收录国内外数百个 AI 工具。">AI导航</a><a class="friend-link" href="https://www.clawnav.cn" target="_blank" rel="noopener" title="OpenClaw 人工智能生态平台，提供排行榜、教程和技能插件内容。">Claw龙虾导航</a><a class="friend-link" href="https://www.cpsnav.com" target="_blank" rel="noopener" title="收录全网支持 CPS 分销返佣资源平台。">CPS导航</a><a class="friend-link" href="http://www.shenzhendeyang.com" target="_blank" rel="noopener" title="魔武网络科技工作室。">魔武网络科技工作室</a></div></div>
 </footer>
 
 <!-- 百度自动推送 -->
