@@ -18,6 +18,20 @@ PROJECT_NAME="opc-policy"
 
 cd "$REPO"
 
+# ── 可选：链接健康度检查（--skip-check 可跳过）─────────────────────
+SKIP_CHECK=0
+for arg in "$@"; do
+  [[ "$arg" == "--skip-check" ]] && SKIP_CHECK=1
+done
+if [[ "$SKIP_CHECK" -eq 0 ]] && command -v python3 >/dev/null 2>&1; then
+  echo "→ 链接健康度检查 (scripts/check_links.py --only active)"
+  # 死链超过 10 条则中止部署（保护公开数据质量）
+  python3 scripts/check_links.py --only active --fail-on-dead 10 2>&1 | tail -20 || {
+    echo "❌ 链接检查失败，部署终止。如确认要强制部署，加 --skip-check" >&2
+    exit 1
+  }
+fi
+
 # ── 可选：重新生成 changelog + rss ──────────────────────────────────
 if command -v python3 >/dev/null 2>&1; then
   echo "→ 重新生成 changelog.html"

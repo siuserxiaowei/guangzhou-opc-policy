@@ -1,6 +1,6 @@
 {
-  "version": "5.3.0",
-  "updated_at": "2026-04-17",
+  "version": "5.3.1",
+  "updated_at": "2026-04-19",
   "policies": [
     {
       "id": "guangdong-province-001",
@@ -111,7 +111,7 @@
       "application": {
         "deadline": "每年1/3/5/7/9/11月的1-20日",
         "next_window": "2026-05-01 至 2026-05-20",
-        "url": "https://www.gdzwfw.gov.cn/",
+        "url": "https://rsj.gz.gov.cn/zwdt/tzgg/content/post_9461518.html",
         "schedule": {
           "type": "recurring",
           "months": [
@@ -130,7 +130,10 @@
         }
       },
       "links": {
-        "official": "https://rsj.gz.gov.cn/attachment/7/7631/7631455/9745334.pdf"
+        "official": "https://www.gz.gov.cn/attachment/7/7505/7505136/5487347.docx",
+        "news": [
+          "https://zhuanlan.zhihu.com/p/667801531"
+        ]
       },
       "communities": [],
       "tags": [
@@ -186,7 +189,7 @@
       },
       "application": {
         "next_window": "2026-05-01 至 2026-05-20",
-        "url": "https://www.gdzwfw.gov.cn/",
+        "url": "https://rsj.gz.gov.cn/zwdt/tzgg/content/post_9461518.html",
         "schedule": {
           "type": "window",
           "start": "2026-05-01",
@@ -195,7 +198,7 @@
         }
       },
       "links": {
-        "official": "https://rsj.gz.gov.cn/attachment/7/7631/7631455/9745334.pdf"
+        "official": "http://gz.bendibao.com/life/20191031/255749.shtml"
       },
       "communities": [],
       "tags": [
@@ -251,7 +254,7 @@
       },
       "application": {
         "next_window": "2026-05-01 至 2026-05-20",
-        "url": "https://www.gdzwfw.gov.cn/",
+        "url": "https://rsj.gz.gov.cn/zwdt/tzgg/content/post_9461518.html",
         "schedule": {
           "type": "window",
           "start": "2026-05-01",
@@ -260,7 +263,7 @@
         }
       },
       "links": {
-        "official": "https://rsj.gz.gov.cn/attachment/7/7631/7631455/9745334.pdf"
+        "official": "https://rsj.gz.gov.cn/zwdt/tzgg/content/post_9461518.html"
       },
       "communities": [],
       "tags": [
@@ -319,11 +322,11 @@
         ]
       },
       "application": {
-        "url": "https://qyfw.gzonline.gov.cn/qyfw/home",
+        "url": "https://news.ycwb.com/ikimvkotjn/content_54065095.htm",
         "address": "天河区珠江新城华利路61号五楼509室"
       },
       "links": {
-        "official": "https://qyfw.gzonline.gov.cn/qyfw/home",
+        "official": "https://news.ycwb.com/ikimvkotjn/content_54065095.htm",
         "news": [
           "https://www.21jingji.com/article/20260320/herald/9b63ae848655867b0141f734b84f97b6.html"
         ]
@@ -511,7 +514,7 @@
         ]
       },
       "links": {
-        "official": "https://www.haizhu.gov.cn/hdjlpt/yjzj/answer/49445",
+        "official": "https://www.haizhu.gov.cn/gzhzzs/gkmlpt/content/10/10738/post_10738293.html",
         "news": [
           "https://www.sfccn.com/2026/3-19/yMMDE0NzNfMjExODcyMQ.html"
         ]
@@ -564,7 +567,10 @@
       "updated_at": "2026-04-10",
       "verified": true,
       "landing_status": "draft",
-      "landing_difficulty": "medium"
+      "landing_difficulty": "medium",
+      "application": {
+        "url": "https://www.haizhu.gov.cn/gzhzzs/gkmlpt/content/10/10738/post_10738293.html"
+      }
     },
     {
       "id": "guangzhou-huangpu-001",
@@ -949,7 +955,10 @@
         ]
       },
       "links": {
-        "official": "https://www.gz.gov.cn/zwgk/zdly/jycy/gzdt/content/post_9686685.html"
+        "official": "https://rsj.gz.gov.cn/ywzt/jycy/gxbys/cyds/",
+        "news": [
+          "https://rsj.gz.gov.cn/ywzt/ztbd/bwyc/jy/content/post_10176395.html"
+        ]
       },
       "communities": [],
       "tags": [
@@ -959,7 +968,10 @@
       "updated_at": "2026-04-10",
       "verified": true,
       "landing_status": "active",
-      "landing_difficulty": "hard"
+      "landing_difficulty": "hard",
+      "application": {
+        "url": "https://rsj.gz.gov.cn/ywzt/jycy/gxbys/cyds/"
+      }
     },
     {
       "id": "shenzhen-city-001",
