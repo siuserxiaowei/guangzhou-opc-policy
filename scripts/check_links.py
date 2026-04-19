@@ -23,6 +23,18 @@ OUT = ROOT / "data" / "link-health.json"
 TIMEOUT = 15
 WORKERS = 8
 BINARY_EXTS = ('.pdf', '.doc', '.docx', '.xlsx', '.xls', '.zip')
+# 官方政府域名白名单（其他一律判为新闻/二手来源）
+# .gov.cn: 各级政府
+# cnbayarea.org.cn: 粤港澳大湾区门户(省政府办)
+# ccopyright.com.cn: 中国版权保护中心(国家版权局直属事业单位)
+# ccpit.org: 中国贸促会
+GOV_DOMAINS = ('.gov.cn', 'cnbayarea.org.cn', 'ccopyright.com.cn', 'ccpit.org')
+
+
+def is_government_url(url):
+    from urllib.parse import urlparse
+    host = (urlparse(url).hostname or '').lower()
+    return any(host.endswith(d) for d in GOV_DOMAINS)
 
 
 def strip_html(raw):
@@ -92,6 +104,7 @@ def probe(task):
         "http_ok": bool(http_ok),
         "content_ok": content_ok if not is_binary else True,
         "is_binary": is_binary,
+        "is_government": is_government_url(url),
         "issue": issue,
         "error": err,
         "dead": not http_ok or (not is_binary and not content_ok),
@@ -159,15 +172,23 @@ def main():
             results.append(r)
 
     dead = [r for r in results if r["dead"]]
-    # 按政策汇总
+    non_gov = [r for r in results if not r["is_government"] and not r["dead"]]
     by_policy = {}
     for r in results:
         by_policy.setdefault(r["policy_id"], []).append(r)
 
     print(f"\n=== 健康度 ===")
     print(f"  检测 {len(results)} 条链接")
-    print(f"  ✅ 有效 {len(results) - len(dead)}  ❌ 失效 {len(dead)}")
+    print(f"  ✅ 官方 .gov.cn 有效: {sum(1 for r in results if r['is_government'] and not r['dead'])}")
+    print(f"  ⚠️  非官方(新闻/二手) 有效: {len(non_gov)}")
+    print(f"  ❌ 失效: {len(dead)}")
     print(f"  覆盖政策 {len(by_policy)} 条")
+    if non_gov:
+        print(f"\n=== ⚠️ 非官方域名（需要找 .gov.cn 替代） ===")
+        for r in non_gov[:20]:
+            from urllib.parse import urlparse
+            host = urlparse(r['url']).hostname or '?'
+            print(f"  [{host:25s}] {r['policy_id']:30s} ({r['kind']}) {r['url'][:60]}")
 
     if dead:
         print(f"\n=== ❌ 失效清单 ===")

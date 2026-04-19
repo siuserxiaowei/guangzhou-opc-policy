@@ -1,12 +1,11 @@
 {
-  "generated_at": "2026-04-19T10:14:24",
-  "total_links": 51,
-  "dead_count": 4,
-  "healthy_count": 47,
+  "generated_at": "2026-04-19T14:04:30",
+  "total_links": 52,
+  "dead_count": 3,
+  "healthy_count": 49,
   "coverage_policies": 43,
   "dead_policies": [
     "beijing-city-001",
-    "guangzhou-haizhu-003",
     "suzhou-sipd-001",
     "zhengzhou-airport-001"
   ],
@@ -19,6 +18,7 @@
       "http_ok": true,
       "content_ok": true,
       "is_binary": false,
+      "is_government": true,
       "issue": "",
       "error": "",
       "dead": false
@@ -31,6 +31,7 @@
       "http_ok": true,
       "content_ok": true,
       "is_binary": true,
+      "is_government": true,
       "issue": "",
       "error": "",
       "dead": false
@@ -43,18 +44,20 @@
       "http_ok": true,
       "content_ok": true,
       "is_binary": false,
+      "is_government": true,
       "issue": "",
       "error": "",
       "dead": false
     },
     {
       "policy_id": "guangzhou-city-002",
-      "url": "http://gz.bendibao.com/life/20191031/255749.shtml",
+      "url": "https://rsj.gz.gov.cn/ywzt/jycy/gxbys/gxbysrmzc/content/post_8751147.html",
       "kind": "official",
       "status": 200,
       "http_ok": true,
       "content_ok": true,
       "is_binary": false,
+      "is_government": true,
       "issue": "",
       "error": "",
       "dead": false
@@ -67,6 +70,7 @@
       "http_ok": true,
       "content_ok": true,
       "is_binary": false,
+      "is_government": true,
       "issue": "",
       "error": "",
       "dead": false
@@ -79,18 +83,33 @@
       "http_ok": true,
       "content_ok": true,
       "is_binary": false,
+      "is_government": true,
       "issue": "",
       "error": "",
       "dead": false
     },
     {
       "policy_id": "guangzhou-city-004",
-      "url": "https://news.ycwb.com/ikimvkotjn/content_54065095.htm",
+      "url": "http://www.thnet.gov.cn/zwfw/zdfw/zcgaqnfz/xgzcjjd/content/post_7802944.html",
       "kind": "official",
       "status": 200,
       "http_ok": true,
       "content_ok": true,
       "is_binary": false,
+      "is_government": true,
+      "issue": "",
+      "error": "",
+      "dead": false
+    },
+    {
+      "policy_id": "guangzhou-city-004",
+      "url": "http://www.thnet.gov.cn/zwfw/zdfw/zcgaqnfz/",
+      "kind": "application",
+      "status": 200,
+      "http_ok": true,
+      "content_ok": true,
+      "is_binary": false,
+      "is_government": true,
       "issue": "",
       "error": "",
       "dead": false
@@ -103,6 +122,7 @@
       "http_ok": true,
       "content_ok": true,
       "is_binary": false,
+      "is_government": true,
       "issue": "",
       "error": "",
       "dead": false
@@ -115,6 +135,7 @@
       "http_ok": true,
       "content_ok": true,
       "is_binary": false,
+      "is_government": true,
       "issue": "",
       "error": "",
       "dead": false
@@ -127,6 +148,7 @@
       "http_ok": true,
       "content_ok": true,
       "is_binary": false,
+      "is_government": true,
       "issue": "",
       "error": "",
       "dead": false
@@ -139,6 +161,7 @@
       "http_ok": true,
       "content_ok": true,
       "is_binary": false,
+      "is_government": true,
       "issue": "",
       "error": "",
       "dead": false
@@ -151,6 +174,7 @@
       "http_ok": true,
       "content_ok": true,
       "is_binary": false,
+      "is_government": true,
       "issue": "",
       "error": "",
       "dead": false
@@ -163,6 +187,7 @@
       "http_ok": true,
       "content_ok": true,
       "is_binary": false,
+      "is_government": true,
       "issue": "",
       "error": "",
       "dead": false
@@ -175,6 +200,7 @@
       "http_ok": true,
       "content_ok": true,
       "is_binary": false,
+      "is_government": true,
       "issue": "",
       "error": "",
       "dead": false
@@ -187,6 +213,7 @@
       "http_ok": true,
       "content_ok": true,
       "is_binary": false,
+      "is_government": true,
       "issue": "",
       "error": "",
       "dead": false
@@ -199,6 +226,7 @@
       "http_ok": true,
       "content_ok": true,
       "is_binary": false,
+      "is_government": true,
       "issue": "",
       "error": "",
       "dead": false
@@ -211,6 +239,7 @@
       "http_ok": true,
       "content_ok": true,
       "is_binary": false,
+      "is_government": false,
       "issue": "",
       "error": "",
       "dead": false
@@ -223,6 +252,7 @@
       "http_ok": true,
       "content_ok": true,
       "is_binary": false,
+      "is_government": true,
       "issue": "",
       "error": "",
       "dead": false
@@ -235,6 +265,7 @@
       "http_ok": true,
       "content_ok": true,
       "is_binary": false,
+      "is_government": true,
       "issue": "",
       "error": "",
       "dead": false
@@ -247,6 +278,7 @@
       "http_ok": true,
       "content_ok": false,
       "is_binary": false,
+      "is_government": true,
       "issue": "内容过短(8字)",
       "error": "",
       "dead": true
@@ -259,6 +291,7 @@
       "http_ok": true,
       "content_ok": true,
       "is_binary": false,
+      "is_government": true,
       "issue": "",
       "error": "",
       "dead": false
@@ -271,6 +304,7 @@
       "http_ok": true,
       "content_ok": true,
       "is_binary": false,
+      "is_government": true,
       "issue": "",
       "error": "",
       "dead": false
@@ -283,30 +317,33 @@
       "http_ok": true,
       "content_ok": true,
       "is_binary": false,
+      "is_government": true,
       "issue": "",
       "error": "",
       "dead": false
     },
     {
       "policy_id": "shanghai-city-001",
-      "url": "https://www.sh-hitech.com/ryrd/21812.html",
+      "url": "https://www.shanghai.gov.cn/hqcyzc2/20230417/d2eb7567de124d8baf81904ae0e7f3b8.html",
       "kind": "official",
       "status": 200,
       "http_ok": true,
       "content_ok": true,
       "is_binary": false,
+      "is_government": true,
       "issue": "",
       "error": "",
       "dead": false
     },
     {
       "policy_id": "shanghai-lingang-001",
-      "url": "http://sh.people.com.cn/n2/2026/0404/c134768-41543591.html",
+      "url": "https://www.shanghai.gov.cn/nw4411/20250822/8de6259ba15a40e2b40e0d23030a7a6d.html",
       "kind": "official",
       "status": 200,
       "http_ok": true,
       "content_ok": true,
       "is_binary": false,
+      "is_government": true,
       "issue": "",
       "error": "",
       "dead": false
@@ -319,6 +356,7 @@
       "http_ok": true,
       "content_ok": true,
       "is_binary": false,
+      "is_government": true,
       "issue": "",
       "error": "",
       "dead": false
@@ -331,6 +369,7 @@
       "http_ok": true,
       "content_ok": true,
       "is_binary": false,
+      "is_government": true,
       "issue": "",
       "error": "",
       "dead": false
@@ -343,6 +382,7 @@
       "http_ok": true,
       "content_ok": true,
       "is_binary": false,
+      "is_government": true,
       "issue": "",
       "error": "",
       "dead": false
@@ -355,6 +395,7 @@
       "http_ok": true,
       "content_ok": true,
       "is_binary": false,
+      "is_government": true,
       "issue": "",
       "error": "",
       "dead": false
@@ -367,6 +408,7 @@
       "http_ok": true,
       "content_ok": true,
       "is_binary": false,
+      "is_government": true,
       "issue": "",
       "error": "",
       "dead": false
@@ -379,6 +421,7 @@
       "http_ok": true,
       "content_ok": false,
       "is_binary": false,
+      "is_government": true,
       "issue": "内容过短(45字)",
       "error": "",
       "dead": true
@@ -391,6 +434,7 @@
       "http_ok": true,
       "content_ok": true,
       "is_binary": false,
+      "is_government": true,
       "issue": "",
       "error": "",
       "dead": false
@@ -403,6 +447,7 @@
       "http_ok": true,
       "content_ok": true,
       "is_binary": false,
+      "is_government": true,
       "issue": "",
       "error": "",
       "dead": false
@@ -415,6 +460,7 @@
       "http_ok": true,
       "content_ok": true,
       "is_binary": false,
+      "is_government": false,
       "issue": "",
       "error": "",
       "dead": false
@@ -427,6 +473,7 @@
       "http_ok": true,
       "content_ok": true,
       "is_binary": false,
+      "is_government": true,
       "issue": "",
       "error": "",
       "dead": false
@@ -439,6 +486,7 @@
       "http_ok": true,
       "content_ok": true,
       "is_binary": false,
+      "is_government": true,
       "issue": "",
       "error": "",
       "dead": false
@@ -451,6 +499,7 @@
       "http_ok": true,
       "content_ok": true,
       "is_binary": false,
+      "is_government": true,
       "issue": "",
       "error": "",
       "dead": false
@@ -463,6 +512,7 @@
       "http_ok": true,
       "content_ok": true,
       "is_binary": false,
+      "is_government": true,
       "issue": "",
       "error": "",
       "dead": false
@@ -475,6 +525,7 @@
       "http_ok": true,
       "content_ok": true,
       "is_binary": false,
+      "is_government": true,
       "issue": "",
       "error": "",
       "dead": false
@@ -487,6 +538,7 @@
       "http_ok": true,
       "content_ok": true,
       "is_binary": false,
+      "is_government": true,
       "issue": "",
       "error": "",
       "dead": false
@@ -499,6 +551,7 @@
       "http_ok": true,
       "content_ok": true,
       "is_binary": false,
+      "is_government": true,
       "issue": "",
       "error": "",
       "dead": false
@@ -511,6 +564,7 @@
       "http_ok": true,
       "content_ok": true,
       "is_binary": false,
+      "is_government": true,
       "issue": "",
       "error": "",
       "dead": false
@@ -523,21 +577,23 @@
       "http_ok": false,
       "content_ok": false,
       "is_binary": false,
+      "is_government": true,
       "issue": "GET失败",
       "error": "HTTP Error 404: Not Found",
       "dead": true
     },
     {
       "policy_id": "guangzhou-haizhu-003",
-      "url": "http://www.aicompetition-pz.com/",
+      "url": "https://www.haizhu.gov.cn/hzdt/ztlm/tzhz/yshj/yshl/content/post_10699393.html",
       "kind": "official",
-      "status": "ERR",
-      "http_ok": false,
-      "content_ok": false,
+      "status": 200,
+      "http_ok": true,
+      "content_ok": true,
       "is_binary": false,
-      "issue": "GET失败",
-      "error": "HTTP Error 502: Bad Gateway",
-      "dead": true
+      "is_government": true,
+      "issue": "",
+      "error": "",
+      "dead": false
     },
     {
       "policy_id": "chongqing-city-002",
@@ -547,6 +603,7 @@
       "http_ok": true,
       "content_ok": true,
       "is_binary": false,
+      "is_government": true,
       "issue": "",
       "error": "",
       "dead": false
@@ -559,6 +616,7 @@
       "http_ok": true,
       "content_ok": true,
       "is_binary": false,
+      "is_government": true,
       "issue": "",
       "error": "",
       "dead": false
@@ -571,6 +629,7 @@
       "http_ok": true,
       "content_ok": true,
       "is_binary": false,
+      "is_government": true,
       "issue": "",
       "error": "",
       "dead": false
@@ -583,6 +642,7 @@
       "http_ok": true,
       "content_ok": true,
       "is_binary": false,
+      "is_government": true,
       "issue": "",
       "error": "",
       "dead": false
@@ -595,6 +655,7 @@
       "http_ok": true,
       "content_ok": true,
       "is_binary": false,
+      "is_government": true,
       "issue": "",
       "error": "",
       "dead": false
@@ -607,6 +668,7 @@
       "http_ok": true,
       "content_ok": true,
       "is_binary": false,
+      "is_government": true,
       "issue": "",
       "error": "",
       "dead": false
@@ -619,6 +681,7 @@
       "http_ok": true,
       "content_ok": true,
       "is_binary": false,
+      "is_government": true,
       "issue": "",
       "error": "",
       "dead": false

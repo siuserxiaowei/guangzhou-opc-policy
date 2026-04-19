@@ -1,5 +1,5 @@
 {
-  "version": "5.3.1",
+  "version": "5.3.2",
   "updated_at": "2026-04-19",
   "policies": [
     {
@@ -198,7 +198,7 @@
         }
       },
       "links": {
-        "official": "http://gz.bendibao.com/life/20191031/255749.shtml"
+        "official": "https://rsj.gz.gov.cn/ywzt/jycy/gxbys/gxbysrmzc/content/post_8751147.html"
       },
       "communities": [],
       "tags": [
@@ -322,11 +322,11 @@
         ]
       },
       "application": {
-        "url": "https://news.ycwb.com/ikimvkotjn/content_54065095.htm",
+        "url": "http://www.thnet.gov.cn/zwfw/zdfw/zcgaqnfz/",
         "address": "天河区珠江新城华利路61号五楼509室"
       },
       "links": {
-        "official": "https://news.ycwb.com/ikimvkotjn/content_54065095.htm",
+        "official": "http://www.thnet.gov.cn/zwfw/zdfw/zcgaqnfz/xgzcjjd/content/post_7802944.html",
         "news": [
           "https://www.21jingji.com/article/20260320/herald/9b63ae848655867b0141f734b84f97b6.html"
         ]
@@ -1700,7 +1700,7 @@
         ]
       },
       "links": {
-        "official": "https://www.sh-hitech.com/ryrd/21812.html"
+        "official": "https://www.shanghai.gov.cn/hqcyzc2/20230417/d2eb7567de124d8baf81904ae0e7f3b8.html"
       },
       "communities": [
         {
@@ -1720,7 +1720,8 @@
         "工位全免"
       ],
       "updated_at": "2026-04-10",
-      "verified": true
+      "verified": true,
+      "application": {}
     },
     {
       "id": "shanghai-lingang-001",
@@ -1764,7 +1765,7 @@
         "registration_location": "临港新片区"
       },
       "links": {
-        "official": "http://sh.people.com.cn/n2/2026/0404/c134768-41543591.html"
+        "official": "https://www.shanghai.gov.cn/nw4411/20250822/8de6259ba15a40e2b40e0d23030a7a6d.html"
       },
       "communities": [],
       "tags": [
@@ -1774,7 +1775,8 @@
         "288行动"
       ],
       "updated_at": "2026-04-10",
-      "verified": true
+      "verified": true,
+      "application": {}
     },
     {
       "id": "shanghai-jingan-001",
@@ -6374,10 +6376,11 @@
         ]
       },
       "application": {
-        "method": "琶洲算法大赛官网报名"
+        "method": "琶洲算法大赛官网报名",
+        "url": "https://www.haizhu.gov.cn/hzdt/ztlm/tzhz/yshj/yshl/content/post_10699393.html"
       },
       "links": {
-        "official": "http://www.aicompetition-pz.com/",
+        "official": "https://www.haizhu.gov.cn/hzdt/ztlm/tzhz/yshj/yshl/content/post_10699393.html",
         "news": []
       },
       "communities": [],
