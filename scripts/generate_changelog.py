@@ -16,6 +16,11 @@ OUT = REPO / 'changelog.html'
 
 GIT_FMT = '%H|%an|%ai|%s|%b---END---'
 
+
+def clean_html(text):
+    """Keep generated HTML stable for git diff checks."""
+    return '\n'.join(line.rstrip() for line in text.splitlines()) + '\n'
+
 # commit subject 分类 -> (图标, 颜色, 标签)
 CATEGORIES = [
     (r'^(苏州|广州|深圳|北京|成都|上海|杭州|重庆|天津|南京|武汉|西安|青岛|宁波|厦门|合肥|长沙|福州|郑州|济南|大连|无锡|苏州|昆山|吴江|太仓|常熟|东莞|佛山|珠海|中山|惠州|湛江|江门|肇庆|汕头|潮州|梅州|韶关|清远|阳江|茂名|河源|汕尾|揭阳|云浮)', '🏙️', 'city', '城市数据'),
@@ -330,7 +335,7 @@ def main():
     commits = git_log()
     print(f'Found {len(commits)} commits')
     html_content = render_html(commits)
-    OUT.write_text(html_content)
+    OUT.write_text(clean_html(html_content))
     print(f'Wrote {OUT} ({len(html_content)} bytes)')
 
 

@@ -47,6 +47,11 @@ FRIEND_LINKS = [
 ]
 
 
+def clean_html(text: str) -> str:
+    """Keep generated HTML stable for git diff checks."""
+    return "\n".join(line.rstrip() for line in text.splitlines()) + "\n"
+
+
 def load_json(path: Path) -> dict:
     return json.loads(path.read_text())
 
@@ -683,9 +688,9 @@ def main() -> None:
 
     for page in generated_pages:
         out_path = OUT_DIR / f"{page['city']}.html"
-        out_path.write_text(render_city_page(page))
+        out_path.write_text(clean_html(render_city_page(page)))
 
-    (OUT_DIR / "index.html").write_text(render_city_index(city_cards))
+    (OUT_DIR / "index.html").write_text(clean_html(render_city_index(city_cards)))
     print(f"Generated {len(generated_pages)} city SEO pages in {OUT_DIR}")
 
 
